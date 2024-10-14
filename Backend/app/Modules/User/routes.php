@@ -14,5 +14,3 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     });
 });
-
-
