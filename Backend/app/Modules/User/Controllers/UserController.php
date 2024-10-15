@@ -21,27 +21,6 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function create()
-    {
-        return view('user.register');
-    }
-
-    public function store(Request $request)
-    {
-        $this->userService->store($request);
-
-        toastr()->closeButton(true)->addSuccess('Tạo tài khoản thành công ! <br> Đăng nhập để tiếp tục');
-
-        return redirect()->route('welcome.index');
-    }
-
-    public function active($id, $token){
-        $user = User::find($id);
-        if($user->token == $token) {
-            $user->update(['status' => 1, 'token' => null]);
-            return redirect()->route('user.show', session('id'));
-        }
-    }
 
     public function show($id)
     {

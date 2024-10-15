@@ -4,16 +4,18 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\User\UserRepository;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
+        CompanyService $companyService,
+        JobSeekerService $jobSeekerService
     ) {
+        $this->companyService = $companyService;
+        $this->jobSeekerService = $jobSeekerService;
     }
 
     public function store(Request $request)
@@ -24,15 +26,21 @@ class UserService
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id
         ];
-        return $this->userRepository->store($params);
-    }
+        $user = $this->userRepository->store($params);
 
-    public function info($id)
-    {
-        if ($id != session('id')){
-            throw new Exception('Bạn không có quyền truy cập vào thông tin này !');
+        $otherParams = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'user_id' => $user->id,
+        ];
+
+        if ($request->role_id == 2) {
+            $this->companyService->store($otherParams);
+        } elseif ($request->role_id == 3) {
+            $this->jobSeekerService->store($otherParams);
         }
-        return $this->userRepository->getInfoById($id);
+
+        return $user;
     }
 
     public function update(Request $params, $user): void
