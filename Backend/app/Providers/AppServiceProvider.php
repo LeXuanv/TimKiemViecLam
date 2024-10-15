@@ -13,8 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
         $this->app->bind(UserRepository::class, UserRepositoryImpl::class);
+        \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::except([
+            '/*'
+        ]);
     }
 
     /**
@@ -23,8 +25,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::except([
-            'admin/category/store',
-        ]);
     }
 }

@@ -13,9 +13,9 @@ class UserRepositoryImpl implements UserRepository
         $this->user = $user;
     }
 
-    public function store($params): void
+    public function store($params): User
     {
-        $this->user->create($params);
+        return $this->user->create($params);
     }
 
     public function getInfoById($id)

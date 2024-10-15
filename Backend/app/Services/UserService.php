@@ -16,11 +16,15 @@ class UserService
     ) {
     }
 
-    public function store(Request $params): void
+    public function store(Request $request)
     {
-        $params = $params->validated();
-        $params['password'] = Hash::make($params['password']);
-        $this->userRepository->store($params);
+        $params = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => $request->role_id
+        ];
+        return $this->userRepository->store($params);
     }
 
     public function info($id)

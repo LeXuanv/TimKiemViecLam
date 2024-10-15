@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AddressSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class
         ]);
         // User::faModulesctory(10)->create();
 

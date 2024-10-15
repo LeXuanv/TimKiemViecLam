@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('user.register');
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
         $this->userService->store($request);
 

@@ -129,9 +129,16 @@
       <path value="$PROJECT_DIR$/Backend/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/Backend/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/Backend/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/Backend/vendor/ibex/crud-generator" />
+      <path value="$PROJECT_DIR$/Backend/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/Backend/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/Backend/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/Backend/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/Backend/vendor/reliese/laravel" />
+      <path value="$PROJECT_DIR$/Backend/vendor/psr/cache" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
