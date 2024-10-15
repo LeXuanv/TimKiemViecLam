@@ -40,7 +40,6 @@ class ModuleServiceProvider extends  \Illuminate\Support\ServiceProvider
                     $this->mapApiRoutes($namespace, __DIR__ . '/' . $module . '/routes.php');
                 }
             } else {
-                // $namespace = "App\\Modules\\" . $module . "\Controllers";
                 $namespace = "";
                 if (file_exists(__DIR__ . '/' . $module . '/routes.php')) {
                     $this->mapWebRoutes($namespace, __DIR__ . '/' . $module . '/routes.php');
