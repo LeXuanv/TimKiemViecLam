@@ -18,19 +18,9 @@ class UserRepositoryImpl implements UserRepository
         return $this->user->create($params);
     }
 
-    public function getInfoById($id)
+    public function update($user, $params): void
     {
-        return User::find($id);
+        $user->update($params);
     }
 
-    public function updateById($user): void
-    {
-        $user->save();
-    }
-
-    public function destroyById($id): void
-    {
-        $user = User::find($id);
-        $user->delete();
-    }
 }

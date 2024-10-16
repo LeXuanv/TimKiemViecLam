@@ -18,19 +18,8 @@ class CompanyRepositoryImpl implements CompanyRepository
         return $this->company->create($params);
     }
 
-    public function getInfoById($id)
+    public function update($company, $params): void
     {
-        return Company::find($id);
-    }
-
-    public function updateById($company): void
-    {
-        $company->save();
-    }
-
-    public function destroyById($id): void
-    {
-        $company = Company::find($id);
-        $company->delete();
+        $company->update($params);
     }
 }

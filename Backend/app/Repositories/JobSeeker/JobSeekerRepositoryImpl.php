@@ -18,19 +18,9 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         return $this->jobSeeker->create($params);
     }
 
-    public function getInfoById($id)
+    public function update($jobSeeker, $params): void
     {
-        return JobSeeker::find($id);
+        $jobSeeker->update($params);
     }
 
-    public function updateById($jobSeeker): void
-    {
-        $jobSeeker->save();
-    }
-
-    public function destroyById($id): void
-    {
-        $jobSeeker = JobSeeker::find($id);
-        $jobSeeker->delete();
-    }
 }
