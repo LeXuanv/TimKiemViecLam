@@ -9,6 +9,7 @@ use App\Repositories\JobSeeker\JobSeekerRepositoryImpl;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryImpl;
 use Illuminate\Support\ServiceProvider;
+use Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::except([
+            'admin/category/store',
+        ]);
     }
 }

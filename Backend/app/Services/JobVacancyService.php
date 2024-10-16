@@ -9,6 +9,8 @@ use App\Models\JobVacancy;
 use App\Models\Company;
 use App\Models\Category;
 use App\Models\JobPosition;
+use Auth;
+use Request;
 
 class JobVacancyService
 {
@@ -54,4 +56,5 @@ class JobVacancyService
         return $dto;
     }
 
+    
 }
