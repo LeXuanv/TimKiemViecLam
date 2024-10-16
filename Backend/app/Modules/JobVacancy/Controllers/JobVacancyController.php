@@ -4,6 +4,7 @@ namespace App\Modules\JobVacancy\Controllers;
 
 use App\Models\JobVacancy;
 use App\Services\JobVacancyService;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -39,6 +40,24 @@ class JobVacancyController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'salary' => 'required|numeric',
+            'employment_type' => 'required|string',
+            'application_deadline' => 'required|date',
+            'is_published' => 'boolean',
+            'category_id' => 'required|integer',
+            'job_position_id' => 'required|integer',
+            'address' => 'required|string',
+            'province_code' => 'required|string',
+        ]);
+
+        $validatedData['company_id'] = Auth::user()->company_id;
+
+        $jobVacancy = JobVacancy::create($validatedData);
+
+        return response()->json($jobVacancy, 201);
     }
 
     /**
