@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\Company\CompanyRepository;
+use App\Repositories\JobSeeker\JobSeekerRepository;
 use App\Repositories\User\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,11 +14,11 @@ class UserService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
-        CompanyService $companyService,
-        JobSeekerService $jobSeekerService
+        CompanyRepository $companyRepository,
+        JobSeekerRepository $jobSeekerRepository
     ) {
-        $this->companyService = $companyService;
-        $this->jobSeekerService = $jobSeekerService;
+        $this->companyRepository = $companyRepository;
+        $this->jobSeekerRepository = $jobSeekerRepository;
     }
 
     public function store(Request $request)
@@ -35,27 +38,52 @@ class UserService
         ];
 
         if ($request->role_id == 2) {
-            $this->companyService->store($otherParams);
+            $this->companyRepository->store($otherParams);
         } elseif ($request->role_id == 3) {
-            $this->jobSeekerService->store($otherParams);
+            $this->jobSeekerRepository->store($otherParams);
         }
 
         return $user;
     }
 
-    public function update(Request $params, $user): void
+    public function show(User $user)
     {
-        $user = User::find($user);
-        $user->name = $params->input('name');
-        $user->email = $params->input('email');
-        $user->password = Hash::make($params->input('password'));
+        $info = [];
+        if ($user->isCompany()) {
+            $company = $user->companies()->first();
+            $info = $company ? $company->getInfo() : [];
+        }
 
-        $this->userRepository->updateById($user);
+        if ($user->isJobSeeker()) {
+            $jobSeeker = $user->job_seekers()->first();
+            $info = $jobSeeker ? $jobSeeker->getInfo() : [];
+        }
+        $result = array_merge($user->toArray(), $info);
+        return $result;
     }
 
-    public function destroy(int $userId): void
+    public function update(User $user, $params)
     {
-        $this->userRepository->destroyById($userId);
-        session()->flush();
+        $this->userRepository->update($user, $params);
+        if ($user->isCompany()) {
+            $company = $user->companies->first();
+            $this->companyRepository->update($company, $params);
+        }
+        if ($user->isJobSeeker()) {
+            $params['birth_date'] = $params["birth_date"] ? Carbon::createFromFormat('d/m/Y', $params["birth_date"]) : null;
+            $jobSeeker = $user->job_seekers->first();
+            $this->jobSeekerRepository->update($jobSeeker, $params);
+        }
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->isCompany()) {
+            $user->companies->delete();
+        }
+        if ($user->isJobSeeker()) {
+            $user->job_seekers->delete();
+        }
+        $user->delete();
     }
 }

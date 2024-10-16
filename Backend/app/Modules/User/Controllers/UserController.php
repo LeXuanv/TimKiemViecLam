@@ -3,71 +3,36 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DestroyUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
 use App\Services\UserService;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     private $userService;
 
-    public function __construct(UserService $userService)
-    {
+    public function __construct(UserService $userService){
         $this->userService = $userService;
     }
 
 
-    public function show($id)
+    public function show(Request $request)
     {
-        try {
-            $viewData = [
-                'user' => $this->userService->info($id),
-            ];
-            return view('user.info')->with($viewData);
-        } catch (Exception $e){
-            toastr()->closeButton(true)->addError($e->getMessage());
-            return redirect()->back();
-        }
-
+        $user = $request->user();
+        return $this->userService->show($user);
     }
 
-    public function edit(User $user)
+    public function update(Request $request)
     {
-
-        if ($user->id == session('id')){
-            $viewData = [
-                'user' => $user
-            ];
-            return view('user.edit')->with($viewData);
-        } else {
-            return redirect()->back();
-        }
-//        $viewData = [
-//            'user' => $user
-//        ];
-//        return view('user.edit')->with($viewData);
+        $user = $request->user();
+        $this->userService->update($user, $request->all());
+        return $this->sendResponse('', 'User update successfully.');
     }
 
-    public function update(UpdateUserRequest $request, $user)
+    public function destroy(Request $request)
     {
-        $this->userService->update($request, $user);
-
-        toastr()->closeButton(true)->addSuccess('Cập nhật thành công !');
-
-        return redirect()->route('user.show', $user);
-    }
-
-    public function destroy(DestroyUserRequest $request, $user)
-    {
+        $user = $request->user();
         $this->userService->destroy($user);
 
-        toastr()->closeButton(true)->addSuccess('Xoá thành công !');
-
-        return redirect()->route('welcome.index');
+        return $this->sendResponse('', 'User delete successfully.');
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Company
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $email
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * 
+ *
  * @property User $user
  * @property Ward|null $ward
  * @property Collection|JobVacancy[] $job_vacancies
@@ -63,4 +63,13 @@ class Company extends Model
 	{
 		return $this->hasMany(JobVacancy::class);
 	}
+
+    public function getInfo()
+    {
+        return [
+            'phone_number' => $this->phone_number,
+            'address' => $this->address,
+            'ward_code' => $this->ward_code,
+        ];
+    }
 }

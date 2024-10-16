@@ -35,45 +35,61 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authentication
 {
-	use SoftDeletes, HasApiTokens;
-	protected $table = 'users';
+    use SoftDeletes, HasApiTokens;
 
-	protected $casts = [
-		'email_verified_at' => 'datetime',
-		'role_id' => 'int'
-	];
+    protected $table = 'users';
 
-	protected $hidden = [
-		'password',
-		'remember_token'
-	];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'role_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'name',
-		'email',
-		'email_verified_at',
-		'password',
-		'role_id',
-		'remember_token'
-	];
+    protected $hidden = [
+        'password',
+        'remember_token'
+    ];
 
-	public function role()
-	{
-		return $this->belongsTo(Role::class);
-	}
+    protected $fillable = [
+        'name',
+        'email',
+        'email_verified_at',
+        'password',
+        'role_id',
+        'remember_token'
+    ];
 
-	public function admins()
-	{
-		return $this->hasMany(Admin::class);
-	}
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
-	public function companies()
-	{
-		return $this->hasMany(Company::class);
-	}
+    public function admins()
+    {
+        return $this->hasOne(Admin::class);
+    }
 
-	public function job_seekers()
-	{
-		return $this->hasMany(JobSeeker::class);
-	}
+    public function companies()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function job_seekers()
+    {
+        return $this->hasOne(JobSeeker::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role->name === 'admin';
+    }
+
+    public function isCompany()
+    {
+        return $this->role->name === 'company';
+    }
+
+    public function isJobSeeker()
+    {
+        return $this->role->name === 'job_seeker';
+    }
 }

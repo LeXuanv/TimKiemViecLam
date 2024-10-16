@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class JobSeeker
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $gender
@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * 
+ *
  * @property User $user
  * @property Ward|null $ward
  * @property Collection|Bookmark[] $bookmarks
@@ -90,4 +90,16 @@ class JobSeeker extends Model
 					->withPivot('id')
 					->withTimestamps();
 	}
+
+    public function getInfo()
+    {
+        return [
+            'phone_number' => $this->phone_number,
+            'address' => $this->address,
+            'ward_code' => $this->ward_code,
+            'gender' => $this->gender,
+            'birth_date' => $this->birth_date,
+            'experience' => $this->experience,
+        ];
+    }
 }
