@@ -25,7 +25,7 @@ class AddressController extends Controller
     {
         $districts = District::where('province_code', $provinceId)->get();
         $districtDTOs = $districts->map(function ($district) {
-            return new GetDistrictDTO($district->name);
+            return new GetDistrictDTO($district->name, $district->code);
         });
         return response()->json($districtDTOs);
     }
@@ -34,7 +34,7 @@ class AddressController extends Controller
     {
         $wards = Ward::where('district_code', $districtId)->get();
         $wardDTOs = $wards->map(function ($ward) {
-            return new GetWardDTO($ward->name);
+            return new GetWardDTO($ward->name, $ward->code);
         });
         return response()->json($wardDTOs);
     }

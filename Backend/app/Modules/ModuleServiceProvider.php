@@ -58,7 +58,7 @@ class ModuleServiceProvider extends  \Illuminate\Support\ServiceProvider
      */
     protected function guard($guard)
     {
-        return \Auth::guard($guard);
+        return \Auth::guard(name: $guard);
     }
 
     /**

@@ -5,33 +5,41 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'App\Modules\JobVacancy\Controllers',
+    'middleware' => ['api']
+], function () {
+    Route::group(['prefix' => 'job-vacancy'], function () {
+        Route::get('/', 'JobVacancyController@index');
+        Route::delete('/delete/{id}', 'JobVacancyController@delete');
+    });
+});
 
-Route::prefix('admin')->as('admin.')->group(function () {
-    Route::prefix('job-vacancy')->as('job-vacancy.')->group(function () {
-        Route::get('/', [JobVacancyController::class, 'index'])->name('index');
-        Route::delete('/delete/{id}', [JobVacancyController::class, 'delete'])->name('delete');
+Route::group([
+    'prefix' => 'user',
+    'namespace' => 'App\Modules\JobVacancy\Controllers',
+    'middleware' => ['api']
+], function () {
+    Route::group(['prefix' => 'job-vacancy'], function () {
+        Route::get('/', 'JobVacancyController@index');
+    });
+});
+
+Route::group([
+    'prefix' => 'company/',
+    'namespace' => 'App\Modules\JobVacancy\Controllers',
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::group(['prefix' => 'job-vacancy'], function () {
+        Route::get('/', 'JobVacancyController@index');
+        Route::get('/get-publish', 'JobVacancyController@indexJobPublishByCompany');
+        Route::put('/update', 'JobVacancyController@update');
+        Route::post('/store', 'JobVacancyController@store');
+        Route::delete('/destroy/{id}', 'JobVacancyController@destroy');
+        Route::get('/show/{id}', 'JobVacancyController@show');
+        Route::get('/search', 'JobVacancyController@search');
+        Route::get('/search-job-by-company', 'JobVacancyController@searchJobInCompany');
 
     });
-
-});
-Route::prefix('user')->as('user.')->group(function () {
-    Route::prefix('job-vacancy')->as('job-vacancy.')->group(function () {
-        Route::get('/', [JobVacancyController::class, 'index'])->name('index');
-
-    });
-
-});
-Route::prefix('company')->as('company.')->group(function () {
-    Route::prefix('job-vacancy')->as('job-vacancy.')->group(function () {
-        Route::get('/', [JobVacancyController::class, 'index'])->name('index');
-        Route::get('/create', [JobVacancyController::class, 'create'])->name('create');
-        Route::post('/store', [JobVacancyController::class, 'store'])->name('store');
-        Route::delete('/delete/{id}', [JobVacancyController::class, 'delete'])->name('delete');
-        
-    });
-
-});
-Route::prefix('job-vacancy')->as('job-vacancy.')->group(function () {
-    Route::get('/', [JobVacancyController::class, 'index'])->name('index');
-    Route::get('/show/{id}', [JobVacancyController::class, 'show'])->name('show');
 });

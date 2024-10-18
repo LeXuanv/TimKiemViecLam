@@ -36,11 +36,11 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Lấy danh sách tỉnh thành
-            fetch('http://127.0.0.1:8000/province')
+            fetch('http://127.0.0.1:8000/api/province')
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(function (province) {
-                        document.getElementById('provinceSelect').innerHTML += `<option value="${province.id}">${province.name}</option>`;
+                        document.getElementById('provinceSelect').innerHTML += `<option value="${province.code}">${province.name}</option>`;
                     });
                 });
 
@@ -53,11 +53,11 @@
                 document.getElementById('wardSelect').innerHTML = '<option value="">Chọn Xã Phường</option>';
 
                 // Lấy danh sách quận huyện
-                fetch(`http://127.0.0.1:8000/district/${provinceId}`)
+                fetch(`http://127.0.0.1:8000/api/district/${provinceId}`)
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(function (district) {
-                            document.getElementById('districtSelect').innerHTML += `<option value="${district.id}">${district.name}</option>`;
+                            document.getElementById('districtSelect').innerHTML += `<option value="${district.code}">${district.name}</option>`;
                         });
                     });
             });
@@ -69,7 +69,7 @@
                 document.getElementById('wardSelect').innerHTML = '<option value="">Chọn Xã Phường</option>';
 
                 // Lấy danh sách xã phường
-                fetch(`http://127.0.0.1:8000/ward/${districtId}`)
+                fetch(`http://127.0.0.1:8000/api/ward/${districtId}`)
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(function (ward) {

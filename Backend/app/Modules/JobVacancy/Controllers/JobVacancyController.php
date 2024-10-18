@@ -2,9 +2,16 @@
 
 namespace App\Modules\JobVacancy\Controllers;
 
+use App\Models\Category;
+use App\Models\Company;
+use App\Models\JobPosition;
 use App\Models\JobVacancy;
+use App\Models\Province;
+use App\Modules\JobVacancy\DTOs\CreateJobVacancyDTO;
+use App\Modules\JobVacancy\DTOs\GetByIdJobVacancyDTO;
 use App\Services\JobVacancyService;
 use Auth;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -22,10 +29,18 @@ class JobVacancyController extends Controller
     public function index()
     {
         //
+        
         $jobVacancyDTOs = $this->jobVacancyService->getAllJobVacancies();
         return response()->json($jobVacancyDTOs);
     }
+    public function indexJobPublishByCompany()
+    {
+        //
+        
 
+        $jobVacancyDTOs = $this->jobVacancyService->getAllJobPublishByCompany();
+        return response()->json($jobVacancyDTOs);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -39,26 +54,25 @@ class JobVacancyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'salary' => 'required|numeric',
-            'employment_type' => 'required|string',
-            'application_deadline' => 'required|date',
-            'is_published' => 'boolean',
-            'category_id' => 'required|integer',
-            'job_position_id' => 'required|integer',
+            'employmentType' => 'required|string',
+            'applicationDateline' => 'required|date',
+            'categoryName' => 'required|exists:categories,id',
+            'jobPositionName' => 'required|exists:job_positions,id',
             'address' => 'required|string',
-            'province_code' => 'required|string',
+            'provinceName' => 'required|exists:provinces,code',
         ]);
 
-        $validatedData['company_id'] = Auth::user()->company_id;
+        $data = $this->jobVacancyService->createJobVacancy($validatedData);
 
-        $jobVacancy = JobVacancy::create($validatedData);
-
-        return response()->json($jobVacancy, 201);
+        return response()->json($data, 201);
+        
     }
+
 
     /**
      * Display the specified resource.
@@ -66,15 +80,9 @@ class JobVacancyController extends Controller
     public function show($id)
     {
         //
-        $jobVacancyDTO = $this->jobVacancyService->getByIdJobVacancy($id);
-
-        if (!$jobVacancyDTO) {
-            return response()->json([
-               'message' => 'Job vacancy not found'
-            ], 404);
-        }
-
-        return response()->json($jobVacancyDTO);
+        
+        $jobVacancyDTOs = $this->jobVacancyService->getByIdJobVacancy($id);
+        return response()->json($jobVacancyDTOs);
     }
 
     /**
@@ -91,6 +99,21 @@ class JobVacancyController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'salary' => 'required|numeric',
+            'employmentType' => 'required|string',
+            'applicationDateline' => 'required|date',
+            'categoryName' => 'required|exists:categories,id',
+            'jobPositionName' => 'required|exists:job_positions,id',
+            'address' => 'required|string',
+            'provinceName' => 'required|exists:provinces,code',
+        ]);
+
+        $data = $this->jobVacancyService->updateJobVacancy($id, $validatedData);
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -99,5 +122,41 @@ class JobVacancyController extends Controller
     public function destroy(string $id)
     {
         //
+        $jobVacancy = JobVacancy::find($id);
+        $jobVacancy->delete();
+        return response()->json([
+           'message' => 'Job vacancy deleted successfully'
+        ], 204);
     }
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+
+        if (!$searchTerm) {
+            return response()->json(['error' => 'No search term provided'], 400);
+        }
+
+        $jobVacanciesDTOs = $this->jobVacancyService->searchJobs($searchTerm);
+
+        if ($jobVacanciesDTOs->isEmpty()) {
+            return response()->json(['message' => 'No jobs found'], 404);
+        }
+
+        return response()->json($jobVacanciesDTOs);
+    }
+    public function searchJobInCompany(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+        
+
+        $jobVacanciesDTOs = $this->jobVacancyService->searchCompanyJobs($searchTerm);
+
+        if (!$jobVacanciesDTOs || $jobVacanciesDTOs->isEmpty()) {
+            return response()->json(['message' => 'No jobs found for the company'], 404);
+        }
+
+        return response()->json($jobVacanciesDTOs);
+    }
+
+
 }
