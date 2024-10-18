@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Modules\Address\Controllers;
 use App\Modules\Address\DTOs\GetProvinceDTO;
 use Illuminate\Http\Request;
