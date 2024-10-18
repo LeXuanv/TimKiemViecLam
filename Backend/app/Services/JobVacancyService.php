@@ -33,6 +33,27 @@ class JobVacancyService
             return $dto;
         });
     }
+    public function getAllJobPublishByCompanyWithCompanyId($companyId)
+    {
+        
+        $company = Company::find($companyId);
+        
+        $jobVacancies = JobVacancy::where('company_id', $company->id)->get();
+
+        return $jobVacancies->map(function ($jobVacancy) {
+            $dto = new GetJobVacancyDTO();
+            $dto->title = $jobVacancy->title;
+            $dto->salary = $jobVacancy->salary;
+            $dto->employmentType = $jobVacancy->employment_type;
+            
+            $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
+            $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
+            $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
+            $dto->provinceName = 'Tỉnh ' . Province::find($jobVacancy->province_code) -> name ?? null;
+
+            return $dto;
+        });
+    }
     public function getAllJobPublishByCompany()
     {
         $user = Auth::user();

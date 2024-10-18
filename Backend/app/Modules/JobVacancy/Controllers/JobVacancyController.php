@@ -41,6 +41,16 @@ class JobVacancyController extends Controller
         $jobVacancyDTOs = $this->jobVacancyService->getAllJobPublishByCompany();
         return response()->json($jobVacancyDTOs);
     }
+    
+    public function indexJobPublishWithCompanyId($companyId)
+    {
+        //
+        
+
+        $jobVacancyDTOs = $this->jobVacancyService->getAllJobPublishByCompanyWithCompanyId($companyId);
+        return response()->json($jobVacancyDTOs);
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
