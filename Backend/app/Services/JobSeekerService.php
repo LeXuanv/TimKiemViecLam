@@ -9,6 +9,7 @@ class JobSeekerService
     public function __construct(
         private readonly JobSeekerRepository $jobSeekerRepository,
     ) {
+
     }
 
     public function store($params)

@@ -35,4 +35,5 @@ class UserController extends Controller
 
         return $this->sendResponse('', 'User delete successfully.');
     }
+
 }
