@@ -2,17 +2,19 @@
 
 namespace App\Repositories\Skill;
 
+use App\Models\JobSeekerSkill;
 use App\Models\Skill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SkillRepositoryImpl implements SkillRepository
 {
-    protected $skill;
+    protected $skill, $jobSeekerSkill;
 
-    public function __construct(Skill $skill)
+    public function __construct(Skill $skill, JobSeekerSkill $jobSeekerSkill)
     {
         $this->skill = $skill;
+        $this->jobSeekerSkill = $jobSeekerSkill;
     }
 
     public function getAllSkill()
@@ -57,5 +59,36 @@ class SkillRepositoryImpl implements SkillRepository
     public function findById($id): Skill
     {
         return $this->skill->find($id);
+    }
+
+    public function getByJobSeekerId($id)
+    {
+        $jobSeekerSkills = $this->jobSeekerSkill->where('job_seeker_id', $id)->get();
+        if (count($jobSeekerSkills)) {
+            return $this->skill->whereIn('id', $jobSeekerSkills->pluck('skill_id'))->select('id', 'name')->get();
+        }
+        return [];
+    }
+
+    public function updateJobSeekerSkills($jobSeeker, $skill_ids)
+    {
+        DB::beginTransaction();
+        try {
+            $this->jobSeekerSkill->where('job_seeker_id', $jobSeeker->id)->delete();
+            $skill_ids = explode(',', $skill_ids);
+            foreach ($skill_ids as $skill_id) {
+                $this->jobSeekerSkill->create([
+                    'job_seeker_id' => $jobSeeker->id,
+                    'skill_id' => $skill_id
+                ]);
+            }
+            DB::commit();
+            return true;
+        } catch (\Error $e) {
+            DB::rollBack();
+            Log::error($e);
+            return false;
+        }
+
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Skill;
 use App\Repositories\Skill\SkillRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -89,6 +88,40 @@ class SkillService
             return [
                 'status' => true,
             ];
+        }
+        return [
+            'status' => false,
+            'error' => 'server err'
+        ];
+    }
+
+    public function getByJobSeekerId($id)
+    {
+        return $this->skillRepository->getByJobSeekerId($id);
+    }
+
+    public function updateJobSeekerSkills(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'skill_ids' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => false,
+                'error' =>
+                    $validator->errors()
+            ];
+        }
+        $user = $request->user();
+        if ($user->isJobSeeker()) {
+            $jobSeeker = $user->job_seekers->first();
+            $params = $request->skill_ids;
+            if ($this->skillRepository->updateJobSeekerSkills($jobSeeker, $params)) {
+                return [
+                    'status' => true,
+                ];
+            }
         }
         return [
             'status' => false,
