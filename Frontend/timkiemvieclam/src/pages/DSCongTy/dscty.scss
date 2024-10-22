@@ -1,0 +1,145 @@
+.box-search-job {
+    background: linear-gradient(0deg, #fff, #e4fff0);
+    padding: 0 10px;
+
+    .box-search {
+        display: grid;
+        width: 70%;
+        height: 200px;
+
+        #frm-search-job {
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 20px;
+            width: 100%;
+
+            .group-search {
+                display: flex;
+
+                .item {
+                    flex: 5;
+                    width: 100%;
+
+                    .form-input {
+                        width: 90%;
+                        font-size: 18px;
+                        padding: 10px;
+                        border: none;
+                        color: #7b7b7b;
+                    }
+
+                    .form-input::placeholder {
+                        color: #7b7b7b;
+                        font-weight: bold;
+                    }
+
+                    .form-input:focus-visible {
+                        outline: -webkit-focus-ring-color auto 0px !important;
+                    }
+                }
+                .button-search {
+                    flex: 1;
+                    margin-left: 10px;
+
+                    button {
+                        font-size: 18px;
+                        width: 100%;
+                        padding: 10px;
+                        border-radius: 10px;
+                        border: none;
+                        background-color: green;
+                        color: #fff;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.full-box-cty {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    gap: 10px;
+    padding: 10px;
+
+    .box-cv {
+        width: 100%;
+        padding: 60px 10px 20px;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        box-sizing: border-box;
+        background-color: #fff;
+        position: relative;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        margin-top: 55px;
+        &:hover {
+            border: 1px solid #cdcdcd;
+            cursor: pointer;
+        }
+
+        .box {
+
+            display: flex;
+            flex-direction: column;
+
+            .img {
+                margin: 0;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    position: absolute;
+                    top: -50px;
+                    left: 20px;
+                    // border: 1px solid #cdcdcd;
+                    border-radius: 10px;
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                }
+            }
+
+            .infoCty {
+                margin: 0 10px;
+
+                .tenCty {
+                    font-size: 20px;
+                    font-weight: bold;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                    span{
+                        color: #000;
+                        margin: 0;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .diadiem {
+                        background-color: #cdcdcd;
+                        padding: 3px 5px;
+                        border-radius: 5px;
+                        margin: 0;
+                    }
+                }
+
+                .gt-cty {
+                    padding: 5px 0;
+                    font-size: 18px;
+                    color: #7b7b7b;
+                    // white-space: nowrap;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    width: 100%;
+                    height: 142px;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 7;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}
