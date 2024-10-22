@@ -1,0 +1,20 @@
+.d-login {
+    .f-login{
+        width: 320px;
+        padding: 10px;
+        border: 1px solid #cdcdcd;
+        border-radius: 5px;
+        margin-top: 10px;
+        .title-login{
+            text-align: center;
+            p{
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        }
+        .ant-form-item{
+            margin-bottom: 10px;
+        }
+    }
+}

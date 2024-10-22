@@ -1,16 +1,10 @@
 import "./header.scss"
 import LogoApp from "../assets/img/Logo.png" 
-import { useState } from "react"
 import { PATH_PAGE } from "../utils/constant"
+import { Link} from "react-router-dom"
 
 
 const Header = () =>{
-    const [activeLink, setActiveLink] = useState("")
-
-    const handleClickMenu = (path) =>{
-        console.log(path)
-        setActiveLink(path)
-    }
 
 
     return(
@@ -22,32 +16,32 @@ const Header = () =>{
                 <div className="header">
                     <div className="menu-app">
                         <div className="all-menu">
-                            <div className={`item ${activeLink === "" ? "active" :""}`} onClick={() => handleClickMenu(`${PATH_PAGE.dscongviec}`)}>
+                            <Link to={PATH_PAGE.dscongviec} className="item">
                                 <span>Công việc</span>
-                            </div>
-                            <div className={`item ${activeLink === "cv" ? "active" :""}`} onClick={() => handleClickMenu(`${PATH_PAGE.cv}`)}>
+                            </Link>
+                            <Link to={PATH_PAGE.cv} className="item">
                                 <span>Hồ sơ & CV</span>
-                            </div>
-                            <div className={`item ${activeLink === "dscongty" ? "active" :""}`} onClick={() => handleClickMenu(`${PATH_PAGE.dscongty}`)}>
+                            </Link>
+                            <Link to={PATH_PAGE.dscongty} className="item">
                                 <span>Danh sách công ty</span>
-                            </div>
-                            <div className={`item ${activeLink === "dtcongviec" ? "active" :""}`} onClick={() => handleClickMenu(`${PATH_PAGE.dtcongviec}`)}>
+                            </Link>
+                            <Link to={PATH_PAGE.dtcongviec} className="item">
                                 <span>Đăng tải công việc</span>
-                            </div>
-                            <div className={`item ${activeLink === "qlnguoidung" ? "active" :""}`} onClick={() => handleClickMenu(`${PATH_PAGE.qlnguoidung}`)}>
+                            </Link>
+                            <Link to={PATH_PAGE.qlnguoidung} className="item">
                                 <span>Quản lý người dùng</span>
-                            </div>
-                            <div className={`item ${activeLink === "qlbaidang" ? "active" :""}`}onClick={() => handleClickMenu(`${PATH_PAGE.qlbaidang}`)}>
+                            </Link> 
+                            <Link to={PATH_PAGE.qlbaidang} className="item">
                                 <span>Quản lý bài đăng</span>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="energy">
                         <div className="btn">
-                            <button className="login">Đăng nhập</button>
+                            <Link to={PATH_PAGE.login} className="login">Đăng nhập</Link>
                         </div>
                         <div className="btn">
-                            <button className="sign-in">Đăng ký</button>
+                            <Link to={PATH_PAGE.singin} className="sign-in">Đăng ký</Link>
                         </div>
                     </div>
                 </div>
