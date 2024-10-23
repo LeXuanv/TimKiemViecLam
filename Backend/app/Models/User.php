@@ -46,7 +46,10 @@ class User extends Authentication
 
     protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     protected $fillable = [

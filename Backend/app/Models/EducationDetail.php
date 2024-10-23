@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class EducationDetail
- * 
+ *
  * @property int $id
  * @property string|null $university
  * @property string|null $degree
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * 
+ *
  * @property JobSeeker $job_seeker
  *
  * @package App\Models
@@ -34,7 +34,6 @@ class EducationDetail extends Model
 	protected $table = 'education_details';
 
 	protected $casts = [
-		'graduation_year' => 'datetime',
 		'gpa' => 'float',
 		'job_seeker_id' => 'int'
 	];
