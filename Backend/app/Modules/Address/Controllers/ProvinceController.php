@@ -17,9 +17,12 @@ class ProvinceController extends Controller
         return response()->json($provinceDTOs);
     }
 
-    public function search( $name){
-
-        $provinces = Province::where('name', 'like', '%' . $name . '%')
+    public function search(Request $request){
+        $searchTerm = $request->input('searchTerm');
+        if (!$searchTerm) {
+            return response()->json(['error' => 'No search term provided'], 400);
+        }
+        $provinces = Province::where('name', 'like', '%' . $searchTerm . '%')
                           ->orderBy('name', 'asc')
                           ->get();
         $provinceDTOs = $provinces->map(function ($province) {

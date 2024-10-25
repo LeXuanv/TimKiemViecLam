@@ -20,9 +20,13 @@ class DistrictController extends Controller
 
 
     
-    public function search( $name){
+    public function search(Request $request){
+        $searchTerm = $request->input('searchTerm');
+        if (!$searchTerm) {
+            return response()->json(['error' => 'No search term provided'], 400);
+        }
 
-        $districts = District::where('name', 'like', '%' . $name . '%')
+        $districts = District::where('name', 'like', '%' . $searchTerm . '%')
                           ->orderBy('name', 'asc')
                           ->get();
         $districtDTOs = $districts->map(function ($district) {

@@ -19,9 +19,12 @@ class WardController extends Controller
     }
 
 
-    public function search( $name){
-
-        $wards = Ward::where('name', 'like', '%' . $name . '%')
+    public function search(Request $request){
+        $searchTerm = $request->input('searchTerm');
+        if (!$searchTerm) {
+            return response()->json(['error' => 'No search term provided'], 400);
+        }
+        $wards = Ward::where('name', 'like', '%' . $searchTerm . '%')
                           ->orderBy('name', 'asc')
                           ->get();
         $wardDTOs = $wards->map(function ($ward, ) {

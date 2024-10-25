@@ -12,6 +12,6 @@ Route::group([
 ], function () {
     Route::prefix('jobs')->group(function () {
         Route::get('/user/bookmarks', [BookmarkController::class, 'index']);
-        Route::post('/{job_vacancy}/bookmark', [BookmarkController::class, 'toggleBookmark']);
+        Route::post('/{job_vacancy}/bookmarks', [BookmarkController::class, 'toggleBookmark']);
     });
 });
