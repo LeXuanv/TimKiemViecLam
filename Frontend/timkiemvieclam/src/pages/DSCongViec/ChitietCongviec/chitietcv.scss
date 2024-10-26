@@ -1,0 +1,294 @@
+.detailFull{
+    background-color: #f4f5f5;
+    padding: 20px;
+    .detail{
+        display: flex;
+        .nua1{
+            flex: 2;
+            .congviecungtuyen{
+                background-color: #fff;
+                border-radius: 20px;
+                .innerCVungtuyen{
+                    padding: 25px;
+                    .tencongviec{
+                        font-size: 30px;
+                        font-weight: bolder;
+                        margin-bottom: 40px;
+                    }
+                    .thongtin{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        .boxthongtin{
+                            margin: 0;
+                            font-size: 18px;
+                            .box{
+                                display: flex;
+                                .icon{
+                                    margin-right: 10px;
+                                    svg{
+                                        background-color: green;
+                                        font-size: 40px;
+                                        padding: 10px;
+                                        color: #fff;
+                                        border-radius: 50%;
+                                    }
+                                }
+                                .ctthongtintd{
+                                    margin: 0;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: space-between;
+                                    .tenthongtin{
+                                        font-size: 18px;
+                                        color: #263a4d;
+                                        font-weight: 500;
+                                        margin: 0;
+                                    }
+                                    .ctthongtin{
+                                        font-size: 20px;
+                                        color: #212f3f;
+                                        font-weight: 500;
+                                        font-weight: bold;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .hannophs{
+                        margin-top: 20px;
+                        .chitethannop{
+                            display: flex;
+                            .innerHn{
+                                padding: 10px;
+                                background-color: #f2f4f5;
+                                display: flex;
+                                margin: 0;
+                                border-radius: 10px;
+                                svg {
+                                    margin: auto 0;
+                                    font-size: 20px;
+                                    margin-right: 10px;
+                                    color: #7f878f;
+                                }
+                                .cltt{
+                                    margin: 0;
+                                    span {
+                                        margin: auto 5px;
+                                        font-size: 18px;
+                                        color: #263a4d;
+                                        font-weight: 600;
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    .btn-ungtuyen{
+                        margin-top: 30px;
+                        width: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        background-color: green;
+                        color: #fff;
+                        padding: 10px;
+                        border-radius: 10px;
+                        box-sizing: border-box;
+                        cursor: pointer;
+                        &:hover{
+                            opacity: 0.7;
+                        }
+                        .ut{
+                            display: flex;
+                            font-size: 20px;
+                            margin: auto;
+                            .icon-ungtuyen{
+                                margin: 0;
+                                padding-right: 10px;
+                            }
+                            span{
+                                margin: 0;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+            .chitiettuyendung{
+                margin-top: 25px;
+                background: #fff;
+                padding: 25px;
+                border-radius: 20px;
+                .tieudechitiet{
+                    margin-right: 20px;
+                    font-size: 25px;
+                    font-weight: bold;
+                    border-left: 10px solid green;
+                    padding: 2px 0 2px 20px;
+                    margin-bottom: 20px;
+                }
+                .cacyeucau{
+                    .tieudeyeucau{
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                    .chitietyeucau{
+                        font-size: 18px;
+                        line-height: 1.7rem;
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+        .nua2{
+            flex: 1;
+            margin: 0;
+            .congtycongviec{
+                padding: 25px;
+                background-color: #fff;
+                margin-left: 25px;
+                border-radius: 20px;
+                .chitietcongty{
+                    .congty{
+                        display: flex;
+                        .anhCongty{
+                            margin: 0;
+                            img{
+                                width: 100px;
+                                height: 100px;
+                                border: 1px solid #cdcdcd;
+                                border-radius: 10px;
+                            }
+                        }
+                        .tencongty{
+                            margin: 0;
+                            padding: 0px 10px 10px 20px;
+                            span{
+                                font-size: 23px;
+                                font-weight: 600;
+                                color: #212f3f;
+                            }
+                        }
+                    }
+                    .box-chitiet{
+                        display: flex;
+                        margin-top: 17px;
+                        .icon-chitiet{
+                            margin: 0;
+                            font-size: 20px;
+                            color: #263a4d;
+                            display: flex;
+                            flex: 1;
+                            svg{
+                                margin: 0;
+                            }
+                            .tentitle{
+                                margin: 0;
+                                span {
+                                    margin-left: 10px;
+                                }
+                            }
+                            
+                        }
+                        .ttchitiet{
+                            margin: 0;
+                            font-size: 20px;
+                            margin-left: 10px;
+                            color: #212f3f;
+                            font-weight: 600;
+                            flex: 3;
+                            span{
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: normal;
+                            }
+                        }
+                    }
+                    .xemttcty{
+                        font-size: 25px;
+                        color: green;
+                        display: flex;
+                        margin-top: 20px;
+                            border-bottom: 1px solid #fff;
+                        &:hover{
+                            cursor: pointer;
+                            border-bottom: 1px solid;
+                            width: fit-content;
+                        }
+                        a{
+                            color: green;
+                            margin-right: 10px;
+                            text-decoration: none;
+                        }
+                        svg{
+                        }
+                    }
+                }
+            }
+            .thongtinchung{
+                margin-top: 25px;
+                background: #fff;
+                padding: 25px;
+                border-radius: 20px;
+                margin-left: 25px;
+                .titlethongtinchung{
+                    margin-right: 20px;
+                    font-size: 25px;
+                    font-weight: bold;
+                    border-left: 10px solid green;
+                    padding: 2px 0 2px 20px;
+                    margin-bottom: 20px;
+                }
+                .boxThongtinchung{
+                    .boxthongtin {
+                        margin: 0;
+                        font-size: 18px;
+                        padding-top: 15px;
+                        .box {
+                            display: flex;
+                
+                            .icon {
+                                margin: 0;
+                
+                                svg {
+                                    background-color: green;
+                                    font-size: 40px;
+                                    padding: 10px;
+                                    color: #fff;
+                                    border-radius: 50%;
+                                }
+                            }
+                            .ctthongtintd {
+                                margin: 0;
+                                padding-left: 20px ;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-between;
+                
+                                .tenthongtin {
+                                    font-size: 18px;
+                                    color: #263a4d;
+                                    font-weight: 500;
+                                    margin: 0;
+                                }
+                
+                                .ctthongtin {
+                                    font-size: 20px;
+                                    color: #212f3f;
+                                    font-weight: 500;
+                                    font-weight: bold;
+                                    margin: auto 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

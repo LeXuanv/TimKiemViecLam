@@ -25,14 +25,14 @@ const Header = () =>{
                             <Link to={PATH_PAGE.dscongty} className="item">
                                 <span>Danh sách công ty</span>
                             </Link>
-                            <Link to={PATH_PAGE.dtcongviec} className="item">
+                            {/* <Link to={PATH_PAGE.dtcongviec} className="item">
                                 <span>Đăng tải công việc</span>
-                            </Link>
+                            </Link> */}
                             <Link to={PATH_PAGE.qlnguoidung} className="item">
                                 <span>Quản lý người dùng</span>
                             </Link> 
                             <Link to={PATH_PAGE.qlbaidang} className="item">
-                                <span>Quản lý bài đăng</span>
+                                <span>Quản lý công ty</span>
                             </Link>
                         </div>
                     </div>
