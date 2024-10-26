@@ -8,25 +8,30 @@ import "./cv.scss"
 const CV = () => {
     return(
         <>
-        <MainLayout>
-            <div className="profile">
-                <div className="title">
-                    <span>Thông tin cá nhân</span>
+        <MainLayout >
+            <div style={{position: "relative"}}>
+                <div className="save-info">
+                    <button>Lưu</button>
                 </div>
-                <FormProfile/>
-            </div>
-            <div className="study">
-                <div className="title">
-                    <span className="title">Thông tin học vấn</span>
+                <div className="profile">
+                    <div className="title">
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <FormProfile/>
                 </div>
-                <FormStudy/>
-            </div>
-            <div className="skill">
-                <div className="title">
-                    <span className="title">Thông tin kỹ năng</span>
+                <div className="study">
+                    <div className="title">
+                        <span className="title">Thông tin học vấn</span>
+                    </div>
+                    <FormStudy/>
                 </div>
+                <div className="skill">
+                    <div className="title">
+                        <span className="title">Thông tin kỹ năng</span>
+                    </div>
 
-                <FormSkill/>
+                    <FormSkill/>
+                </div>
             </div>
         </MainLayout>
         </>

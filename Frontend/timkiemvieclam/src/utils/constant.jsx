@@ -1,12 +1,24 @@
 export const PATH_PAGE = {
     login: "/login",
+    
     singin: "/signin",
+
     dscongviec: "/",
+
     cv: "/cv",
+
     dscongty: "/dscongty",
+    chitietcongty: "chitietcongty",
+
     dtcongviec: "/dtcongviec",
+
     qlnguoidung: "/qlnguoidung",
-    qlbaidang: "/qlbaidang",
+
+    qlbaidang: "/qlcongty",
+    dangbai: "dangbai",
+
+    chitietcongviec: "/chitietcongviec",
+    
 }
 
 export const USER_INFO = {
