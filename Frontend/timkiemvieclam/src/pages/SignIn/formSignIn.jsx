@@ -7,7 +7,7 @@ const onFinish = (values) => {
 };
 const FormSignIn = () => {
     return(
-        <Form
+      <Form
       name="login"
       initialValues={{
         remember: true,
@@ -128,7 +128,7 @@ const FormSignIn = () => {
             Đã có tài khoản. <Link to="/login">Đăng nhập ngay !</Link>
         </Form.Item>
       </Form.Item>
-    </Form>
+      </Form>
     )
 }
 
