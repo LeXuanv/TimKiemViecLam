@@ -102,4 +102,15 @@ class JobSeeker extends Model
             'experience' => $this->experience,
         ];
     }
+    public function getFullInfo()
+    {
+        return [
+            'phone_number' => $this->phone_number,
+            'address' => $this->address,
+            'ward_code' => $this->ward_code,
+            'gender' => $this->gender,
+            'birth_date' => $this->birth_date,
+            'experience' => $this->experience,
+        ];
+    }
 }

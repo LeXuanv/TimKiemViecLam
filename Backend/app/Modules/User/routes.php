@@ -10,6 +10,7 @@ Route::group([
 ], function () {
     Route::group(['middleware' => ['api-auth']], function () {
         Route::get('/show', [UserController::class, 'show']);
+        Route::get('/edit', [UserController::class, 'edit']);
         Route::post('/update', [UserController::class, 'update']);
         Route::delete('/delete', [UserController::class, 'destroy']);
     });

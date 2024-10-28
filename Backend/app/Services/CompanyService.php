@@ -20,4 +20,9 @@ class CompanyService
         $this->companyRepository->store($params);
     }
 
+    public function update($company, $params)
+    {
+        $this->companyRepository->update($company, $params);
+    }
+
 }

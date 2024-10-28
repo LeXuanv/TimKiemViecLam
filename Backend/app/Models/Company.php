@@ -72,4 +72,14 @@ class Company extends Model
             'ward_code' => $this->ward_code,
         ];
     }
+
+    public function getFullInfo()
+    {
+        return [
+            'name' => $this->name,
+            'phone_number' => $this->phone_number,
+            'address' => $this->address,
+            'ward_code' => $this->ward_code,
+        ];
+    }
 }

@@ -14,11 +14,11 @@ class UserService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
-        CompanyRepository $companyRepository,
-        JobSeekerRepository $jobSeekerRepository
+        CompanyService $companyService,
+        JobSeekerService $jobSeekerService
     ) {
-        $this->companyRepository = $companyRepository;
-        $this->jobSeekerRepository = $jobSeekerRepository;
+        $this->companyService = $companyService;
+        $this->jobSeekerService = $jobSeekerService;
     }
 
     public function store(Request $request)
@@ -38,9 +38,9 @@ class UserService
         ];
 
         if ($request->role_id == 2) {
-            $this->companyRepository->store($otherParams);
+            $this->companyService->store($otherParams);
         } elseif ($request->role_id == 3) {
-            $this->jobSeekerRepository->store($otherParams);
+            $this->jobSeekerService->store($otherParams);
         }
 
         return $user;
@@ -61,18 +61,32 @@ class UserService
         $result = array_merge($user->toArray(), $info);
         return $result;
     }
+    public function edit(User $user)
+    {
+        $info = [];
+        if ($user->isCompany()) {
+            $company = $user->companies()->first();
+            $info = $company ? $company->getFullInfo() : [];
+        }
+
+        if ($user->isJobSeeker()) {
+            $jobSeeker = $user->job_seekers()->first();
+            $info = $jobSeeker ? $jobSeeker->getFullInfo() : [];
+        }
+        return $info;
+    }
 
     public function update(User $user, $params)
     {
         $this->userRepository->update($user, $params);
         if ($user->isCompany()) {
             $company = $user->companies->first();
-            $this->companyRepository->update($company, $params);
+            $this->companyService->update($company, $params);
         }
         if ($user->isJobSeeker()) {
             $params['birth_date'] = $params["birth_date"] ? Carbon::createFromFormat('d/m/Y', $params["birth_date"]) : null;
             $jobSeeker = $user->job_seekers->first();
-            $this->jobSeekerRepository->update($jobSeeker, $params);
+            $this->jobSeekerService->update($jobSeeker, $params);
         }
     }
 
