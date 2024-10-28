@@ -21,6 +21,11 @@ class UserController extends Controller
         return $this->userService->show($user);
     }
 
+    public function edit(Request $request)
+    {
+        $user = $request->user();
+        return $this->userService->edit($user);
+    }
     public function update(Request $request)
     {
         $user = $request->user();
