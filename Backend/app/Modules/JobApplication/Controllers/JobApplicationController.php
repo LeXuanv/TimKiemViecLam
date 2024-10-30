@@ -63,29 +63,40 @@ class JobApplicationController extends Controller
 
         return response()->json($applications, 200);
     }
-    public function accept($job_vacancy)
+    public function accept($job_vacancy, $job_seeker_id)
     {
         $user = Auth::user();
         
-        
+        // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-        $applicationJob = JobApplication::find($job_vacancy);
-        if (!$applicationJob) {
-            return response()->json(['message'=> 'application job not found'], 404);
+        
+        $jobVacancy = JobVacancy::where('id', $job_vacancy)
+                                ->where('company_id', $company->id)
+                                ->first();
+        if (!$jobVacancy) {
+            return response()->json(['message' => 'Job vacancy not found or you are not authorized to accept applicants for this job'], 404);
         }
+
+        $applicationJob = JobApplication::where('job_vacancy_id', $job_vacancy)
+                                        ->where('job_seeker_id', $job_seeker_id)
+                                        ->first();
+
+        if (!$applicationJob) {
+            return response()->json(['message' => 'Application job not found'], 404);
+        }
+
         if ($applicationJob->status == 0) {
             $applicationJob->status = 1;
             $applicationJob->save();
-    
+            
             return response()->json(['message' => 'Application accepted successfully']);
         }
-    
+
         return response()->json(['message' => 'Application has already been accepted or has invalid status'], 400);
-
-
     }
-   
+
+    
 }

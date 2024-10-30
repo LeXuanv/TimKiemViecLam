@@ -25,7 +25,7 @@ Route::group([
     Route::prefix('jobs')->group(function () {
 
         Route::get('/{job_vacancy}/applications', [JobApplicationController::class, 'index']);
-        Route::post('/{job_vacancy}/accept', [JobApplicationController::class, 'accept']);
+        Route::post('/{job_vacancy}/applications/{job_seeker_id}/accept', [JobApplicationController::class, 'accept']);
 
     });
 });
