@@ -11,7 +11,7 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
     Route::prefix('jobs')->group(function () {
-        Route::get('/user/bookmarks', [BookmarkController::class, 'index']);
+        Route::get('/bookmarks', [BookmarkController::class, 'index']);
         Route::post('/{job_vacancy}/bookmarks', [BookmarkController::class, 'toggleBookmark']);
     });
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Cors;
 use App\Modules\JobVacancy\Controllers\JobVacancyController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['auth:sanctum']
+    'middleware' => ['auth:sanctum', Cors::class]
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');
@@ -23,7 +24,7 @@ Route::group([
 Route::group([
     'prefix' => 'user',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['api']
+    'middleware' => ['api', Cors::class]
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');
@@ -37,7 +38,7 @@ Route::group([
 Route::group([
     'prefix' => 'company/',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['auth:sanctum']
+    'middleware' => ['auth:sanctum', Cors::class]
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');
