@@ -2,10 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
 import { Link } from "react-router-dom";
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const FormLogin = () => {
+const FormLogin = ({setUsername, setPassword, apiLogin}) => {
     return(
     <Form
       name="login"
@@ -15,7 +12,6 @@ const FormLogin = () => {
       style={{
         maxWidth: 360,
       }}
-      onFinish={onFinish}
     >
         <div className='title-login'>
             <p>Đăng nhập</p>
@@ -29,7 +25,7 @@ const FormLogin = () => {
           },
         ]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Email" />
+        <Input prefix={<UserOutlined />} placeholder="Email" onChange={(e) => setUsername(e.target.value)} />
       </Form.Item>
       <Form.Item
         name="password"
@@ -40,7 +36,7 @@ const FormLogin = () => {
           },
         ]}
       >
-        <Input prefix={<LockOutlined />} type="password" placeholder="Mật khẩu" />
+        <Input prefix={<LockOutlined />} type="password" placeholder="Mật khẩu" onChange={(e)=> setPassword(e.target.value)} />
       </Form.Item>
       <Form.Item>
         <Flex justify="space-between" align="center">
@@ -51,7 +47,7 @@ const FormLogin = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button block type="primary" htmlType="submit">
+        <Button block type="primary" htmlType="submit" onClick={() => apiLogin()}>
           Log in
         </Button>
         <Form.Item>

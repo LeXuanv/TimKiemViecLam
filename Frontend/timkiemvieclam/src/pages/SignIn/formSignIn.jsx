@@ -2,10 +2,8 @@ import { LockOutlined, MailOutlined, ManOutlined, PhoneOutlined, UsergroupAddOut
 import { Button, Form, Input, Select } from 'antd';
 import { Link } from "react-router-dom";
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const FormSignIn = () => {
+
+const FormSignIn = ({setName, setEmail, setRole, setPassword, setPasswordConfirm, handleClickRegister}) => {
     return(
       <Form
       name="login"
@@ -15,119 +13,102 @@ const FormSignIn = () => {
       style={{
         maxWidth: 600,
       }}
-      onFinish={onFinish}
     >
         <div className='title-login'>
             <p>Đăng ký</p>
         </div>
-        <Form.Item
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: 'Vui lòng nhập họ và tên!',
-          },
-        ]}
-      >
-        <Input.Group compact>
-          <Input
-              style={{ width: '10%' }}
-              prefix={<UserOutlined />} // Icon hiển thị trước Select
-              disabled // Input không khả dụng để chỉ làm prefix
-            />
-          <Input style={{ width: '90%' }} placeholder="Họ và tên" />
-        </Input.Group>
-      </Form.Item>
       <Form.Item
-        name="phone"
-        rules={[
-          {
-            required: true,
-            message: 'Vui lòng nhập số điện thoại!',
-          },
-        ]}
-      >
-        <Input.Group compact>
-          <Input
-              style={{ width: '10%' }}
-              prefix={<PhoneOutlined />}
-              disabled
-            />
-          <Input style={{ width: '90%' }} placeholder="Số điện thoại" />
-        </Input.Group>
-      </Form.Item>
-      <Form.Item
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: 'Vui lòng nhập email!',
-          },
-        ]}
-      >
-        <Input.Group compact>
-        <Input
-            style={{ width: '10%' }}
-            prefix={<MailOutlined />} // Icon hiển thị trước Select
-            disabled // Input không khả dụng để chỉ làm prefix
-          />
-          <Input style={{ width: '90%' }} placeholder="Email" />
-        </Input.Group>
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Vui lòng nhập mật khẩu!',
-          },
-        ]}
-      >
-        <Input.Group compact>
-        <Input
-            style={{ width: '10%' }}
-            prefix={<LockOutlined />} // Icon hiển thị trước Select
-            disabled // Input không khả dụng để chỉ làm prefix
-          />
-        <Input style={{ width: '90%' }} type="password" placeholder="Mật khẩu" />
-        </Input.Group>
-        
-      </Form.Item>
-      <Form.Item >
-         <Input.Group compact>
-          <Input
-            style={{ width: '10%' }}
-            prefix={<ManOutlined />}
-            disabled 
-          />
-          <Select style={{ width: '90%' }} placeholder="Chọn giới tính">
-            <Select.Option value="nam">Nam</Select.Option>
-            <Select.Option value="nu">Nữ</Select.Option>
-            <Select.Option value="khac">Khác</Select.Option>
-          </Select>
-        </Input.Group>
-      </Form.Item>
-      <Form.Item>
-        <Input.Group compact>
-        <Input
-            style={{ width: '10%' }}
-            prefix={<UsergroupAddOutlined />}
-            disabled
-          />
-          <Select style={{ width: '90%' }} placeholder="Chọn loại tài khoản" >
-            <Select.Option value="1">Tìm kiếm việc làm</Select.Option>
-            <Select.Option value="2">Nhà tuyển dụng</Select.Option>
-          </Select>
-        </Input.Group>
-      </Form.Item>
-      <Form.Item>
-        <Button block type="primary" htmlType="submit">
-          Đăng ký
-        </Button>
-        <Form.Item>
-            Đã có tài khoản. <Link to="/login">Đăng nhập ngay !</Link>
-        </Form.Item>
-      </Form.Item>
+  name="name"
+  rules={[
+    {
+      required: true,
+      message: 'Vui lòng nhập họ và tên!',
+    },
+  ]}
+>
+  <Input
+    addonBefore={<UserOutlined />} // Icon hiển thị trước ô nhập liệu
+    type="text"
+    placeholder="Họ và tên"
+    onChange={(e) => setName(e.target.value)}
+  />
+</Form.Item>
+
+<Form.Item
+  name="email"
+  rules={[
+    {
+      required: true,
+      message: 'Vui lòng nhập email đúng định dạng!',
+      type: 'email', // Kiểm tra định dạng email
+    },
+  ]}
+>
+  <Input
+    addonBefore={<MailOutlined />}
+    type="email"
+    placeholder="Email"
+    onChange={(e) => setEmail(e.target.value)}
+  />
+</Form.Item>
+
+<Form.Item
+  name="password"
+  rules={[
+    {
+      required: true,
+      message: 'Vui lòng nhập mật khẩu!',
+    },
+  ]}
+>
+  <Input
+    addonBefore={<LockOutlined />}
+    type="password"
+    placeholder="Mật khẩu"
+    onChange={(e) => setPassword(e.target.value)}
+  />
+</Form.Item>
+
+<Form.Item
+  name="password_confirmation"
+  rules={[
+    {
+      required: true,
+      message: 'Vui lòng nhập lại mật khẩu!',
+    },
+  ]}
+>
+  <Input
+    addonBefore={<LockOutlined />}
+    type="password"
+    placeholder="Nhập lại mật khẩu"
+    onChange={(e) => setPasswordConfirm(e.target.value)}
+  />
+</Form.Item>
+
+<Form.Item>
+  <Input.Group compact>
+  <Input
+      style={{ width: '12%' }}
+      prefix={<UsergroupAddOutlined />}
+      disabled
+    />
+    <Select style={{ width: '88%' }} placeholder="Chọn loại tài khoản" onChange={(value) => setRole(value)} >
+      <Select.Option value="3">Người tìm kiếm việc làm</Select.Option>
+      <Select.Option value="2">Nhà tuyển dụng</Select.Option>
+    </Select>
+  </Input.Group>
+</Form.Item>
+
+<Form.Item>
+  <Button block type="primary" htmlType="submit" onClick={() => handleClickRegister()}>
+    Đăng ký
+  </Button>
+  <Form.Item>
+    Đã có tài khoản. <Link to="/login">Đăng nhập ngay !</Link>
+  </Form.Item>
+</Form.Item>
+
       </Form>
     )
 }

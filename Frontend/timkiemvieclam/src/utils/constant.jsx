@@ -1,9 +1,9 @@
 export const PATH_PAGE = {
-    login: "/login",
+    login: "login",
     
     singin: "/signin",
 
-    dscongviec: "/",
+    dscongviec: "",
 
     cv: "/cv",
 
