@@ -6,7 +6,8 @@ import { PiBagSimpleFill } from "react-icons/pi";
 
 
 
-const ThongTinChung = () =>{
+const ThongTinChung = ({job}) =>{
+    if (!job) return null;
     return(
         <>
             <div className="thongtinchung">
@@ -21,11 +22,11 @@ const ThongTinChung = () =>{
                             </div>
                             <div className="ctthongtintd">
                                 <span className="tenthongtin">Cấp bậc</span>
-                                <span className="ctthongtin">Nhân viên</span>
+                                <span className="ctthongtin">{job.jobPositionName}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="boxthongtin">
+                    {/* <div className="boxthongtin">
                         <div className="box">
                             <div className="icon">
                                 <CgSandClock />
@@ -46,7 +47,7 @@ const ThongTinChung = () =>{
                                 <span className="ctthongtin">10 người</span>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="boxthongtin">
                         <div className="box">
                             <div className="icon">
@@ -54,7 +55,7 @@ const ThongTinChung = () =>{
                             </div>
                             <div className="ctthongtintd">
                                 <span className="tenthongtin">Hình thức làm việc</span>
-                                <span className="ctthongtin">Toàn thời gian</span>
+                                <span className="ctthongtin">{job.employmentType}</span>
                             </div>
                         </div>
                     </div>

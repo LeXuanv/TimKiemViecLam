@@ -1,11 +1,12 @@
-const ChiTietTuyenDung = () =>{
+const ChiTietTuyenDung = ({job}) =>{
+    if (!job) return null;
     return(
         <>
             <div className="chitiettuyendung">
                 <div className="tieudechitiet">
                     <span>Chi tiết tin tuyển dụng</span>
                 </div>
-                <div className="cacyeucau">
+                {/* <div className="cacyeucau">
                     <p className="tieudeyeucau">Mô tả công việc</p>
                     <p className="chitietyeucau">
                         - Mời khách hàng tham gia hội thảo về sức khỏe theo data có sẵn từ Công ty cung cấp <br/>
@@ -40,7 +41,8 @@ const ChiTietTuyenDung = () =>{
                     <p className="chitietyeucau">
                         - Thứ 2 - Thứ 6 (từ 08:00 đến 17:30) <br/>
                     </p>
-                </div>
+                </div> */}
+                <span>{job.description}</span>
             </div>
         </>
     )

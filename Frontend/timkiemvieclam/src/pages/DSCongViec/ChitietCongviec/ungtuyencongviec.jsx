@@ -4,6 +4,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { CgSandClock } from "react-icons/cg";
 
+/*
 const CongViecUngTuyen = () =>{
     return(
         <>
@@ -73,3 +74,69 @@ const CongViecUngTuyen = () =>{
 }
 
 export default CongViecUngTuyen;
+
+*/
+
+
+const CongViecUngTuyen = ({job}) =>{
+    if (!job) return null;
+    return(
+        <>
+            <div className="congviecungtuyen">
+                <div className="innerCVungtuyen">
+                    <div className="tencongviec">
+                        <span>{job.title}</span>
+                    </div>
+                    <div className="thongtin">
+                        <div className="boxthongtin">
+                            <div className="box">
+                                <div className="icon">
+                                    <RiMoneyDollarCircleLine />
+                                </div>
+                                <div className="ctthongtintd">
+                                    <span className="tenthongtin">Mức Lương</span>
+                                    <span className="ctthongtin">{job.salary}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="boxthongtin">
+                            <div className="box">
+                                <div className="icon">
+                                    <FaMapMarkerAlt />
+                                </div>
+                                <div className="ctthongtintd">
+                                    <span className="tenthongtin">Địa điểm</span>
+                                    <span className="ctthongtin">{job.provinceName}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="boxthongtin">
+                            <div className="box">
+                                <div className="icon">
+                                    <CgSandClock />
+                                </div>
+                                <div className="ctthongtintd">
+                                    <span className="tenthongtin">Kinh nghiệm</span>
+                                    <span className="ctthongtin">Không yêu cầu kinh nghiệm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="btn-ungtuyen">
+                        <div className="ut">
+                            <div className="icon-ungtuyen">
+                                <FaPaperPlane />
+                            </div>
+                            <span>Ứng tuyển</span>
+                        </div>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default CongViecUngTuyen;
+
+
