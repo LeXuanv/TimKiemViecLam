@@ -3,7 +3,7 @@ import { DatePicker, Space } from 'antd';
 
 const FormDangBai = () => {
     return(
-        <>
+        
             <div className="formDangBai">
                 <div className="tieudeBaidang">
                     <span>Đăng bài tuyển dụng</span>
@@ -84,7 +84,7 @@ const FormDangBai = () => {
                     </div>
                 </div>
             </div>
-        </>
+        
     )
 }
 

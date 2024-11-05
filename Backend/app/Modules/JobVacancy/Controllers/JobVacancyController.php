@@ -149,7 +149,7 @@ class JobVacancyController extends Controller
         $jobVacanciesDTOs = $this->jobVacancyService->searchJobs($searchTerm);
 
         if ($jobVacanciesDTOs->isEmpty()) {
-            return response()->json(['message' => 'No jobs found'], 404);
+            return response()->json( 404);
         }
 
         return response()->json($jobVacanciesDTOs);

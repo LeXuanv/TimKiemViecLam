@@ -5,7 +5,8 @@ import { Link} from "react-router-dom";
 import { MdOutlineIosShare } from "react-icons/md";
 
 
-const CongTyCongViec = () =>{
+const CongTyCongViec = ({job}) =>{
+    if (!job) return null;
     return(
         <>
             <div className="congtycongviec">
@@ -15,10 +16,10 @@ const CongTyCongViec = () =>{
                             <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346" />
                         </div>
                         <div className="tencongty">
-                            <span>Công ty TNHH phần mềm Gol</span>
+                            <span>{job.companyName}</span>
                         </div>
                     </div>
-                    <div className="box-chitiet">
+                    {/* <div className="box-chitiet">
                         <div className="icon-chitiet">
                             <FaUserGroup />
                             <div className="tentitle">
@@ -28,7 +29,7 @@ const CongTyCongViec = () =>{
                         <div className="ttchitiet">
                             <span>10 - 24 nhân viên</span>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="box-chitiet">
                         <div className="icon-chitiet">
                             <FaCube />
@@ -37,7 +38,7 @@ const CongTyCongViec = () =>{
                             </div>
                         </div>
                         <div className="ttchitiet">
-                            <span>Dược phẩm / Y tế / Công nghệ sinh học</span>
+                            <span>{job.categoryName}</span>
                         </div>
                     </div>
                     <div className="box-chitiet">
@@ -48,7 +49,7 @@ const CongTyCongViec = () =>{
                             </div>
                         </div>
                         <div className="ttchitiet">
-                            <span>Số 85 Phố Nguyễn Du, Phường Nguyễn Du, Quận Hai Bà Trưng, Thành phố Hà Nội, Việt Namn</span>
+                            <span>{job.address}</span>
                         </div>
                     </div>
                     <div className="xemttcty">
