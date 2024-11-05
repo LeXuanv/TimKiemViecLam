@@ -22,7 +22,7 @@ const SignIn = () =>{
     const handleClickRegister = async () => {
     try {
         await axios.post(
-        "http://backend.test:8080/api/register",
+        "/api/register",
         {
           name: name,
           email: email,

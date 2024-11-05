@@ -18,7 +18,7 @@ const Login = () =>{
   const apiLogin = async () => {
     try {
       const response = await axios.post(
-        "http://backend.test:8080/api/login",{
+        "/api/login",{
             email: username,
             password: password
         }

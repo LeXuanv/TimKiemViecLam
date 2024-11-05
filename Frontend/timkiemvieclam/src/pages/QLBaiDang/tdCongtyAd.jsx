@@ -5,7 +5,7 @@ import { PATH_PAGE } from "../../utils/constant";
 
 const TuyenDungCongtyAd = ({modal, setModal}) => {
     return(
-        <>
+        
             <div className="tuyendungCty">
                 <div className="bentrongtuyendung">
                     <div className="tieudetd">
@@ -69,7 +69,7 @@ const TuyenDungCongtyAd = ({modal, setModal}) => {
                     
                 </div>
             </div>
-        </>
+        
     )
 }
 

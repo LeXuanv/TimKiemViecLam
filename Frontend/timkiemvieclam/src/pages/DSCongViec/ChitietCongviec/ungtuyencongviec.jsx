@@ -121,16 +121,16 @@ const CongViecUngTuyen = ({job}) =>{
                                 </div>
                             </div>
                         </div>
-                        <div className="btn-ungtuyen">
-                        <div className="ut">
-                            <div className="icon-ungtuyen">
-                                <FaPaperPlane />
+                                           
+                    </div>
+                    <div className="btn-ungtuyen">
+                            <div className="ut">
+                                <div className="icon-ungtuyen">
+                                    <FaPaperPlane />
+                                </div>
+                                <span>Ứng tuyển</span>
                             </div>
-                            <span>Ứng tuyển</span>
-                        </div>
-                    </div>
-                    </div>
-                    
+                        </div> 
                 </div>
             </div>
         </>

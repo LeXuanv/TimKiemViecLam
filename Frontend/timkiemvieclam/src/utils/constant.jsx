@@ -17,7 +17,7 @@ export const PATH_PAGE = {
     qlbaidang: "/qlcongty",
     dangbai: "dangbai",
 
-    chitietcongviec: "/chitietcongviec",
+    chitietcongviec: "/chitietcongviec/:id",
     
 }
 

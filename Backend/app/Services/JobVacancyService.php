@@ -21,6 +21,7 @@ class JobVacancyService
 
         return $jobVacancies->map(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
+            $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
@@ -28,7 +29,7 @@ class JobVacancyService
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName = 'Tỉnh ' . Province::find($jobVacancy->province_code) -> name ?? null;
+            $dto->provinceName = Province::find($jobVacancy->province_code) -> name ?? null;
 
             return $dto;
         });
@@ -49,7 +50,7 @@ class JobVacancyService
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName = 'Tỉnh ' . Province::find($jobVacancy->province_code) -> name ?? null;
+            $dto->provinceName =  Province::find($jobVacancy->province_code) -> name ?? null;
 
             return $dto;
         });
@@ -101,7 +102,7 @@ class JobVacancyService
         $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
         $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
         $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-        $dto->provinceName = 'Tỉnh ' . Province::find($jobVacancy->province_code)->name ?? null;
+        $dto->provinceName = Province::find($jobVacancy->province_code)->name ?? null;
 
         return $dto;
     }

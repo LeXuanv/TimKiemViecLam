@@ -4,6 +4,7 @@ namespace App\Modules\JobVacancy\DTOs;
 
 class GetJobVacancyDTO
 {
+    public $id;
     public $title;
     public $salary;
     public $employmentType;
