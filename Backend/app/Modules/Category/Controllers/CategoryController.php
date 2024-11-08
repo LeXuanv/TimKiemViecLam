@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $categories = Category::All();
         $categoryDTOs = $categories->map(function ($category) {
-            return new GetCategoryDTO($category->name);
+            return new GetCategoryDTO($category->name, $category->id);
         });
         return response()->json($categoryDTOs);
     }

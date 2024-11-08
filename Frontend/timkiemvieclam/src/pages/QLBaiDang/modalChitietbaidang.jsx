@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const ModalCtBaiDang = ({modal,setModal,handleClickOutside}) => {
     return(
-        <>
+        
             <div className="modal-chitietbaidang " onClick={handleClickOutside}>
                 <div className="chitietbaidang">
                     <span onClick={() => setModal(!modal)} class="close-button">&times;</span>
@@ -112,7 +112,7 @@ const ModalCtBaiDang = ({modal,setModal,handleClickOutside}) => {
                     </div>
                 </div>
             </div>
-        </>
+        
     )
     
 }

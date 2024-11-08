@@ -30,13 +30,17 @@ const DsCongViec = () => {
     };
 
     
-    const handleSearch = async (jobTitle) => {
+    const handleSearch = async (jobTitle, categoryId, provinceId) => {
         setIsSearching(true);
     
+        const searchParams = {
+            searchTerm: jobTitle || undefined,  // Tìm kiếm theo tiêu đề công việc
+            categoryId: categoryId || undefined,  // Tìm kiếm theo ngành nghề
+            provinceId: provinceId || undefined  // Tìm kiếm theo tỉnh thành
+        };
+    
         try {
-            const response = await axios.get(jobTitle ? '/user/job-vacancy/search' : '/user/job-vacancy', {
-                params: jobTitle ? { searchTerm: jobTitle } : {}
-            });
+            const response = await axios.get('/user/job-vacancy/search', { params: searchParams });
     
             if (Array.isArray(response.data) && response.data.length === 0) {
                 setJobs([]);
@@ -45,11 +49,13 @@ const DsCongViec = () => {
                 setJobs(response.data);
             }
         } catch (error) {
-            console.error("Error fetchinasfasfg jobs:", error);
+            console.error("Error fetching jobs:", error);
         } finally {
             setIsSearching(false); 
         }
     };
+    
+    
     
     
     useEffect(() => {

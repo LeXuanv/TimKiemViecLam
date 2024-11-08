@@ -68,6 +68,13 @@ class JobVacancyController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'request' => 'required|string',
+            'interest' => 'required|string',
+            'location' => 'required|string',
+            'workTime' => 'required|string',
+            'experience' => 'required|string',
+            'gender' => 'required|string',
+
             'salary' => 'required|numeric',
             'employmentType' => 'required|string',
             'applicationDateline' => 'required|date',
@@ -75,6 +82,8 @@ class JobVacancyController extends Controller
             'jobPositionName' => 'required|exists:job_positions,id',
             'address' => 'required|string',
             'provinceName' => 'required|exists:provinces,code',
+
+            
         ]);
 
         $data = $this->jobVacancyService->createJobVacancy($validatedData);
@@ -141,12 +150,14 @@ class JobVacancyController extends Controller
     public function search(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
+        $categoryId = $request->input('categoryId');
+        $provinceId = $request->input('provinceId');
 
-        if (!$searchTerm) {
-            return response()->json(['error' => 'No search term provided'], 400);
+        if (!$searchTerm && !$categoryId && !$provinceId) {
+            return response()->json(['error' => 'No search criteria provided'], 400);
         }
 
-        $jobVacanciesDTOs = $this->jobVacancyService->searchJobs($searchTerm);
+        $jobVacanciesDTOs = $this->jobVacancyService->searchJobsFinal($searchTerm, $categoryId, $provinceId);
 
         if ($jobVacanciesDTOs->isEmpty()) {
             return response()->json( 404);
