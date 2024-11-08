@@ -15,6 +15,11 @@ class GetByIdJobVacancyDTO
     public $address;
     public $provinceName;
 
-   
+    public $request;
+    public $interest;
+    public $location;
+    public $workTime;
+    public $experience;
+    public $gender;
     
 }

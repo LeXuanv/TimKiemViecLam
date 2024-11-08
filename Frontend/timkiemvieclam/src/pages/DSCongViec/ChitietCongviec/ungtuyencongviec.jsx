@@ -117,7 +117,7 @@ const CongViecUngTuyen = ({job}) =>{
                                 </div>
                                 <div className="ctthongtintd">
                                     <span className="tenthongtin">Kinh nghiệm</span>
-                                    <span className="ctthongtin">Không yêu cầu kinh nghiệm</span>
+                                    <span className="ctthongtin">{job.experience}</span>
                                 </div>
                             </div>
                         </div>

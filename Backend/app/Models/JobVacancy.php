@@ -56,6 +56,11 @@ class JobVacancy extends Model
 	protected $fillable = [
 		'title',
 		'description',
+		'request',
+		'interest',
+		'location',
+		'work_time',
+		'experience',
 		'salary',
 		'employment_type',
 		'application_deadline',
@@ -64,7 +69,8 @@ class JobVacancy extends Model
 		'category_id',
 		'job_position_id',
 		'address',
-		'province_code'
+		'province_code',
+		'gender'
 	];
 
 	public function category()

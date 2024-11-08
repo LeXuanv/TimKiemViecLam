@@ -43,6 +43,7 @@ class JobVacancyService
 
         return $jobVacancies->map(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
+            $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
@@ -71,6 +72,7 @@ class JobVacancyService
 
         return $jobVacancies->map(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
+            $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
@@ -98,6 +100,12 @@ class JobVacancyService
         $dto->employmentType = $jobVacancy->employment_type;
         $dto->applicationDateline = $jobVacancy->application_deadline;
         $dto->address = $jobVacancy->address;
+        $dto->request = $jobVacancy->request;
+        $dto->interest = $jobVacancy->interest;
+        $dto->location = $jobVacancy->location;
+        $dto->workTime = $jobVacancy->work_time;
+        $dto->experience = $jobVacancy->experience;
+        $dto->gender = $jobVacancy->gender;
 
         $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
         $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
@@ -123,6 +131,11 @@ class JobVacancyService
         $jobVacancy = JobVacancy::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
+            'request' => $validatedData['request'],
+            'interest' => $validatedData['interest'],
+            'location' => $validatedData['location'],
+            'work_time' => $validatedData['workTime'],
+            'experience' => $validatedData['experience'],
             'salary' => $validatedData['salary'],
             'employment_type' => $validatedData['employmentType'],
             'application_deadline' => $validatedData['applicationDateline'],
@@ -131,7 +144,9 @@ class JobVacancyService
             'job_position_id' => $validatedData['jobPositionName'],
             'address' => $validatedData['address'],
             'province_code' => $validatedData['provinceName'],
-            'is_published' => 1
+            'is_published' => 1,
+            'gender' => $validatedData['gender']
+
         ]);
 
         $category = Category::find($validatedData['categoryName']);
@@ -142,6 +157,11 @@ class JobVacancyService
         return [
             'title' => $jobVacancy->title,
             'description' => $jobVacancy->description,
+            'request' => $jobVacancy->request,
+            'interest' => $jobVacancy->interest,
+            'location' => $jobVacancy->location,
+            'work_time' => $jobVacancy->work_time,
+            'experience' => $jobVacancy->experience,
             'salary' => $jobVacancy->salary,
             'employment_type' => $jobVacancy->employment_type,
             'application_deadline' => $jobVacancy->application_deadline,
@@ -149,7 +169,8 @@ class JobVacancyService
             'category_name' => $category ? $category->name : null,
             'job_position_name' => $jobPosition ? $jobPosition->name : null,
             'address' => $jobVacancy->address,
-            'province_name' => $province ? $province->name : null
+            'province_name' => $province ? $province->name : null,
+            'gender' => $jobVacancy->gender
         ];
     }
     
@@ -173,13 +194,21 @@ class JobVacancyService
         $jobVacancy->update([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
+            'request' => $validatedData['request'],
+            'interest' => $validatedData['interest'],
+            'location' => $validatedData['location'],
+            'work_time' => $validatedData['work_time'],
+            'experience' => $validatedData['experience'],
             'salary' => $validatedData['salary'],
             'employment_type' => $validatedData['employmentType'],
             'application_deadline' => $validatedData['applicationDateline'],
+            'company_id' => $company->id,
             'category_id' => $validatedData['categoryName'],
             'job_position_id' => $validatedData['jobPositionName'],
             'address' => $validatedData['address'],
             'province_code' => $validatedData['provinceName'],
+            'is_published' => 1,
+            'gender' => $validatedData['gender']
         ]);
 
         $category = Category::find($validatedData['categoryName']);
@@ -191,6 +220,11 @@ class JobVacancyService
         return [
             'title' => $jobVacancy->title,
             'description' => $jobVacancy->description,
+            'request' => $jobVacancy->request,
+            'interest' => $jobVacancy->interest,
+            'location' => $jobVacancy->location,
+            'work_time' => $jobVacancy->work_time,
+            'experience' => $jobVacancy->experience,
             'salary' => $jobVacancy->salary,
             'employment_type' => $jobVacancy->employment_type,
             'application_deadline' => $jobVacancy->application_deadline,
@@ -198,7 +232,8 @@ class JobVacancyService
             'category_name' => $category ? $category->name : null,
             'job_position_name' => $jobPosition ? $jobPosition->name : null,
             'address' => $jobVacancy->address,
-            'province_name' => $province ? $province->name : null
+            'province_name' => $province ? $province->name : null,
+            'gender' => $jobVacancy->gender
         ];
     }
 
@@ -211,6 +246,7 @@ class JobVacancyService
         // Chuyển đổi sang DTO
         $jobVacancyDTOs = $jobs->map(function ($job) {
             $dto = new GetJobVacancyDTO();
+            $dto->id = $job->id;
             $dto->title = $job->title;
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;
@@ -225,7 +261,42 @@ class JobVacancyService
         return $jobVacancyDTOs;
     }
 
+    public function searchJobsFinal($searchTerm, $categoryId, $provinceId)
+    {
+        $jobs = JobVacancy::query()
+            ->when($searchTerm, function ($query) use ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('title', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%');
+                });
+            })
+            ->when($provinceId, function ($query) use ($provinceId) {
+                $query->where('province_code', $provinceId);
+            })
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+            ->get();
 
+        
+        // Chuyển đổi sang DTO
+        $jobVacancyDTOs = $jobs->map(function ($job) {
+            $dto = new GetJobVacancyDTO();
+            $dto->id = $job->id;
+            $dto->title = $job->title;
+            $dto->salary = $job->salary;
+            $dto->employmentType = $job->employment_type;
+            $dto->companyName = Company::find($job->company_id)->name ?? null;
+            $dto->categoryName = Category::find($job->category_id)->name ?? null;
+            $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;
+            $dto->provinceName = Province::find($job->province_code)->name ?? null;
+
+            return $dto;
+        });
+
+        return $jobVacancyDTOs;
+    }
+ 
     public function searchCompanyJobs($searchTerm)
     {
         $user = Auth::user();
@@ -247,6 +318,7 @@ class JobVacancyService
 
         $jobVacancyDTOs = $jobs->map(function ($job) {
             $dto = new GetJobVacancyDTO();
+            $dto->id = $job->id;
             $dto->title = $job->title;
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;

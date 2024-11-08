@@ -26,18 +26,18 @@ const ThongTinChung = ({job}) =>{
                             </div>
                         </div>
                     </div>
-                    {/* <div className="boxthongtin">
+                    <div className="boxthongtin">
                         <div className="box">
                             <div className="icon">
                                 <CgSandClock />
                             </div>
                             <div className="ctthongtintd">
                                 <span className="tenthongtin">Kinh nghiệm</span>
-                                <span className="ctthongtin">Không yêu cầu kinh nghiệm</span>
+                                <span className="ctthongtin">{job.experience}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="boxthongtin">
+                    {/* <div className="boxthongtin">
                         <div className="box">
                             <div className="icon">
                                 <FaUserFriends />
@@ -66,7 +66,7 @@ const ThongTinChung = ({job}) =>{
                             </div>
                             <div className="ctthongtintd">
                                 <span className="tenthongtin">Giới tính</span>
-                                <span className="ctthongtin">Không yêu cầu</span>
+                                <span className="ctthongtin">{job.gender}</span>
                             </div>
                         </div>
                     </div>
