@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Middleware\Cors;
 
 Route::group([
     'prefix' => 'api/',
     'namespace' => 'App\Modules\Address\Controllers',
-    'middleware' => [Cors::class]
+    'middleware' => []
 ], function () {
     // Province routes
     Route::prefix('province')->as('province.')->group(function () {

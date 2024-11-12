@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'api/',
     'namespace' => 'App\Modules\Address\Controllers',
-    'middleware' => [App\Http\Middleware\Cors::class]
+    'middleware' => []
 ], function () {
     // Province routes
     Route::prefix('category')->as('category.')->group(function () {

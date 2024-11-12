@@ -24,7 +24,7 @@ Route::group([
 Route::group([
     'prefix' => 'user',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['api', Cors::class]
+    'middleware' => ['api']
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');
@@ -38,7 +38,7 @@ Route::group([
 Route::group([
     'prefix' => 'company/',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['auth:sanctum', Cors::class]
+    'middleware' => ['api']
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');
