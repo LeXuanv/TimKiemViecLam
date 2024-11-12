@@ -80,7 +80,7 @@ class JobVacancyService
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName = 'Tỉnh ' . Province::find($jobVacancy->province_code) -> name ?? null;
+            $dto->provinceName = Province::find($jobVacancy->province_code) -> name ?? null;
 
             return $dto;
         });
@@ -142,7 +142,7 @@ class JobVacancyService
             'company_id' => $company->id,
             'category_id' => $validatedData['categoryName'],
             'job_position_id' => $validatedData['jobPositionName'],
-            'address' => $validatedData['address'],
+            // 'address' => $validatedData['address'],
             'province_code' => $validatedData['provinceName'],
             'is_published' => 1,
             'gender' => $validatedData['gender']
@@ -168,7 +168,7 @@ class JobVacancyService
             'company_name' => $company->name,
             'category_name' => $category ? $category->name : null,
             'job_position_name' => $jobPosition ? $jobPosition->name : null,
-            'address' => $jobVacancy->address,
+            // 'address' => $jobVacancy->address,
             'province_name' => $province ? $province->name : null,
             'gender' => $jobVacancy->gender
         ];

@@ -141,8 +141,8 @@ function SearchCongViec({ onSearch }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const provinceResponse = await axios.get('/api/provinces');  
-                const categoryResponse = await axios.get('/api/categories');  
+                const provinceResponse = await axios.get('/api/province');  
+                const categoryResponse = await axios.get('/api/category');  
                 setProvinces(provinceResponse.data);
                 setCategories(categoryResponse.data);
             } catch (error) {

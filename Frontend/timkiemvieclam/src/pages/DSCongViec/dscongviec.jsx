@@ -34,9 +34,9 @@ const DsCongViec = () => {
         setIsSearching(true);
     
         const searchParams = {
-            searchTerm: jobTitle || undefined,  // Tìm kiếm theo tiêu đề công việc
-            categoryId: categoryId || undefined,  // Tìm kiếm theo ngành nghề
-            provinceId: provinceId || undefined  // Tìm kiếm theo tỉnh thành
+            searchTerm: jobTitle || undefined,
+            categoryId: categoryId || undefined,
+            provinceId: provinceId || undefined
         };
     
         try {

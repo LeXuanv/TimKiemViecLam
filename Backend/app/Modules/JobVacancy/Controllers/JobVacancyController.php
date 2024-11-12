@@ -80,7 +80,7 @@ class JobVacancyController extends Controller
             'applicationDateline' => 'required|date',
             'categoryName' => 'required|exists:categories,id',
             'jobPositionName' => 'required|exists:job_positions,id',
-            'address' => 'required|string',
+            // 'address' => 'required|string',
             'provinceName' => 'required|exists:provinces,code',
 
             
