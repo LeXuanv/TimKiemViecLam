@@ -1,0 +1,292 @@
+.container-profile{
+    width: 100%;
+    .inner-profle{
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        max-width: 1440px;
+        .tabs{
+            width: 20%;
+            padding: 10px;
+            margin: 0;
+            p{
+                padding: 20px 10px 0 10px;
+            }
+            .user{
+                .inner-user{
+                    display: flex;
+                    flex-direction: row;
+                    border-bottom: 1px solid #e7e4e4;
+                    .name-user{
+                        display: flex;
+                        padding-left: 10px;
+                        margin: 0;
+                        p{
+                            padding: 0;
+                        }
+                        .name{
+                            padding: 10px;
+                            margin: 0;
+                            font-weight: bold;
+                            font-size: 20px;
+                        }
+                        .change{
+                            padding: 10px;
+                            margin: 0;
+                            color: rgb(0, 76, 255);
+                            &:hover{
+                                cursor: pointer;
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                    .avt-user{
+                        img{
+                            width: 70px;
+                            height: 70px;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+            .inner-tabs{
+                padding: 20px 20px 0px 20px;
+                .account-me{
+                    svg{
+                        color: #D13D9E;
+                    }
+                }
+                p{
+                    color: #757575;
+                    padding-left: 20px;
+                    &:hover{
+                        cursor: pointer;
+                        color: rgb(0, 76, 255);
+                    }
+                }
+                .activeTab{
+                    color: rgb(0, 76, 255) !important;
+                }
+            }
+        }
+        .all-content{
+            width: 80%;
+            .inner-content{
+                margin: 0;
+                margin-left: 20px;
+                .title-tab {
+                    margin: 0;
+                    padding: 20px 0 10px 10px;
+                    border-bottom: 1px solid #e7e4e4;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    .inner-titletab{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        p {
+                            font-size: 20px;
+                            font-weight: bold;
+                            color: #BF9528;
+                        }
+                        .add-address{
+                            .btn-add-adr{
+                                button{
+                                    padding: 7px 20px 5px;
+                                    border-radius: 5px;
+                                    border: 1px solid #D13D9E;
+                                    display: flex;
+                                    background-color: #cdcdcd;
+                                    color: #000;
+                                    &:hover{
+                                        cursor: pointer;
+                                        background-color: #BF9528;
+                                        color: #fff;
+                                    }
+                                    .icon-add{
+                                        font-size: 20px;
+                                        padding-top: 4px;
+                                    }
+                                    span{
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                .all-detail{
+                    padding: 10px;
+                    border-bottom: 1px solid #e7e4e4;
+                    .inner-file{
+                        display: flex;
+                        flex-direction: row;
+                        .picture-frame{
+                            width: 40%;
+                            .inner-picture{
+                                .title-picture{ 
+                                    span{
+                                        color: #ff4d4f;
+                                        margin-right: 10px;
+                                        
+                                    }
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                }
+                                .change-picture{
+                                    text-align: center;
+                                    display: flex;
+                                    flex-direction: row;
+                                    justify-content: center;
+                                    padding-top: 30px;
+                                    .inner-change-pic{
+                                        display: flex;
+                                        flex-direction: column;
+                                        img{
+                                            width: 200px;
+                                            height: 200px;
+                                            border-radius: 50%;
+                                        }
+                                        .btn-change-avt{
+                                            button{
+                                                margin-top: 20px;
+                                                padding: 10px 20px;
+                                                border: 1px solid #D13D9E;
+                                                color: #000;
+                                                background-color: #fff;
+                                                border-radius: 5px;
+                                                font-size: 12px;
+                                                &:hover{
+                                                    cursor: pointer;
+                                                    background-color: #cdcdcd;
+                                                }
+                                                input{
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .infomation{
+                            width: 60%;
+                            padding: 0 30px;
+                            .inner-info{
+                                .ant-form{
+                                    .ant-form-item{
+                                        margin-bottom: 10px;
+                                        .ant-col{
+                                            padding-bottom: 0;
+                                            text-align: left;
+                                            label{
+                                                font-weight: bold;
+                                            }
+                                            .ant-form-item-control-input{
+                                                margin: 0;
+                                                .ant-space{
+                                                    width: 100%;
+                                                    .ant-space-item{
+                                                        margin: 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .ant-picker{
+                                            width: 100%;
+                                        }
+                                    }
+                                }
+                                .save{
+                                    display: flex;
+                                    flex-direction: row-reverse;
+                                    button{
+                                        padding: 10px 20px;
+                                            border: 1px solid #D13D9E;
+                                            color: #000;
+                                            background-color: #fff;
+                                            border-radius: 5px;
+                                            font-size: 12px;
+                                            margin-top: 20px;
+                                            &:hover {
+                                                cursor: pointer;
+                                                background-color: #cdcdcd;
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
+.form-signup {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .full-signup {
+        max-width: 1200px;
+        padding: 10px;
+        border: 1px solid #cecece;
+        border-radius: 10px;
+
+        .title-signup {
+            text-align: center;
+
+            p {
+                color: #929292;
+            }
+        }
+
+        .full-type {
+            .inner-type {
+                margin-top: 10px;
+
+                .type {
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+
+                    .ant-form-item {
+                        margin-bottom: 7px;
+                        padding: 0 5px;
+
+                        .ant-form-item-label {
+                            padding: 0;
+                        }
+
+                        .ant-form-item-control {
+                            margin-left: 0;
+                        }
+
+                        .ant-picker {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .btn-sign {
+                    text-align: center;
+                    padding: 15px 0 5px 0;
+                }
+
+                .btn-lg {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+
+                    span {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

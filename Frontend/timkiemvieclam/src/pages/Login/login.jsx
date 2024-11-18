@@ -18,21 +18,18 @@ const Login = () =>{
   const apiLogin = async () => {
     try {
       const response = await axios.post(
-        "/api/login",{
+        "api/login",{
             email: username,
             password: password
         }
       );
       const users = response.data;
       console.log(users.data)
-    //   const user = users.find(
-    //     (user) => user.email === username && user.password === password
-    //   );
       if (users.data && users.data.token) {
         localStorage.setItem("authToken", users.data.token);
-        // localStorage.setItem("user", JSON.stringify(users));
         localStorage.setItem("user", users.data.role);
-        navigate(`/${PATH_PAGE.dscongviec}`);
+        localStorage.setItem("name", users.data.name)
+        navigate(`${PATH_PAGE.dscongviec}`);
         return true;
       } else {
         console.log("Đăng nhập thất bại:", users);
