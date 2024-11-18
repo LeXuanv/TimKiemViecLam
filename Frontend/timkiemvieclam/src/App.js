@@ -1,16 +1,14 @@
 import "./App.scss";
 import Layout from "./routers/layout";
-import axios from 'axios';  
+import axios from "axios";
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:8000';
+  axios.defaults.baseURL = "http://backend.test:8080";
 
   return (
-    
     <div className="App">
       <Layout />
     </div>
-    
   );
 }
 

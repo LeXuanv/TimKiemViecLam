@@ -12,23 +12,28 @@ import QlNguoiDung from "../pages/QLNguoiDung/qlnguoidung";
 import ChiTietCongViec from "../pages/DSCongViec/ChitietCongviec/chitietcongviec";
 import ChiTietCongty from "../pages/DSCongTy/thongtincongty/thongtinchitiet";
 import DangBai from "../pages/QLBaiDang/baidang/dangbai";
+import Profile from "../pages/Profile/profile";
 import Protected from "./protected";
 import { isAuthen } from "./isAuthen";
 
 const router =  createBrowserRouter(
     createRoutesFromElements(
         <Route path="/">
+            <Route index element={<DsCongViec />} />
+                <Route path={PATH_PAGE.chitietcongviec} element={<ChiTietCongViec />}>
+            </Route>
+            {/* <Route path={PATH_PAGE.dscongty} element={<DsCongTy />} /> */}
+            <Route path={PATH_PAGE.dscongty} element={<DsCongTy />} />
+                <Route path={PATH_PAGE.chitietcongty} element={<ChiTietCongty/>}>
+            </Route>
+            {/* <Route path={`${PATH_PAGE.dscongty}${PATH_PAGE.chitietcongty}`} element={<ChiTietCongty/>} /> */}
             <Route element={<Protected />}>
-                <Route index element={<DsCongViec />} />
-                    <Route path={PATH_PAGE.chitietcongviec} element={<ChiTietCongViec />}>
-                </Route>
-                <Route path={PATH_PAGE.dscongty} element={<DsCongTy />} />
-                <Route path={`${PATH_PAGE.dscongty}/${PATH_PAGE.chitietcongty}`} element={<ChiTietCongty/>} />
                 <Route path={PATH_PAGE.cv} element={<CV />} />
                 <Route path={PATH_PAGE.dtcongviec} element={<DtCongViec />} />
                 <Route path={PATH_PAGE.qlbaidang} element={<QlBaiDang />} />
-                <Route path={`${PATH_PAGE.qlbaidang}/${PATH_PAGE.dangbai}`} element={<DangBai />} />
+                <Route path={PATH_PAGE.dangbai} element={<DangBai />} />
                 <Route path={PATH_PAGE.qlnguoidung} element={<QlNguoiDung />} />
+                <Route path={PATH_PAGE.profile} element={<Profile />} />
             </Route>
             <Route loader={async () => await isAuthen()}>
                 <Route path={PATH_PAGE.login} element={<Login />} />
