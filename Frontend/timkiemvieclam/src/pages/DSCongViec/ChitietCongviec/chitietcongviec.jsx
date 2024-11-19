@@ -8,7 +8,8 @@ import CongViecUngTuyen from "./ungtuyencongviec";
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import UngTuyen from "./ungtuyen";
+import DanhDau from "./danhdau";
 
 const ChiTietCongViec = () => {
     const { id } = useParams();
@@ -35,6 +36,8 @@ const ChiTietCongViec = () => {
                     <div className="nua1">
                         <CongViecUngTuyen job = {job} />
                         <ChiTietTuyenDung job = {job}/>
+                        <UngTuyen job = {job}/>
+                        <DanhDau job = {job}/>
                     </div>
                     <div className="nua2">
                         <CongTyCongViec job = {job}/>

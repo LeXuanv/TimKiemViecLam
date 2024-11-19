@@ -31,7 +31,7 @@ const SignIn = () =>{
           role_id: role,
         }
       );
-      navigate(`/${PATH_PAGE.login}`);
+      navigate(`${PATH_PAGE.login}`);
       alert("Đăng ký thành công");
     } catch (error) {
       console.error("loi", error);

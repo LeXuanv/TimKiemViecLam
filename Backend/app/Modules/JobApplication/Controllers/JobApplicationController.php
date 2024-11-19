@@ -7,6 +7,7 @@ use App\Models\JobApplication;
 use App\Models\JobSeeker;
 use App\Models\JobVacancy;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -15,28 +16,48 @@ class JobApplicationController extends Controller
 {
     
    
-    public function toggleApply(Request $request, $jobVacancyId)
+    public function toggleApply($jobVacancyId)
     {
         $user = Auth::user();
         $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
-
-        $application = JobApplication::where('job_seeker_id', $jobSeeker->id)
+        DB::beginTransaction();
+        try {
+            $application = JobApplication::where('job_seeker_id', $jobSeeker->id)
                             ->where('job_vacancy_id', $jobVacancyId)
                             ->first();
 
-        if ($application) {
-            $application->delete();
-            return response()->json(['message' => 'Job unapplication successfully'], 200);
-        } else {
-            JobApplication::create([
-                'application_date' => now(),
-                'job_seeker_id' => $jobSeeker->id,
-                'job_vacancy_id' => $jobVacancyId,
-                'status' => 0,
-            ]);
-            return response()->json(['message' => 'Job application successfully'], 201);
+            if ($application) {
+                $application->delete();
+                $message = 'Job unapplication successfully';
+            } else {
+                JobApplication::create([
+                    'application_date' => now(),
+                    'job_seeker_id' => $jobSeeker->id,
+                    'job_vacancy_id' => $jobVacancyId,
+                    'status' => 0,
+                ]);
+                $message = 'Job application successfully';
+            }
+
+            DB::commit();
+            return response()->json(['message' => $message], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
     }
+    
+    public function checkApplication($jobVacancyId){
+        $user = Auth::user();
+        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+        $application = JobApplication::where('job_seeker_id', $jobSeeker->id)
+                            ->where('job_vacancy_id', $jobVacancyId)
+                            ->first();
+        return response()->json([
+            'isApplied' => $application ? true : false
+        ]);
+    }
+
     public function indexOfSeeker()
     {
         $user = Auth::user();

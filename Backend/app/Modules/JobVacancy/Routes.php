@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Middleware\Cors;
-use App\Modules\JobVacancy\Controllers\JobVacancyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'App\Modules\JobVacancy\Controllers',
-    'middleware' => ['auth:sanctum', Cors::class]
+    'middleware' => ['api']
 ], function () {
     Route::group(['prefix' => 'job-vacancy'], function () {
         Route::get('/', 'JobVacancyController@index');

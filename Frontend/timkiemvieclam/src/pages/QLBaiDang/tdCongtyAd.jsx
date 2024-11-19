@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import ModalCtBaiDang from "./modalChitietbaidang";
 
 /*
 const TuyenDungCongtyAd = ({modal, setModal}) => {
@@ -84,7 +85,7 @@ export default TuyenDungCongtyAd;
 const TuyenDungCongtyAd = ({ modal, setModal }) => {
     const token = localStorage.getItem('authToken');
     const [jobs, setJobs] = useState([]);
-
+    const [selectedJob, setSelectedJob] = useState(null);
     useEffect(() => {
         const fetchAllJobs = async () => {
             try {
@@ -102,7 +103,10 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
     
         fetchAllJobs(); 
     }, [token]); 
-    
+    const handleJobClick = (job) => {
+        setSelectedJob(job);  // Set selected job
+        setModal(true);       // Open modal
+    };
     return(
         
             <div className="tuyendungCty">
@@ -141,7 +145,7 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
                         <div className="ttTuyendung">
                             {jobs.length > 0 ? (
                                 jobs.map((job) => (
-                                    <div key={job.id} onClick={() => setModal(true)} className="link-deital">
+                                    <div key={job.id} onClick={() => handleJobClick(job)} className="link-deital">
                                         <div className="box-cv">
                                             <div className="box">
                                                 <div className="img">
@@ -175,6 +179,15 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
                     </div>
                     
                 </div>
+                {modal && selectedJob && (
+                    <ModalCtBaiDang
+                        modal={modal}
+                        setModal={setModal}
+                        job={selectedJob} // Pass the selected job data to the modal
+                        handleClickOutside={() => setModal(false)}
+                    />
+                )}
+                
             </div>
         
     )

@@ -13,7 +13,7 @@ class JobPositionController extends Controller
     {
         $jobPositions = JobPosition::All();
         $jobPositionDTOs = $jobPositions->map(function ($jobPosition) {
-            return new GetJobPositionDTO($jobPosition->name);
+            return new GetJobPositionDTO($jobPosition->name, $jobPosition->id);
         });
         return response()->json($jobPositionDTOs);
     }
@@ -73,7 +73,7 @@ class JobPositionController extends Controller
                           ->orderBy('name', 'asc')
                           ->get();
         $jobPositionDTOs = $jobPositions->map(function ($jobPosition) {
-            return new GetJobPositionDTO($jobPosition->name);
+            return new GetJobPositionDTO($jobPosition->name, $jobPosition->id);
         });
         return response()->json($jobPositionDTOs);
         

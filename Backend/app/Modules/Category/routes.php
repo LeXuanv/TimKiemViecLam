@@ -1,6 +1,5 @@
 <?php
 
-use App\Modules\Address\Controllers\ProvinceController;
 use App\Modules\Category\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'api/',
-    'namespace' => 'App\Modules\Address\Controllers',
+    'namespace' => 'App\Modules\Category\Controllers',
     'middleware' => []
 ], function () {
     // Province routes

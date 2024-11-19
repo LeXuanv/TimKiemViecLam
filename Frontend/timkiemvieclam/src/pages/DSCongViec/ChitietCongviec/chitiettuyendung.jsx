@@ -1,3 +1,5 @@
+
+
 const ChiTietTuyenDung = ({job}) =>{
     if (!job) return null;
     return(
