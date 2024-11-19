@@ -8,7 +8,7 @@ Route::group([
     'namespace' => 'App\Modules\User\Controllers',
     'middleware' => ['api']
 ], function () {
-    Route::group(['middleware' => ['api-auth']], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/show', [UserController::class, 'show']);
         Route::get('/edit', [UserController::class, 'edit']);
         Route::post('/update', [UserController::class, 'update']);

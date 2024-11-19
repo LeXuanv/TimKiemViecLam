@@ -9,7 +9,7 @@ Route::group([
     'middleware' => ['api']
 ], function () {
     Route::get('/get', [SkillController::class, 'get']);
-    Route::group(['middleware' => ['api-auth', 'admin']], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'admin']], function () {
         Route::post('/store', [SkillController::class, 'store']);
         Route::post('/update', [SkillController::class, 'update']);
         Route::post('/delete', [SkillController::class, 'destroy']);

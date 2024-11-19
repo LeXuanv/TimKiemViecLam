@@ -11,7 +11,7 @@ Route::group([
     Route::get('/skill/{id}', [JobSeekerController::class, 'getSkill']);
     Route::get('/education-detail/{id}', [JobSeekerController::class, 'getEducationDetail']);
 
-    Route::group(['middleware' => ['api-auth', 'job_seeker']], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'job_seeker']], function () {
 
 //        Skill
         Route::post('/skill/update', [JobSeekerController::class, 'updateSkill']);
