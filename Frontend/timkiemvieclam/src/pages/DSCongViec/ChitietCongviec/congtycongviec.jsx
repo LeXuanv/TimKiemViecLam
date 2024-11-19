@@ -19,17 +19,6 @@ const CongTyCongViec = ({job}) =>{
                             <span>{job.companyName}</span>
                         </div>
                     </div>
-                    {/* <div className="box-chitiet">
-                        <div className="icon-chitiet">
-                            <FaUserGroup />
-                            <div className="tentitle">
-                                <span>Quy mô:</span>
-                            </div>
-                        </div>
-                        <div className="ttchitiet">
-                            <span>10 - 24 nhân viên</span>
-                        </div>
-                    </div> */}
                     <div className="box-chitiet">
                         <div className="icon-chitiet">
                             <FaCube />
@@ -45,7 +34,7 @@ const CongTyCongViec = ({job}) =>{
                         <div className="icon-chitiet">
                             <FaMapMarkerAlt />
                             <div className="tentitle">
-                                <span>Đại điểm:</span>
+                                <span>Địa điểm:</span>
                             </div>
                         </div>
                         <div className="ttchitiet">

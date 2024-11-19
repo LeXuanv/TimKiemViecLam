@@ -94,7 +94,9 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log(response.data); 
+                
+                console.log("cascasc" , response.data);
+
                 setJobs(response.data);  
             } catch (error) {
                 console.error("Error fetching all jobs:", error);  
@@ -107,6 +109,7 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
         setSelectedJob(job);  // Set selected job
         setModal(true);       // Open modal
     };
+    console.log("dataadfadf job0:" , jobs)
     return(
         
             <div className="tuyendungCty">
@@ -183,7 +186,7 @@ const TuyenDungCongtyAd = ({ modal, setModal }) => {
                     <ModalCtBaiDang
                         modal={modal}
                         setModal={setModal}
-                        job={selectedJob} // Pass the selected job data to the modal
+                        job={selectedJob}
                         handleClickOutside={() => setModal(false)}
                     />
                 )}

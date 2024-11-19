@@ -7,18 +7,28 @@ import React, { useState, useEffect } from 'react';
 
 
 const DsCongViec = () => {
-    // return(
-    //     <>
-        // <MainLayout>
-        //     <div style={{background:"rgb(249 249 249)"}}>
-        //         <SearchCongViec/>
-        //         <BoxCongViec/>
-        //     </div>
-        // </MainLayout>
-    //     </>
-    // )
+  
     const [jobs, setJobs] = useState([]); 
     const [isSearching, setIsSearching] = useState(false);
+    const [jobTitle, setJobTitle] = useState("");
+    const [province, setProvince] = useState(""); 
+    const [category, setCategory] = useState(""); 
+    const [provinces, setProvinces] = useState([]); 
+    const [categories, setCategories] = useState([]); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const provinceResponse = await axios.get('/api/province');  
+                const categoryResponse = await axios.get('/api/category');  
+                setProvinces(provinceResponse.data);
+                setCategories(categoryResponse.data);
+            } catch (error) {
+                console.error("Error fetching provinces or categories:", error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const fetchAllJobs = async () => {
         try {
@@ -67,7 +77,17 @@ const DsCongViec = () => {
             
             <MainLayout>
             <div style={{background:"rgb(249 249 249)"}}>
-                <SearchCongViec onSearch={handleSearch} />
+                <SearchCongViec 
+                    onSearch={handleSearch} 
+                    jobTitle={jobTitle} 
+                    province={province} 
+                    category={category} 
+                    provinces={provinces} 
+                    categories={categories}
+                    setJobTitle={setJobTitle}
+                    setProvince={setProvince}
+                    setCategory={setCategory}   
+                    />
                 <BoxCongViec jobs={jobs} isSearching={isSearching} />
             </div>
             </MainLayout>

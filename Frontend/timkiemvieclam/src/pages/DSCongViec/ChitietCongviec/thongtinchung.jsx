@@ -37,17 +37,6 @@ const ThongTinChung = ({job}) =>{
                             </div>
                         </div>
                     </div>
-                    {/* <div className="boxthongtin">
-                        <div className="box">
-                            <div className="icon">
-                                <FaUserFriends />
-                            </div>
-                            <div className="ctthongtintd">
-                                <span className="tenthongtin">Số lượng tuyển</span>
-                                <span className="ctthongtin">10 người</span>
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="boxthongtin">
                         <div className="box">
                             <div className="icon">
