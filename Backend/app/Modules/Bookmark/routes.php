@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group([
-    'prefix' => 'user',
+    'prefix' => 'user/jobs',
     'namespace' => 'App\Modules\Bookmark\Controllers',
-    'middleware' => ['auth:sanctum']
+    'middleware' => ['api']
 ], function () {
-    Route::prefix('jobs')->group(function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/bookmarks', [BookmarkController::class, 'index']);
-        Route::post('/{job_vacancy}/bookmarks', [BookmarkController::class, 'toggleBookmark']);
+        Route::post('/{job_vacancy}/bookmark', [BookmarkController::class, 'toggleBookmark']);
+        Route::get('/{job_vacancy}/check-bookmark', [BookmarkController::class, 'checkBookmark']);
+
     });
 });

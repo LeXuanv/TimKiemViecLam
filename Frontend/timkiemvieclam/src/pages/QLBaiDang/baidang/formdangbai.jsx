@@ -104,6 +104,7 @@ const FormDangBai = () => {
     const token = localStorage.getItem('authToken');
     const [provinces, setProvinces] = useState([]); 
     const [categories, setCategories] = useState([]);
+    const [jobPositions, setJobPositions] = useState([]);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -125,8 +126,10 @@ const FormDangBai = () => {
             try {
                 const provinceResponse = await axios.get('/api/province');  
                 const categoryResponse = await axios.get('/api/category');  
+                const jobPositionResponse = await axios.get('/admin/job-position');  
                 setProvinces(provinceResponse.data);
                 setCategories(categoryResponse.data);
+                setJobPositions(jobPositionResponse.data);
             } catch (error) {
                 console.error("Error fetching provinces or categories:", error);
             }
@@ -159,10 +162,10 @@ const FormDangBai = () => {
                 }
             });
             alert("Đăng bài thành công");
-            console.log('Job posted successfully:', response.data);
+            console.log('Đăng bài thành công:', response.data);
         } catch (error) {
-            console.error("Có lỗi xảy ra:", error);
             alert("Đăng bài thất bại");
+            console.error("Có lỗi xảy ra:", error);
         }
         console.log(formData);
     };
@@ -244,12 +247,17 @@ const FormDangBai = () => {
                         </select>
                     </div>
                     <div className="genner">
-                        <select name="jobPositionName" value={formData.jobPositionName} onChange={handleChange}>
+                        <select 
+                            name="jobPositionName" 
+                            value={formData.jobPositionName} 
+                            onChange={handleChange}
+                        >
                             <option value="">Cấp bậc</option>
-                            <option value="1">Giám Đốc</option>
-                            <option value="2">Phó Giám Đốc</option>
-                            <option value="3">Trường Phòng</option>
-                            <option value="4">Nhân Viên</option>
+                            {jobPositions.map((jobPosition) => (
+                                <option key={jobPosition.id} value={jobPosition.id}>
+                                    {jobPosition.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div className="genner">

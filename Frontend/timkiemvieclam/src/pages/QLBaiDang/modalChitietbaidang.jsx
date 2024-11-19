@@ -1,4 +1,4 @@
-
+/*
 import React from 'react';
 import { DatePicker, Space } from 'antd';
 import moment from 'moment';
@@ -117,5 +117,69 @@ const ModalCtBaiDang = ({modal,setModal,handleClickOutside}) => {
     )
     
 }
+
+export default ModalCtBaiDang;
+
+*/
+import React from 'react';
+import { DatePicker, Space } from 'antd';
+import moment from 'moment';
+
+const ModalCtBaiDang = ({ modal, setModal, handleClickOutside, job }) => {
+    if (!job) return null;
+
+    return (
+        <div className="modal-chitietbaidang" onClick={handleClickOutside}>
+            <div className="chitietbaidang" onClick={(e) => e.stopPropagation()}>
+                <span onClick={() => setModal(false)} className="close-button">&times;</span>
+                <div className="formDangBai">
+                    <div className="tieudeBaidang">
+                        <span>Chi tiết bài đăng tuyển dụng</span>
+                    </div>
+                    <div className="tieudemuc">
+                        <span>Thông tin cơ bản</span>
+                    </div>
+                    <div className="fullprofile">
+                        <div className="name">
+                            <input value={job.title} readOnly placeholder="Tên vị trí cần tuyển dụng" />
+                        </div>
+                        <div className="birthday">
+                            <Space direction="vertical">
+                                <DatePicker
+                                    placeholder="Ngày hết hạn tuyển dụng"
+                                    defaultValue={moment(job.applicationDeadline, 'YYYY-MM-DD')}
+                                    disabled
+                                />
+                            </Space>
+                        </div>
+                    </div>
+                    <div className="tieudemuc">
+                        <span>Chi tiết tuyển dụng</span>
+                    </div>
+                    <div className='comment'>
+                        <input value={job.description} readOnly placeholder='Mô tả công việc'></input>
+                    </div>
+                    <div className="tieudemuc">
+                        <span>Thông tin chung</span>
+                    </div>
+                    <div className="fullprofile mg-bt20">
+                        <div className="name">
+                            <input value={job.salary} readOnly placeholder="Mức lương" />
+                        </div>
+                        <div className="tinh">
+                            <select name="tinh" value={job.provinceName} readOnly>
+                                <option value>{job.provinceName}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="capnhatvsxoa">
+                    <button className='capnhat'>Cập nhật</button>
+                    <button className='xoa'>Xóa</button>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default ModalCtBaiDang;

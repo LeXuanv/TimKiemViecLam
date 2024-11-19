@@ -94,12 +94,16 @@ class JobVacancyService
         }
 
         $dto = new GetByIdJobVacancyDTO();
+        $dto->id = $jobVacancy->id;
         $dto->title = $jobVacancy->title;
         $dto->description = $jobVacancy->description;
         $dto->salary = $jobVacancy->salary;
         $dto->employmentType = $jobVacancy->employment_type;
         $dto->applicationDateline = $jobVacancy->application_deadline;
-        $dto->address = $jobVacancy->address;
+        // $dto->address = $jobVacancy->address;
+        $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
+
+
         $dto->request = $jobVacancy->request;
         $dto->interest = $jobVacancy->interest;
         $dto->location = $jobVacancy->location;
