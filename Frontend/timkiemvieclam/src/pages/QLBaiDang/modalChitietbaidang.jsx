@@ -1,133 +1,148 @@
-/*
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { DatePicker, Space } from 'antd';
 import moment from 'moment';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const ModalCtBaiDang = ({modal,setModal,handleClickOutside}) => {
-    return(
-        
-            <div className="modal-chitietbaidang " onClick={handleClickOutside}>
-                <div className="chitietbaidang">
-                    <span onClick={() => setModal(!modal)} class="close-button">&times;</span>
-                    <div className="formDangBai">
-                        <div className="tieudeBaidang">
-                            <span>Chi tiết bài đăng tuyển dụng</span>
-                        </div>
-                        <div className="tieudemuc">
-                            <span>Thông tin cơ bản</span>
-                        </div>
-                        <div className="fullprofile">
-                            <div className="name">
-                                <input value="Thực tập sinh Laravel" placeholder="Nhập tên vị trí cần tuyển dụng..."/>
-                            </div>
-                            <div className="birthday">
-                                <Space direction="vertical">
-                                    <DatePicker 
-                                        placeholder="Ngày hết hạn tuyển dụng"
-                                        defaultValue={moment('2024-11-20', 'YYYY-MM-DD')}
-                                    />
-                                </Space>
-                            </div>
-                        </div>
-                        <div className="tieudemuc">
-                            <span>Chi tiết tuyển dụng</span>
-                        </div>
-                        <div className='comment'>
-                            <textarea value="- Mời khách hàng tham gia hội thảo về sức khỏe theo data có sẵn từ Công ty cung cấp
-                                            - Hỗ trợ khách hàng đặt dịch vụ
-                                            - Chăm sóc và đồng hành cùng khách hàng trong hành trình sống khỏe
-                                            - Lên kế hoạch công việc và báo cáo hàng tuần
-                                            - Thực hiện các công việc khác theo chỉ thị của quản lý"
-                                            placeholder='Mô tả công việc'></textarea>
-                            <textarea value="- Tốt nghiệp cao đẳng, đại học hoặc sinh viên đang chờ bằng
-                                            - Ưu tiên ứng viên có kinh nghiệm trong lĩnh vực chăm sóc sức khỏe, y tế.
-                                            - Không có kinh nghiệm sẽ được đào tạo từ Công ty
-                                            - Kỹ năng giao tiếp tốt
-                                            - Yêu thích công việc bán hàng, thích gặp gỡ khách hang" 
-                                            placeholder='Yêu cầu ứng viên'></textarea>
-                            <textarea value="- Lương cứng 7M + Thưởng hoa hồng 7 – 10% + Thưởng nóng
-                                            - Chế độ BHXH, BHYT, BHTN, nghỉ lễ tết theo quy định của nhà nước
-                                            - Được tham gia quy trình đào tạo bài bản và đặc biệt hưởng lương trong thời gian đào tạo." 
-                                            placeholder='Quyền lợi'></textarea>
-                            <textarea value="- Hà Nội: 85 Nguyễn Du, Phường Nguyễn Du, Hai Bà Trưng" 
-                                            placeholder='Địa điểm làm việc'></textarea>
-                            <textarea value="- Thứ 2 - Thứ 6 (từ 08:00 đến 17:30)" 
-                                            placeholder='Thời gian làm việc'></textarea>
-                        </div>
-                        <div className="tieudemuc">
-                            <span>Thông tin chung</span>
-                        </div>
-                        <div className="fullprofile mg-bt20">
-                            <div className="name">
-                                <input value="20 - 50 triệu" placeholder="Mức lương"/>
-                            </div>
-                            <div className="tinh">
-                                <select name="tinh" id="tinh">
-                                    <option value >Địa điểm</option>
-                                    <option value="1">Hà Nội</option>
-                                    <option value="2">TP Hồ Chí minh</option>
-                                </select>
-                            </div>
-                            <div className="exp">
-                                <select name="exp" id="exp">
-                                    <option value>Chọn kinh ngiệm</option>
-                                    <option value="1">Chưa có</option>
-                                    <option value="2">Dưới 1 năm</option>
-                                    <option value="3">1 - 2 năm</option>
-                                    <option value="3">2 - 3 năm</option>
-                                    <option value="3">3 - 4 năm</option>
-                                    <option value="3">4 - 5 năm</option>
-                                    <option value="3">Trên 5 năm</option>
-                                </select>
-                            </div>
-                            <div className="genner">
-                                <select name="genner" id="genner">
-                                    <option value>Cấp bậc</option>
-                                    <option value="1">Nhân viên</option>
-                                    <option value="2">Quản lý</option>
-                                    <option value="3">Trưởng nhóm</option>
-                                    <option value="3">Trưởng phòng</option>
-                                </select>
-                            </div>
-                            <div className="genner">
-                                <select name="genner" id="genner">
-                                    <option value>Hình thức làm việc</option>
-                                    <option value="1">Toàn thời gian</option>
-                                    <option value="2">Bán thời gian</option>
-                                    <option value="3">Cả 2 kết hợp</option>
-                                </select>
-                            </div>
-                            <div className="genner">
-                                <select name="genner" id="genner">
-                                    <option value>Giới tính</option>
-                                    <option value="1">Nam</option>
-                                    <option value="2">Nữ</option>
-                                    <option value="3">Cả 2</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="capnhatvsxoa">
-                        <button className='capnhat'>Cập nhật</button>
-                        <button className='xoa'>Xóa</button>
-                    </div>
-                </div>
-            </div>
-        
-    )
+const ModalCtBaiDang = ({ 
+    modal, 
+    setModal, 
+    handleClickOutside, 
+    selectedJob, 
+    handleDeleteJob,
+    token
+}) => {
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        request: "",
+        interest: "",
+        location: "",
+        workTime: "",
+        salary: "",
+        provinceName: "",
+        experience: "",
+        jobPositionName: "",
+        employmentType: "",
+        gender: "",
+        categoryName: "",
+        applicationDeadline: "",
+    });
+
+    const [provinces, setProvinces] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [jobPositions, setJobPositions] = useState([]);
+    const navigate = useNavigate(); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const provinceResponse = await axios.get('/api/province');
+                const categoryResponse = await axios.get('/api/category');
+                const jobPositionResponse = await axios.get('/admin/job-position');
+                setProvinces(provinceResponse.data);
+                setCategories(categoryResponse.data);
+                setJobPositions(jobPositionResponse.data);
+
+                if (selectedJob) {
+                    setFormData({
+                        title: selectedJob.title,
+                        description: selectedJob.description,
+                        request: selectedJob.request,
+                        interest: selectedJob.interest,
+                        location: selectedJob.location,
+                        workTime: selectedJob.workTime,
+                        salary: selectedJob.salary,
+                        provinceName: selectedJob.provinceName,
+                        experience: selectedJob.experience,
+                        jobPositionName: selectedJob.jobPositionName,
+                        employmentType: selectedJob.employmentType,
+                        gender: selectedJob.gender,
+                        categoryName: selectedJob.categoryName,
+                        applicationDeadline: moment(selectedJob.applicationDeadline),
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching provinces or categories:", error);
+            }
+        };
+
+        fetchData();
+    }, [selectedJob]); 
+    useEffect(() => {
+        const selectedProvince = provinces.find(
+            (province) => province.name === formData.provinceName
+        );
+        if (selectedProvince) {
+            setFormData((prev) => ({
+                ...prev,
+                provinceName: selectedProvince.code, 
+            }));
+        }
+    }, [provinces, formData.provinceName]);
     
-}
+    useEffect(() => {
+        const selectedCategory = categories.find(
+            (category) => category.name === formData.categoryName
+        );
+        if (selectedCategory) {
+            setFormData((prev) => ({
+                ...prev,
+                categoryName: selectedCategory.id, 
+            }));
+        }
+    }, [categories, formData.categoryName]);
+    
+    useEffect(() => {
+        const selectedJobPosition = jobPositions.find(
+            (jobPosition) => jobPosition.name === formData.jobPositionName
+        );
+        if (selectedJobPosition) {
+            setFormData((prev) => ({
+                ...prev,
+                jobPositionName: selectedJobPosition.id,
+            }));
+        }
+    }, [jobPositions, formData.jobPositionName]);
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
-export default ModalCtBaiDang;
+    const handleDateChange = (date, dateString) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            applicationDeadline: dateString,
+        }));
+    };
 
-*/
-import React from 'react';
-import { DatePicker, Space } from 'antd';
-import moment from 'moment';
+    const handleUpdateJob = async () => {
+        try {
+            const response = await axios.put(`/company/job-vacancy/update/${selectedJob.id}`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            console.log(token);
+            alert('Cập nhật thành công!');
+            setModal(false);
+            navigate('/qlcongty');
 
-const ModalCtBaiDang = ({ modal, setModal, handleClickOutside, job }) => {
-    if (!job) return null;
-
+            window.location.reload();
+        } catch (error) {
+            console.error('Error updating job:', error);
+            alert('Lỗi khi cập nhật!');
+            
+        }
+    };
+    
+    if (!formData) return null;
+    console.log(formData);
     return (
         <div className="modal-chitietbaidang" onClick={handleClickOutside}>
             <div className="chitietbaidang" onClick={(e) => e.stopPropagation()}>
@@ -141,14 +156,20 @@ const ModalCtBaiDang = ({ modal, setModal, handleClickOutside, job }) => {
                     </div>
                     <div className="fullprofile">
                         <div className="name">
-                            <input value={job.title} readOnly placeholder="Tên vị trí cần tuyển dụng" />
+                            <input 
+                                name="title"
+                                value={formData.title}
+                                onChange={handleChange}
+                                placeholder="Tên vị trí cần tuyển dụng"
+                            />
                         </div>
                         <div className="birthday">
                             <Space direction="vertical">
                                 <DatePicker
+                                    name="applicationDeadline"
                                     placeholder="Ngày hết hạn tuyển dụng"
-                                    defaultValue={moment(job.applicationDeadline, 'YYYY-MM-DD')}
-                                    disabled
+                                    value={formData.applicationDeadline ? moment(formData.applicationDeadline) : null}
+                                    onChange={handleDateChange}
                                 />
                             </Space>
                         </div>
@@ -156,26 +177,137 @@ const ModalCtBaiDang = ({ modal, setModal, handleClickOutside, job }) => {
                     <div className="tieudemuc">
                         <span>Chi tiết tuyển dụng</span>
                     </div>
-                    <div className='comment'>
-                        <input value={job.description} readOnly placeholder='Mô tả công việc'></input>
+                    <div className="comment">
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Mô tả công việc"
+                        />
+                    </div>
+                    <div className="comment">
+                        <textarea
+                            name="request"
+                            value={formData.request}
+                            onChange={handleChange}
+                            placeholder="Yêu cầu công việc"
+                        />
+                    </div>
+                    <div className="comment">
+                        <textarea
+                            name="interest"
+                            value={formData.interest}
+                            onChange={handleChange}
+                            placeholder="Quyền lợi"
+                        />
+                    </div>
+                    <div className="comment">
+                        <textarea
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="Địa điểm làm việc"
+                        />
+                    </div>
+                    <div className="comment">
+                        <textarea
+                            name="workTime"
+                            value={formData.workTime}
+                            onChange={handleChange}
+                            placeholder="Thời gian làm việc"
+                        />
                     </div>
                     <div className="tieudemuc">
                         <span>Thông tin chung</span>
                     </div>
                     <div className="fullprofile mg-bt20">
                         <div className="name">
-                            <input value={job.salary} readOnly placeholder="Mức lương" />
+                            <input
+                                name="salary"
+                                value={formData.salary}
+                                onChange={handleChange}
+                                placeholder="Mức lương"
+                            />
                         </div>
                         <div className="tinh">
-                            <select name="tinh" value={job.provinceName} readOnly>
-                                <option value>{job.provinceName}</option>
+                            <select
+                                name="provinceName"
+                                value={formData.provinceName}
+                                onChange={handleChange}
+                            >
+                                <option value="">Tất cả các tỉnh</option>
+                                {provinces.map((province) => (
+                                    <option key={province.code} value={province?.code}>
+                                        {province.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="exp">
+                            <select name="experience" value={formData.experience} onChange={handleChange}>
+                                <option value="">Chọn kinh nghiệm</option>
+                                <option value="Không yêu cầu kinh nghiệm">Không yêu cầu kinh nghiệm</option>
+                                <option value="Dưới 1 năm">Dưới 1 năm</option>
+                                <option value="1 - 2 năm">1 - 2 năm</option>
+                                <option value="2 - 3 năm">2 - 3 năm</option>
+                                <option value="3 - 4 năm">3 - 4 năm</option>
+                                <option value="4 - 5 năm">4 - 5 năm</option>
+                                <option value="Trên 5 năm">Trên 5 năm</option>
+                            </select>
+                        </div>
+                        <div className="tinh">
+                            <select
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleChange}
+                            >
+                                <option value="">Chọn giới tính</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Không yêu cầu">Cả hai</option>
+                            </select>
+                        </div>
+                        <div className="tinh">
+                            <select
+                                name="categoryName"
+                                value={formData.categoryName}
+                                onChange={handleChange}
+                            >
+                                <option value="">Tất cả các ngành nghề</option>
+                                {categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="genner">
+                            <select
+                                name="jobPositionName"
+                                value={formData.jobPositionName}
+                                onChange={handleChange}
+                            >
+                                <option value="">Cấp bậc</option>
+                                {jobPositions.map((jobPosition) => (
+                                    <option key={jobPosition.id} value={jobPosition.id}>
+                                        {jobPosition.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="genner">
+                            <select name="employmentType" value={formData.employmentType} onChange={handleChange}>
+                                <option value="">Hình thức làm việc</option>
+                                <option value="Toàn thời gian">Toàn thời gian</option>
+                                <option value="Bán thời gian">Bán thời gian</option>
+                                <option value="Linh động thời gian">Cả 2 kết hợp</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div className="capnhatvsxoa">
-                    <button className='capnhat'>Cập nhật</button>
-                    <button className='xoa'>Xóa</button>
+                    <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
+                    <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
                 </div>
             </div>
         </div>

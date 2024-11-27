@@ -19,28 +19,29 @@ const Profile = () => {
   const [date, setdate] = useState("");
   const [exp, setExp] = useState("");
   const [password, setPassword] = useState("");
-
+  
+  const [dataUser, setDataUser] = useState("");
   const HandleTitle = (newtitle) => {
     setTitleTabs(newtitle);
   };
   const user =  localStorage.getItem("user");
   useEffect(() => {
-    // Định nghĩa hàm để gọi API
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("authToken");
         const response = await axios.get("api/user/show", {
           headers: {
-            Authorization: `Bearer ${token}`, // thêm token vào header
+            Authorization: `Bearer ${token}`,
           },
         });
-        console.log("lấy dl:",response.data); // Cập nhật state với dữ liệu từ API
+        console.log("lấy dl:",response.data);
+        setDataUser(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
     };
 
-    fetchUserData(); // Gọi hàm lấy dữ liệu khi component mount
+    fetchUserData(); 
   }, []);
   // const apiChanggeAcout = async () => {
   //   try {
@@ -74,7 +75,7 @@ const Profile = () => {
             <div className="all-content">
               <div className="inner-content">
                 {titleTabs === "Hồ sơ" ? (
-                  <DetailFile user={user} />
+                  <DetailFile user={user} dataUser={dataUser} />
                 ) : (
                   <ChangePassword />
                 )}
