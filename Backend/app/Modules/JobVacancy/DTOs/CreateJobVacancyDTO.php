@@ -8,7 +8,7 @@ class CreateJobVacancyDTO
     public $description;
     public $salary;
     public $employmentType;
-    public $applicationDateline;
+    public $applicationDeadline;
     public $categoryName;
     public $jobPositionName;
     public $address;

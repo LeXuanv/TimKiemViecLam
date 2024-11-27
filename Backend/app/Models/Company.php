@@ -44,6 +44,9 @@ class Company extends Model
 		'name',
 		'email',
 		'phone_number',
+		'description',
+		'scale',
+		'logo',
 		'address',
 		'ward_code',
 		'user_id'
@@ -80,6 +83,10 @@ class Company extends Model
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'ward_code' => $this->ward_code,
+			'email' => $this->email,
+			'description' => $this->description,
+            'scale' => $this->scale,
+            'logo' => $this->logo,
         ];
     }
 }

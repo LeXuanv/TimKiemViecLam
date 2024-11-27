@@ -41,7 +41,7 @@ Route::group([
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', 'JobVacancyController@index');
         Route::get('/get-publish', 'JobVacancyController@indexJobPublishByCompany');
-        Route::put('/update', 'JobVacancyController@update');
+        Route::put('/update/{id}', 'JobVacancyController@update');
         Route::post('/store', 'JobVacancyController@store');
         Route::delete('/destroy/{id}', 'JobVacancyController@destroy');
         Route::get('/show/{id}', 'JobVacancyController@show');

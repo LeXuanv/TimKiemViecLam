@@ -34,6 +34,7 @@ const router =  createBrowserRouter(
                 <Route path={PATH_PAGE.dangbai} element={<DangBai />} />
                 <Route path={PATH_PAGE.qlnguoidung} element={<QlNguoiDung />} />
                 <Route path={PATH_PAGE.profile} element={<Profile />} />
+
             </Route>
             <Route loader={async () => await isAuthen()}>
                 <Route path={PATH_PAGE.login} element={<Login />} />

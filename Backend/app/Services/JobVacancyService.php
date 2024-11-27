@@ -42,16 +42,28 @@ class JobVacancyService
         $jobVacancies = JobVacancy::where('company_id', $company->id)->get();
 
         return $jobVacancies->map(function ($jobVacancy) {
-            $dto = new GetJobVacancyDTO();
+            $dto = new GetByIdJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
+            $dto->description = $jobVacancy->description;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
-            
+            $dto->applicationDeadline = $jobVacancy->application_deadline;
+            // $dto->address = $jobVacancy->address;
+            $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
+
+
+            $dto->request = $jobVacancy->request;
+            $dto->interest = $jobVacancy->interest;
+            $dto->location = $jobVacancy->location;
+            $dto->workTime = $jobVacancy->work_time;
+            $dto->experience = $jobVacancy->experience;
+            $dto->gender = $jobVacancy->gender;
+
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName =  Province::find($jobVacancy->province_code) -> name ?? null;
+            $dto->provinceName = Province::find($jobVacancy->province_code)->name ?? null;
 
             return $dto;
         });
@@ -71,16 +83,28 @@ class JobVacancyService
         $jobVacancies = JobVacancy::where('company_id', $company->id)->get();
 
         return $jobVacancies->map(function ($jobVacancy) {
-            $dto = new GetJobVacancyDTO();
+            $dto = new GetByIdJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
+            $dto->description = $jobVacancy->description;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
-            
+            $dto->applicationDeadline = $jobVacancy->application_deadline;
+            // $dto->address = $jobVacancy->address;
+            $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
+
+
+            $dto->request = $jobVacancy->request;
+            $dto->interest = $jobVacancy->interest;
+            $dto->location = $jobVacancy->location;
+            $dto->workTime = $jobVacancy->work_time;
+            $dto->experience = $jobVacancy->experience;
+            $dto->gender = $jobVacancy->gender;
+
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName = Province::find($jobVacancy->province_code) -> name ?? null;
+            $dto->provinceName = Province::find($jobVacancy->province_code)->name ?? null;
 
             return $dto;
         });
@@ -99,7 +123,7 @@ class JobVacancyService
         $dto->description = $jobVacancy->description;
         $dto->salary = $jobVacancy->salary;
         $dto->employmentType = $jobVacancy->employment_type;
-        $dto->applicationDateline = $jobVacancy->application_deadline;
+        $dto->applicationDeadline = $jobVacancy->application_deadline;
         // $dto->address = $jobVacancy->address;
         $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
 
@@ -142,7 +166,7 @@ class JobVacancyService
             'experience' => $validatedData['experience'],
             'salary' => $validatedData['salary'],
             'employment_type' => $validatedData['employmentType'],
-            'application_deadline' => $validatedData['applicationDateline'],
+            'application_deadline' => $validatedData['applicationDeadline'],
             'company_id' => $company->id,
             'category_id' => $validatedData['categoryName'],
             'job_position_id' => $validatedData['jobPositionName'],
@@ -201,15 +225,15 @@ class JobVacancyService
             'request' => $validatedData['request'],
             'interest' => $validatedData['interest'],
             'location' => $validatedData['location'],
-            'work_time' => $validatedData['work_time'],
+            'work_time' => $validatedData['workTime'],
             'experience' => $validatedData['experience'],
             'salary' => $validatedData['salary'],
             'employment_type' => $validatedData['employmentType'],
-            'application_deadline' => $validatedData['applicationDateline'],
+            'application_deadline' => $validatedData['applicationDeadline'],
             'company_id' => $company->id,
             'category_id' => $validatedData['categoryName'],
             'job_position_id' => $validatedData['jobPositionName'],
-            'address' => $validatedData['address'],
+            // 'address' => $validatedData['address'],
             'province_code' => $validatedData['provinceName'],
             'is_published' => 1,
             'gender' => $validatedData['gender']
@@ -235,7 +259,7 @@ class JobVacancyService
             'company_name' => $company->name,
             'category_name' => $category ? $category->name : null,
             'job_position_name' => $jobPosition ? $jobPosition->name : null,
-            'address' => $jobVacancy->address,
+            // 'address' => $jobVacancy->address,
             'province_name' => $province ? $province->name : null,
             'gender' => $jobVacancy->gender
         ];

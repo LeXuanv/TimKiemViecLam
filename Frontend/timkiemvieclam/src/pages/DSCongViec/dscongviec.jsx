@@ -16,20 +16,17 @@ const DsCongViec = () => {
     const [provinces, setProvinces] = useState([]); 
     const [categories, setCategories] = useState([]); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const provinceResponse = await axios.get('/api/province');  
-                const categoryResponse = await axios.get('/api/category');  
-                setProvinces(provinceResponse.data);
-                setCategories(categoryResponse.data);
-            } catch (error) {
-                console.error("Error fetching provinces or categories:", error);
-            }
-        };
-        fetchData();
-    }, []);
-
+  
+    const fetchData = async () => {
+        try {
+            const provinceResponse = await axios.get('/api/province');  
+            const categoryResponse = await axios.get('/api/category');  
+            setProvinces(provinceResponse.data);
+            setCategories(categoryResponse.data);
+        } catch (error) {
+            console.error("Error fetching provinces or categories:", error);
+        }
+    };
     const fetchAllJobs = async () => {
         try {
             const response = await axios.get('/user/job-vacancy');
@@ -59,7 +56,8 @@ const DsCongViec = () => {
                 setJobs(response.data);
             }
         } catch (error) {
-            console.error("Error fetching jobs:", error);
+            // console.error("Error fetching jobs:", error);
+            fetchAllJobs();
         } finally {
             setIsSearching(false); 
         }
@@ -70,6 +68,8 @@ const DsCongViec = () => {
     
     useEffect(() => {
         fetchAllJobs();
+        fetchData();
+
     }, []);
 
     return (

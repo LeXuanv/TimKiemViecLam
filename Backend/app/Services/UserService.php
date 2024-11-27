@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Company;
+use App\Models\JobSeeker;
 use App\Models\User;
 use App\Repositories\Company\CompanyRepository;
 use App\Repositories\JobSeeker\JobSeekerRepository;
@@ -51,7 +53,7 @@ class UserService
         $info = [];
         if ($user->isCompany()) {
             $company = $user->companies()->first();
-            $info = $company ? $company->getInfo() : [];
+            $info = $company ? $company->getFullInfo() : [];
         }
 
         if ($user->isJobSeeker()) {
@@ -80,12 +82,12 @@ class UserService
     {
         $this->userRepository->update($user, $params);
         if ($user->isCompany()) {
-            $company = $user->companies->first();
+            $company = Company::where('user_id', $user->id)->first();
             $this->companyService->update($company, $params);
         }
         if ($user->isJobSeeker()) {
+            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
             $params['birth_date'] = $params["birth_date"] ? Carbon::createFromFormat('d/m/Y', $params["birth_date"]) : null;
-            $jobSeeker = $user->job_seekers->first();
             $this->jobSeekerService->update($jobSeeker, $params);
         }
     }

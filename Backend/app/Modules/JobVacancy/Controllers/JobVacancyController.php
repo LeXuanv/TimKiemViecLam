@@ -77,7 +77,7 @@ class JobVacancyController extends Controller
 
             'salary' => 'required|numeric',
             'employmentType' => 'required|string',
-            'applicationDateline' => 'required|date',
+            'applicationDeadline' => 'required|date',
             'categoryName' => 'required|exists:categories,id',
             'jobPositionName' => 'required|exists:job_positions,id',
             // 'address' => 'required|string',
@@ -119,15 +119,23 @@ class JobVacancyController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
+             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'request' => 'required|string',
+            'interest' => 'required|string',
+            'location' => 'required|string',
+            'workTime' => 'required|string',
+            'experience' => 'required|string',
+            'gender' => 'required|string',
+
             'salary' => 'required|numeric',
             'employmentType' => 'required|string',
-            'applicationDateline' => 'required|date',
+            'applicationDeadline' => 'required|date',
             'categoryName' => 'required|exists:categories,id',
             'jobPositionName' => 'required|exists:job_positions,id',
-            'address' => 'required|string',
+            // 'address' => 'required|string',
             'provinceName' => 'required|exists:provinces,code',
+
         ]);
 
         $data = $this->jobVacancyService->updateJobVacancy($id, $validatedData);
