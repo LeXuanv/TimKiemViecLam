@@ -49,7 +49,9 @@ class Company extends Model
 		'logo',
 		'address',
 		'ward_code',
-		'user_id'
+		'user_id',
+		'province_code',
+		'district_code'
 	];
 
 	public function user()
@@ -87,6 +89,8 @@ class Company extends Model
 			'description' => $this->description,
             'scale' => $this->scale,
             'logo' => $this->logo,
+			'province_code' => $this->province_code,
+			'district_code' => $this->district_code,
         ];
     }
 }

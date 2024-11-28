@@ -15,6 +15,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('scale')->nullable();
             $table->string('logo')->nullable()->after('scale');
+            $table->string('province_code')->nullable();
+            $table->string('district_code')->nullable();
         });
     }
 
