@@ -1,132 +1,28 @@
 
-
-
-
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
-
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-
 
 const DetailFile = ({
     user,
-    dataUser
+    dataUser,
+    token,
+    provinces,
+    districts,
+    wards,
+    selectedProvince,
+    selectedDistrict,
+    selectedWard,
+    form,
+    formData,
+    setFormData,
+    handleUpdateJob,
+    handleChange,
+    handleProvinceChange,
+    handleDistrictChange,
+    handleWardChange,
+
   }) => {
-  const token = localStorage.getItem('authToken');
-  const [provinces, setProvinces] = useState([]); 
-  const [districts, setDistricts] = useState([]); 
-  const [wards, setWards] = useState([]); 
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedWard, setSelectedWard] = useState("");
-  const [form] = Form.useForm();
-  const [initialData, setInitialData] = useState(null);
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      description: "",
-      address: "",
-      scale: "",
-      ward_code: "",
-      province_code:"",
-      district_code:"",
-      phone_number: "",
-      logo: "",
-  });
-  
-  const fetchUserData = async () => {
-    try {
-        setFormData({
-          name: dataUser.name || "",
-          email: dataUser.email || "",
-          description: dataUser.description || "",
-          address: dataUser.address || "",
-          scale: dataUser.scale || "",
-          ward_code: dataUser.ward_code || "",
-          phone_number: dataUser.phone_number || "",
-          province_code: dataUser.province_code || "",
-          district_code: dataUser.district_code || "",
 
-        });
-    } catch (error) {
-        console.error("Error fetching user data", error);
-    }
-  };
-  const fetchAddressData = async () => {
-    await fetchProvinces();
 
-    if (dataUser.province_code) {
-      setSelectedProvince(dataUser.province_code);
-      await fetchDistricts();
-    }
-
-    if (dataUser.district_code) {
-      setSelectedDistrict(dataUser.district_code);
-      await fetchWards();
-    }
-    setInitialData({
-      province_code: dataUser.province_code,
-      district_code: dataUser.district_code,
-      ward_code: dataUser.ward_code,
-
-    });
-
-    form.setFieldsValue({
-      province_code: dataUser.province_code,
-      district_code: dataUser.district_code,
-      ward_code: dataUser.ward_code,
-    });
-  }
-  const fetchProvinces = async () => {
-    try {
-        const response = await axios.get('/api/province');
-        setProvinces(response.data);
-        
-    } catch (error) {
-        console.error("Error fetching provinces", error);
-    }
-  };
-  const fetchDistricts = async () => {
-    if (!selectedProvince) return; 
-    try {
-        const response = await axios.get(`/api/district/${selectedProvince}`);
-        setDistricts(response.data);
-        setWards([]); 
-        setSelectedDistrict(""); 
-        setSelectedWard(""); 
-    } catch (error) {
-        console.error("Error fetching districts", error);
-    }
-    console.log('selectedProvince:',selectedProvince);
-
-  };
-  const fetchWards = async () => {
-    if (!selectedDistrict) return; 
-    try {
-        const response = await axios.get(`/api/ward/${selectedDistrict}`);
-        setWards(response.data);
-        setSelectedWard(""); 
-    } catch (error) {
-        console.error("Error fetching wards", error);
-    }
-    console.log('selectedDistrict:',selectedDistrict);
-  };
-  useEffect(() => {
-    
-    fetchAddressData();
-    fetchUserData();
-  }, [dataUser, form]);
-  
-  useEffect(() => {
-    fetchProvinces();
-    fetchDistricts();
-  }, [selectedProvince]);
-  
-  useEffect(() => {
-    fetchWards();
-  }, [selectedDistrict]);
   const provinceOptions = provinces.map((province) => ({
     value: province.code,
     label: province.name,
@@ -142,34 +38,7 @@ const DetailFile = ({
     label: ward.name,
   }));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-    }));
-  };
-  const handleWardChange = (selectedWardCode) => {
-    setSelectedWard(selectedWardCode);
-    setFormData((prevData) => ({
-      ...prevData,
-      ward_code: selectedWardCode, 
-    }));
-  };
-  const handleDistrictChange = (selectedDistrictCode) => {
-    setSelectedDistrict(selectedDistrictCode);
-    setFormData((prevData) => ({
-      ...prevData, 
-      district_code: selectedDistrictCode, 
-    }));
-  };
-  const handleProvinceChange = (selectedProvinceCode) => {
-    setSelectedProvince(selectedProvinceCode);
-    setFormData((prevData) => ({
-      ...prevData,
-      province_code: selectedProvinceCode, 
-    }));
-  };
+ 
   const handleDateChange = (birthdate, dateString) => {
       setFormData((prevData) => ({
           ...prevData,
@@ -177,26 +46,6 @@ const DetailFile = ({
       }));
   };
 
-  const handleUpdateJob = async () => {
-    
-    try {
-        const response = await axios.post("/api/user/update", formData, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        });
-        alert("Thay đổi thành công");
-        console.log("Update successful:", response.data);
-        console.log(formData);
-
-        navigate("/profile"); 
-        // window.location.reload()    
-      } catch (error) {
-        alert("Thay đổi thất bại");
-        console.error("Có lỗi xảy ra:", error);
-    }
-
-  };
   return (
     
       <div className="all-detail">
