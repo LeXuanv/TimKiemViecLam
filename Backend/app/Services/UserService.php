@@ -87,7 +87,7 @@ class UserService
         }
         if ($user->isJobSeeker()) {
             $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
-            $params['birth_date'] = isset($params["birth_date"]) ? Carbon::createFromFormat('d/m/Y', $params["birth_date"]) : null;
+            // $params['birth_date'] = isset($params["birth_date"]) ? Carbon::createFromFormat('d/m/Y', $params["birth_date"]) : null;
             $this->jobSeekerService->update($jobSeeker, $params);
         }
     }

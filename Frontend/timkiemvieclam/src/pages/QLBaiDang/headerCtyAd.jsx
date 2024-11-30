@@ -1,7 +1,9 @@
 import { BiWorld } from "react-icons/bi";
 import { BiSolidBuildingHouse } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../utils/constant";
 
-const HeaderCtyAd = () => {
+const HeaderCtyAd = (dataUser) => {
     return(
         <>
             <div className="headerCty">
@@ -13,25 +15,28 @@ const HeaderCtyAd = () => {
                     </div>
                     <div className="bottomHeader">
                         <div className="tencty">
-                            <span>Công ty TNHH công nghệ Gol</span>
+                            <span>{dataUser.dataUser.name}</span>
                         </div>
                         <div className="thongTinCty">
                             <div className="linkCty">
                                 <BiWorld />
                                 <div className="tenlink">
-                                    afasdfasdfasdfasd.com
+                                    {dataUser.dataUser.email}
                                 </div>
                             </div>
                             <div className="slNhanVien">
                                 <BiSolidBuildingHouse />
                                 <div className="slnv">
-                                    <span>10+ nhân viên</span>
+                                    <span>{dataUser.dataUser.scale}</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="btn-suathongtincty">
-                            <span>Sửa thông tin</span>
-                        </div>
+                        <Link to={PATH_PAGE.profile}>
+                            <div className="btn-suathongtincty">
+                                <span>Sửa thông tin</span>
+                            </div>
+                        </Link>
+                        
                         <div className="avtCty">
                             <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346" alt="" />
                         </div>

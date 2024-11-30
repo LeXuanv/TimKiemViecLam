@@ -31,6 +31,11 @@ const Profile = () => {
       district_code:"",
       phone_number: "",
       logo: "",
+
+      gender:"",
+      birth_date: "",
+      experience: "",
+
   });
 
 
@@ -104,6 +109,9 @@ const Profile = () => {
           province_code: dataUser.province_code || "",
           district_code: dataUser.district_code || "",
           logo: dataUser.logo || "",
+          gender: dataUser.gender || "",
+          birth_date: dataUser.birth_date || "",
+          experience: dataUser.experience || "",
         });
     } catch (error) {
         console.error("Error fetching user data", error);
@@ -199,6 +207,10 @@ const Profile = () => {
   };
 
   const handleChange = (e) => {
+    if (!e.target) {
+      console.error('e.target is undefined');
+      return;
+    }
     const { name, value } = e.target;
     setFormData((prevData) => ({
         ...prevData,
