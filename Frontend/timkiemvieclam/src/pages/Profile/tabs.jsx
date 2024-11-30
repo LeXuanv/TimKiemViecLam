@@ -7,10 +7,10 @@ const Tabs = (props) => {
     setClickTab(1);
     props.onHandleTitle("Hồ sơ");
   };
-  // const handleClickAddress = () => {
-  //   setClickTab(2);
-  //   props.onHandleTitle("Địa chỉ");
-  // };
+  const handleClickJobSave = () => {
+    setClickTab(2);
+    props.onHandleTitle("jobsave");
+  };
   const handleClickChangePassWord = () => {
     setClickTab(3);
     props.onHandleTitle("Đổi mật khẩu");
@@ -37,12 +37,12 @@ const Tabs = (props) => {
           >
             Hồ sơ
           </p>
-          {/* <p
+          <p
             className={clickTab === 2 ? "activeTab" : ""}
-            onClick={() => handleClickAddress()}
+            onClick={() => handleClickJobSave()}
           >
-            Địa chỉ
-          </p> */}
+            Công việc đã lưu
+          </p>
           <p
             className={clickTab === 3 ? "activeTab" : ""}
             onClick={() => handleClickChangePassWord()}

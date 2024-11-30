@@ -2,17 +2,27 @@
 /*
 import { DatePicker, Form, Input, Select, Space } from "antd";
 
-import { useNavigate } from "react-router-dom";
 
-
-const DetailFile = ({user}) => {
- 
+const DetailFile = ({user,
+    provinces,
+    districts,
+    wards,
+    data,
+    setSelectedProvince,
+    setSelectedDistrict
+  }) => {
+    // const arrayKeyValue = Object.entries(data)
+    console.log("data user a",data.name)
+    const handleProvinceChange = (value) => {
+    setSelectedProvince(value);
+  };
   return (
     <>
       <div className="all-detail">
         <div className="inner-file">
           <div className="infomation">
             <div className="inner-info">
+              {/* {data.map((itemData) => ( 
               <Form
                 name="basic"
                 labelCol={{
@@ -23,6 +33,7 @@ const DetailFile = ({user}) => {
                 }}
                 initialValues={{
                   remember: true,
+                  hovaten: data ? data.name : "",
                 }}
                 autoComplete="off"
               >
@@ -36,7 +47,8 @@ const DetailFile = ({user}) => {
                     },
                   ]}
                 >
-                  <Input placeholder="Nhập họ và tên của bạn"/>
+                  <Input placeholder="Nhập họ và tên của bạn" value="Lê Xuân Vũ"
+                  />
                 </Form.Item>
                 <Form.Item
                   label="Email"
@@ -65,28 +77,39 @@ const DetailFile = ({user}) => {
                   label="Tỉnh/Thành phố:"
                   name="tinh"
                   >
-
-                    <Select placeholder="Chọn tỉnh thành" >
-                      <Select.Option value="">Thanh Hóa</Select.Option>
-                      <Select.Option value="">Hà Nội</Select.Option>
+                    <Select placeholder="Chọn tỉnh thành" 
+                    onChange={handleProvinceChange}
+                    >
+                      {provinces.map((item) => (
+                        <Select.Option key={item.code} value={item.code} >
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                      
                     </Select>
                 </Form.Item>
                 <Form.Item
                   label="Quận/Huyện:"
                   name="huyen"
                   >
-                    <Select placeholder="Chọn quận/huyện" >
-                      <Select.Option value="">Thạch Thành</Select.Option>
-                      <Select.Option value="">Cẩm Thủy</Select.Option>
+                    <Select placeholder="Chọn quận/huyện" onChange={(value) => setSelectedDistrict(value)}>
+                      {districts.map((item) => (
+                        <Select.Option key={item.code} value={item.code} >
+                          {item.name}
+                        </Select.Option>
+                      ))}
                     </Select>
                 </Form.Item>
                 <Form.Item
                   label="Phường/Xã:"
                   name="xa"
                   >
-                    <Select placeholder="Chọn quận/huyện" >
-                      <Select.Option value="">Thành Mỹ</Select.Option>
-                      <Select.Option value="">Thành Yên</Select.Option>
+                    <Select placeholder="Chọn phường/xã" >
+                      {wards.map((item) => (
+                        <Select.Option key={item.code} value={item.code} >
+                          {item.name}
+                        </Select.Option>
+                      ))}
                     </Select>
                 </Form.Item>
                 <Form.Item
@@ -138,6 +161,7 @@ const DetailFile = ({user}) => {
                   <button>Save</button>
                 </div>
               </Form>
+              {/* ))} 
             </div>
           </div>
         </div>
@@ -455,7 +479,7 @@ const DetailFile = ({
                 
                 {(user == 3)? 
                 <>
-                  <Form.Item
+                  {/* <Form.Item
                     label="Giới tính:"
                     name="genner"
                     >
@@ -471,7 +495,7 @@ const DetailFile = ({
                       <Space direction="vertical">
                           <DatePicker />
                       </Space>
-                  </Form.Item>
+                  </Form.Item> */}
                   <Form.Item
                     label="Kinh nghiệm:"
                     name="exp"
