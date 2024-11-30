@@ -9,4 +9,6 @@ interface   CompanyRepository {
     public function update($company, $params): void;
 
     public function getAll();
+
+    public function saveLogoPath($company, $path);
 }

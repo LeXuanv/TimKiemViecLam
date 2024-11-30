@@ -14,6 +14,7 @@ Route::group([
 
     Route::group(['middleware' => ['auth:sanctum', 'job_seeker']], function () {
 
+        Route::post('/upload-logo', [JobSeekerController::class, 'uploadLogo']);
 //        Skill
         Route::post('/skill/update', [JobSeekerController::class, 'updateSkill']);
 

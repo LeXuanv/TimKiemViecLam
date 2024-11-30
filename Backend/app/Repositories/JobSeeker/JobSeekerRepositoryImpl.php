@@ -28,4 +28,9 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         return $this->jobSeeker->all();
     }
 
+    public function saveLogoPath($jobSeeker, $path)
+    {
+        $jobSeeker->logo = $path;
+        $jobSeeker->save();
+    }
 }

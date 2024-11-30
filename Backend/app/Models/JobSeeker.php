@@ -56,7 +56,10 @@ class JobSeeker extends Model
 		'experience',
 		'address',
 		'ward_code',
-		'user_id'
+		'user_id',
+        'logo',
+        'province_code',
+        'district_code'
 	];
 
 	public function user()
@@ -100,6 +103,7 @@ class JobSeeker extends Model
             'gender' => $this->gender,
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
+            'logo' => url('storage/' . $this->logo),
         ];
     }
     public function getFullInfo()
