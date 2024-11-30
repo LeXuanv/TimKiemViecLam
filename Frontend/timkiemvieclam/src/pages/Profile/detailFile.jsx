@@ -1,300 +1,44 @@
 
-/*
-import { DatePicker, Form, Input, Select, Space } from "antd";
-
-
-const DetailFile = ({user,
-    provinces,
-    districts,
-    wards,
-    data,
-    setSelectedProvince,
-    setSelectedDistrict
-  }) => {
-    // const arrayKeyValue = Object.entries(data)
-    console.log("data user a",data.name)
-    const handleProvinceChange = (value) => {
-    setSelectedProvince(value);
-  };
-  return (
-    <>
-      <div className="all-detail">
-        <div className="inner-file">
-          <div className="infomation">
-            <div className="inner-info">
-              {/* {data.map((itemData) => ( 
-              <Form
-                name="basic"
-                labelCol={{
-                  span: 5,
-                }}
-                wrapperCol={{
-                  span: 20,
-                }}
-                initialValues={{
-                  remember: true,
-                  hovaten: data ? data.name : "",
-                }}
-                autoComplete="off"
-              >
-                <Form.Item
-                  label="Họ và tên:"
-                  name="hovaten"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập họ và tên của bạn",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Nhập họ và tên của bạn" value="Lê Xuân Vũ"
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Email"
-                  name="changeemail"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Vui lòng nhập email đúng định dạng!',
-                      type: 'email',
-                    },
-                  ]}
-                >
-                  <Input placeholder="Nhập email của bạn"/>
-                </Form.Item>
-
-                {(user == 2 || user == 3) ? 
-                <>
-                
-                <Form.Item
-                  label="Số điện thoại:"
-                  name="sdt"
-                >
-                  <Input placeholder="Nhập số điện thoại của bạn"/>
-                </Form.Item>
-                <Form.Item
-                  label="Tỉnh/Thành phố:"
-                  name="tinh"
-                  >
-                    <Select placeholder="Chọn tỉnh thành" 
-                    onChange={handleProvinceChange}
-                    >
-                      {provinces.map((item) => (
-                        <Select.Option key={item.code} value={item.code} >
-                          {item.name}
-                        </Select.Option>
-                      ))}
-                      
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Quận/Huyện:"
-                  name="huyen"
-                  >
-                    <Select placeholder="Chọn quận/huyện" onChange={(value) => setSelectedDistrict(value)}>
-                      {districts.map((item) => (
-                        <Select.Option key={item.code} value={item.code} >
-                          {item.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Phường/Xã:"
-                  name="xa"
-                  >
-                    <Select placeholder="Chọn phường/xã" >
-                      {wards.map((item) => (
-                        <Select.Option key={item.code} value={item.code} >
-                          {item.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Địa chỉ chi tiết:"
-                  name="address"
-                >
-                  <Input placeholder="Nhập chi tiết địa chỉ của bạn"/>
-                </Form.Item>
-                {(user == 3)? 
-                <>
-                  <Form.Item
-                    label="Giới tính:"
-                    name="genner"
-                    >
-                      <Select placeholder="Chọn giới tính" >
-                        <Select.Option value="">Nam</Select.Option>
-                        <Select.Option value="">Nữ</Select.Option>
-                      </Select>
-                  </Form.Item>
-                  <Form.Item
-                    label="Ngày sinh:"
-                    name="date"
-                    >
-                      <Space direction="vertical">
-                          <DatePicker />
-                      </Space>
-                  </Form.Item>
-                  <Form.Item
-                    label="Kinh nghiệm:"
-                    name="exp"
-                    >
-                      <Select placeholder="Chọn Kinh Nghiệm" >
-                        <Select.Option value="">Chưa có kinh nghiệm</Select.Option>
-                        <Select.Option value="">1 - 2 năm</Select.Option>
-                        <Select.Option value="">2 - 5 năm</Select.Option>
-                        <Select.Option value="">Trên 5 năm</Select.Option>
-                      </Select>
-                  </Form.Item>
-                </>
-                
-                :""}
-                  
-                </>
-                :""
-
-                }
-                
-                <div className="save">
-                  <button>Save</button>
-                </div>
-              </Form>
-              {/* ))} 
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default DetailFile;
-
-
-*/
-
-
-
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
-
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-
 
 const DetailFile = ({
     user,
-    dataUser
+    dataUser,
+    token,
+    provinces,
+    districts,
+    wards,
+    selectedProvince,
+    selectedDistrict,
+    selectedWard,
+    form,
+    formData,
+    setFormData,
+    handleUpdateJob,
+    handleChange,
+    handleProvinceChange,
+    handleDistrictChange,
+    handleWardChange,
+
   }) => {
-  const token = localStorage.getItem('authToken');
-  const [provinces, setProvinces] = useState([]); 
-  const [districts, setDistricts] = useState([]); 
-  const [wards, setWards] = useState([]); 
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedWard, setSelectedWard] = useState("");
-  const [form] = Form.useForm();
-  const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      description: "",
-      address: "",
-      scale: "",
-      ward_code: "",
-      phone_number: "",
-      logo: "",
-  });
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-          if (dataUser) {
-            setFormData({
-              name: dataUser.name || "",
-              email: dataUser.email || "",
-              description: dataUser.description || "",
-              address: dataUser.address || "",
-              scale: dataUser.scale || "",
-              wardCode: dataUser.ward_code || "",
-              phoneNumber: dataUser.phone_number || "",
-            });
-          }
-      } catch (error) {
-          console.error("Error:", error);
-      }
-    };
 
-      fetchData();
-  }, [dataUser]); 
 
-  console.log("dataUser:", dataUser);
-  console.log("token:", token);
-  console.log("formData:", formData);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const fetchProvinces = async () => {
-        try {
-            const response = await axios.get('/api/province');
-            setProvinces(response.data);
-        } catch (error) {
-            console.error("Error fetching provinces", error);
-        }
-    };
-
-    fetchProvinces();
-  }, []);
-  useEffect(() => {
-    const fetchDistricts = async () => {
-        if (!selectedProvince) return; 
-        try {
-            const response = await axios.get(`/api/district/${selectedProvince}`);
-            setDistricts(response.data);
-            setWards([]); 
-            setSelectedDistrict(""); 
-            setSelectedWard(""); 
-        } catch (error) {
-            console.error("Error fetching districts", error);
-        }
-    };
-
-    fetchDistricts();
-  }, [selectedProvince]);
-  useEffect(() => {
-    const fetchWards = async () => {
-        if (!selectedDistrict) return; 
-        try {
-            const response = await axios.get(`/api/ward/${selectedDistrict}`);
-            setWards(response.data);
-            setSelectedWard(""); 
-        } catch (error) {
-            console.error("Error fetching wards", error);
-        }
-    };
-
-    fetchWards();
-  }, [selectedDistrict]);
   const provinceOptions = provinces.map((province) => ({
-    value: province.code, 
-    label: province.name, 
+    value: province.code,
+    label: province.name,
   }));
-  const districtOptions = districts.map((district) => ({
-    value: district.code, 
-    label: district.name, 
-  }));
-  const wardOptions = wards.map((ward) => ({
-    value: ward.code, 
-    label: ward.name, 
-  }));
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-    }));
-  };
 
+  const districtOptions = districts.map((district) => ({
+    value: district.code,
+    label: district.name,
+  }));
+
+  const wardOptions = wards.map((ward) => ({
+    value: ward.code,
+    label: ward.name,
+  }));
+
+ 
   const handleDateChange = (birthdate, dateString) => {
       setFormData((prevData) => ({
           ...prevData,
@@ -302,27 +46,6 @@ const DetailFile = ({
       }));
   };
 
-  const handleUpdateJob = async () => {
-    
-    try {
-        const response = await axios.post("/api/user/update", formData, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        });
-        alert("Thay đổi thành công");
-        console.log("Update successful:", response.data);
-        console.log(formData);
-
-        navigate("/profile"); 
-        // window.location.reload()    
-      } catch (error) {
-        alert("Thay đổi thất bại");
-        console.error("Có lỗi xảy ra:", error);
-    }
-
-  };
-  console.log("form data after update", formData);
   return (
     
       <div className="all-detail">
@@ -341,7 +64,9 @@ const DetailFile = ({
                   remember: true,
                 }}
                 autoComplete="off"
+                form={form}
                 onFinish={handleUpdateJob}
+                
               >
                 <Form.Item
                   label="Tên:"
@@ -353,12 +78,7 @@ const DetailFile = ({
                       onChange={handleChange}
                       placeholder="Nhập họ và tên của bạn" 
                   />
-                  {/* <input 
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Nhập họ và tên của bạn"
-                  /> */}
+
                 </Form.Item>
                 <Form.Item
                   label="Email"
@@ -381,62 +101,48 @@ const DetailFile = ({
                       placeholder="Nhập số điện thoại của bạn" 
                   />
                 </Form.Item>
-                
+
+
                 <Form.Item
                   label="Tỉnh/Thành phố:"
-                  name="tinh"
-                  >
-
-                    <Select placeholder="Chọn tỉnh thành"
-                      value={selectedProvince} 
-                      onChange={(selectedOption) => setSelectedProvince(selectedOption)}
-                      options={provinceOptions}
-                     >
-                      <option value="">Chọn Tỉnh</option>
-                      {provinces.map((province) => (
-                          <option key={province.code} value={province.code}>
-                              {province.name}
-                          </option>
-                      ))}
-                    </Select>
+                  name="province_code"
+                >
+                  <Select
+                    placeholder="Chọn Tỉnh/Thành phố"
+                    value={selectedProvince} 
+                    onChange={handleProvinceChange}
+                    options={provinceOptions} 
+                  />
                 </Form.Item>
+
                 <Form.Item
                   label="Quận/Huyện:"
-                  name="huyen"
-                  >
-                    <Select placeholder="Chọn quận/huyện" 
-                      value={selectedDistrict} 
-                      onChange={(selectedOption) => setSelectedDistrict(selectedOption)}
-                      options={districtOptions}
-                      disabled={!selectedProvince} 
-
-                    >
-                      <option value="">Chọn quận/huyện</option>
-                      {districts.map((district) => (
-                      <option key={district.code} value={district.code}>
-                          {district.name}
-                      </option>
-                      ))}
-                    </Select>
+                  name="district_code"
+                >
+                  <Select
+                    placeholder="Chọn Quận/Huyện"
+                    value={selectedDistrict}
+                    onChange={handleDistrictChange} 
+                    options={districtOptions}
+                    disabled={!selectedProvince}
+                  />
                 </Form.Item>
+
                 <Form.Item
                   label="Phường/Xã:"
-                  name="xa"
-                  >
-                    <Select placeholder="Chọn Phường/Xã" 
-                      value={selectedWard} 
-                      onChange={(selectedOption) => setSelectedWard(selectedOption)}
-                      options={wardOptions}
-                      disabled={!selectedDistrict} 
-                    >
-                      <option value="">Chọn Phường/Xã</option>
-                      {wards.map((ward) => (
-                      <option key={ward.code} value={ward.code}>
-                          {ward.name}
-                      </option>
-                      ))}
-                    </Select>
+                  name="ward_code"
+                >
+                  <Select
+                    placeholder="Chọn Phường/Xã"
+                    value={selectedWard} 
+                    onChange={handleWardChange} 
+                    options={wardOptions} 
+                    disabled={!selectedDistrict} 
+                  />
                 </Form.Item>
+
+
+
                 <Form.Item
                   label="Địa chỉ chi tiết:"
                 >
@@ -479,7 +185,7 @@ const DetailFile = ({
                 
                 {(user == 3)? 
                 <>
-                  {/* <Form.Item
+                  <Form.Item
                     label="Giới tính:"
                     name="genner"
                     >
@@ -495,7 +201,7 @@ const DetailFile = ({
                       <Space direction="vertical">
                           <DatePicker />
                       </Space>
-                  </Form.Item> */}
+                  </Form.Item>
                   <Form.Item
                     label="Kinh nghiệm:"
                     name="exp"
@@ -522,6 +228,7 @@ const DetailFile = ({
                   </Button>
               </Form.Item>
               </Form>
+              
             </div>
           </div>
         </div>

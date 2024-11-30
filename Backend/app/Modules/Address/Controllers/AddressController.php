@@ -38,4 +38,32 @@ class AddressController extends Controller
         });
         return response()->json($wardDTOs);
     }
+    public function getDetailWards($wardCode)
+    {
+        $ward = Ward::where('code', $wardCode)->first();
+        if (!$ward) {
+            return response()->json(['error' => 'Ward not found'], 404);
+        }
+
+        $district = District::where('code', $ward->district_code)->first();
+        if (!$district) {
+            return response()->json(['error' => 'District not found'], 404);
+        }
+
+        $province = Province::where('code', $district->province_code)->first();
+        if (!$province) {
+            return response()->json(['error' => 'Province not found'], 404);
+        }
+
+        return response()->json([
+            
+            'ward_name' => $ward->name,
+            'ward_code' => $ward->code,
+            'district_name' => $district->name,
+            'district_code' => $district->code,
+            'province_name' => $province->name,
+            'province_code' => $province->code,
+        ]);
+    }
+
 }

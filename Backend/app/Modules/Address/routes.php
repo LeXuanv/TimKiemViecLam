@@ -28,4 +28,6 @@ Route::group([
     Route::get('/province', 'AddressController@getProvinces');
     Route::get('/district/{province_code}', 'AddressController@getDistricts');
     Route::get('/ward/{district_code}', 'AddressController@getWards');
+    Route::get('/ward/detail/{ward_code}', 'AddressController@getDetailWards')->name('getDetailWards');
+
 });

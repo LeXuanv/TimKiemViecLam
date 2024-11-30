@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
-        Schema::table('companies', function (Blueprint $table) {
-            $table->text('description')->nullable();
-            $table->text('scale')->nullable();
-            $table->string('logo')->nullable()->after('scale');
+        Schema::table('job_seekers', function (Blueprint $table) {
+
+            $table->string('logo')->nullable();
             $table->string('province_code')->nullable();
             $table->string('district_code')->nullable();
         });
@@ -25,8 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('companies', function (Blueprint $table) {
-            $table->dropColumn(['description', 'scale', 'logo']); // Xóa các cột khi rollback
+        Schema::table('job_seekers', function (Blueprint $table) {
         });
     }
 };

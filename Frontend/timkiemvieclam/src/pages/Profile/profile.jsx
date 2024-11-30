@@ -1,81 +1,58 @@
-import { useContext, useEffect, useState } from "react";
-import MainLayout, { AddressContext } from "../mainLayout";
+import { useEffect, useState } from "react";
+import MainLayout from "../mainLayout";
 import "./profile.scss";
 import Tabs from "./tabs";
 import DetailFile from "./detailFile";
 import ChangePassword from "./changePassword";
 import axios from "axios";
-import JobSave from "./JobSave";
+import { DatePicker, Form, Input, Select, Space, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [titleTabs, setTitleTabs] = useState("Hồ sơ");
-  const [data, setData] = useState([]);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState("");
-  const [sdt, setSdt] = useState("");
-  const [tinh, setTinh] = useState("");
-  const [huyen, setHuyen] = useState("");
-  const [xa, setXa] = useState("");
-  const [address, setAddress] = useState("");
-  const [genner, setGenner] = useState("");
-  const [date, setdate] = useState("");
-  const [exp, setExp] = useState("");
-  const [password, setPassword] = useState("");
+  const token = localStorage.getItem('authToken');
+  const [provinces, setProvinces] = useState([]); 
+  const [districts, setDistricts] = useState([]); 
+  const [wards, setWards] = useState([]); 
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedWard, setSelectedWard] = useState("");
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      description: "",
+      address: "",
+      scale: "",
+      ward_code: "",
+      province_code:"",
+      district_code:"",
+      phone_number: "",
+      logo: "",
+  });
+
+
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [sdt, setSdt] = useState("");
+  // const [tinh, setTinh] = useState("");
+  // const [huyen, setHuyen] = useState("");
+  // const [xa, setXa] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [genner, setGenner] = useState("");
+  // const [date, setdate] = useState("");
+  // const [exp, setExp] = useState("");
+  // const [password, setPassword] = useState("");
   
   const [dataUser, setDataUser] = useState("");
-
-  const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([]);
-  const [wards, setWards] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState(null);
-  const [selectedDistrict, setSelectedDistrict] = useState(null);
-
-  useEffect(() => {
-    const fetchProvinces = async () => {
-      try {
-        const response = await axios.get('/api/province');
-        setProvinces(response.data);
-      } catch (error) {
-        console.error('Lỗi khi lấy danh sách tỉnh:', error);
-      }
-    };
-
-    fetchProvinces();
-  }, []);
-  useEffect(() => {
-    const fetchDistricts = async () => {
-      try {
-        const response = await axios.get(`api/district/${selectedProvince}`);
-        setDistricts(response.data);
-      } catch (error) {
-        console.error('Lỗi khi lấy danh sách huyện:', error);
-      }
-    };
-
-    fetchDistricts();
-  }, [selectedProvince]);
-  useEffect(() => {
-    const fetchWards = async () => {
-      try {
-        const response = await axios.get(`api/ward/${selectedDistrict}`);
-        setWards(response.data);
-        console.log("Danh sách xã:", response.data);
-      } catch (error) {
-        console.error('Lỗi khi lấy danh sách xã:', error);
-      }
-    };
-
-    fetchWards();
-  }, [selectedDistrict]);
-
   const HandleTitle = (newtitle) => {
     setTitleTabs(newtitle);
   };
   const user =  localStorage.getItem("user");
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchDataUser = async () => {
       try {
-        const token = localStorage.getItem("authToken");
         const response = await axios.get("api/user/show", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +65,7 @@ const Profile = () => {
       }
     };
 
-    fetchUserData(); 
+    fetchDataUser(); 
   }, []);
   // const apiChanggeAcout = async () => {
   //   try {
@@ -113,6 +90,141 @@ const Profile = () => {
   //   }
   // };
 
+  const fetchUserData = async () => {
+    try {
+        setFormData({
+          name: dataUser.name || "",
+          email: dataUser.email || "",
+          description: dataUser.description || "",
+          address: dataUser.address || "",
+          scale: dataUser.scale || "",
+          ward_code: dataUser.ward_code || "",
+          phone_number: dataUser.phone_number || "",
+          province_code: dataUser.province_code || "",
+          district_code: dataUser.district_code || "",
+          logo: dataUser.logo || "",
+        });
+    } catch (error) {
+        console.error("Error fetching user data", error);
+    }
+  };
+  const fetchAddressData = async () => {
+    await fetchProvinces();
+
+    if (dataUser.province_code) {
+      setSelectedProvince(dataUser.province_code);
+      await fetchDistricts();
+    }
+
+    if (dataUser.district_code) {
+      setSelectedDistrict(dataUser.district_code);
+      await fetchWards();
+    }
+
+
+    form.setFieldsValue({
+      province_code: dataUser.province_code,
+      district_code: dataUser.district_code,
+      ward_code: dataUser.ward_code,
+    });
+  }
+  const fetchProvinces = async () => {
+    try {
+        const response = await axios.get('/api/province');
+        setProvinces(response.data);
+        
+    } catch (error) {
+        console.error("Error fetching provinces", error);
+    }
+  };
+  const fetchDistricts = async () => {
+    if (!selectedProvince) return; 
+    try {
+        const response = await axios.get(`/api/district/${selectedProvince}`);
+        setDistricts(response.data);
+        setWards([]); 
+        setSelectedDistrict(""); 
+        setSelectedWard(""); 
+    } catch (error) {
+        console.error("Error fetching districts", error);
+    }
+    console.log('selectedProvince:',selectedProvince);
+
+  };
+  const fetchWards = async () => {
+    if (!selectedDistrict) return; 
+    try {
+        const response = await axios.get(`/api/ward/${selectedDistrict}`);
+        setWards(response.data);
+        setSelectedWard(""); 
+    } catch (error) {
+        console.error("Error fetching wards", error);
+    }
+    console.log('selectedDistrict:',selectedDistrict);
+  };
+  useEffect(() => {
+    
+    fetchAddressData();
+    fetchUserData();
+  }, [dataUser, form]);
+  
+  useEffect(() => {
+    fetchProvinces();
+    fetchDistricts();
+  }, [selectedProvince]);
+  
+  useEffect(() => {
+    fetchWards();
+  }, [selectedDistrict]);
+  const handleUpdateJob = async () => {
+    
+    try {
+        const response = await axios.post("/api/user/update", formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        alert("Thay đổi thành công");
+        console.log("Update successful:", response.data);
+        console.log(formData);
+
+        navigate("/profile"); 
+        window.location.reload()    
+      } catch (error) {
+        alert("Thay đổi thất bại");
+        console.error("Có lỗi xảy ra:", error);
+    }
+
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+    }));
+  };
+  const handleWardChange = (selectedWardCode) => {
+    setSelectedWard(selectedWardCode);
+    setFormData((prevData) => ({
+      ...prevData,
+      ward_code: selectedWardCode, 
+    }));
+  };
+  const handleDistrictChange = (selectedDistrictCode) => {
+    setSelectedDistrict(selectedDistrictCode);
+    setFormData((prevData) => ({
+      ...prevData, 
+      district_code: selectedDistrictCode, 
+    }));
+  };
+  const handleProvinceChange = (selectedProvinceCode) => {
+    setSelectedProvince(selectedProvinceCode);
+    setFormData((prevData) => ({
+      ...prevData,
+      province_code: selectedProvinceCode, 
+    }));
+  };
   return (
     <>
       <MainLayout>
@@ -122,9 +234,25 @@ const Profile = () => {
             <div className="all-content">
               <div className="inner-content">
                 {titleTabs === "Hồ sơ" ? (
-                  <DetailFile user={user} dataUser={dataUser} />
-                ) : titleTabs === "jobsave" ? (
-                  <JobSave />
+                  <DetailFile 
+                    user={user} 
+                    dataUser={dataUser} 
+                    token={token}
+                    provinces={provinces}
+                    districts={districts}
+                    wards={wards}
+                    selectedProvince={selectedProvince}
+                    selectedDistrict={selectedDistrict}
+                    selectedWard={selectedWard}
+                    form={form}
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleUpdateJob={handleUpdateJob}
+                    handleChange={handleChange}
+                    handleProvinceChange={handleProvinceChange}
+                    handleDistrictChange={handleDistrictChange}
+                    handleWardChange={handleWardChange}
+                    />
                 ) : (
                   <ChangePassword />
                 )}
