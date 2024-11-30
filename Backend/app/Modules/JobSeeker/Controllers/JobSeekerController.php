@@ -61,4 +61,18 @@ class JobSeekerController extends Controller
     {
         return $this->jobSeekerService->getAll();
     }
+
+    public function uploadLogo(Request $request)
+    {
+        $user = $request->user();
+        $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if ($request->hasFile('logo')) {
+            $path = $this->jobSeekerService->uploadLogo($user, $request);
+            return response()->json(['message' => 'Logo uploaded successfully!', 'path' => $path]);
+        }
+
+        return response()->json(['message' => 'No file uploaded'], 400);
+    }
 }

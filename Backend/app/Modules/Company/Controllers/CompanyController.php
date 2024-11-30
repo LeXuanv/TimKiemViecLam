@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -17,22 +18,12 @@ class CompanyController extends Controller
     }
     public function uploadLogo(Request $request)
     {
+        $user = $request->user();
         $request->validate([
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        // Xử lý file upload
         if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-
-            $path = $file->store('logos', 'public');
-
-            $company = Company::find(auth()->user()->company_id);
-            if ($company) {
-                $company->logo = $path;
-                $company->save();
-            }
-
+            $path = $this->companyService->uploadLogo($user, $request);
             return response()->json(['message' => 'Logo uploaded successfully!', 'path' => $path]);
         }
 

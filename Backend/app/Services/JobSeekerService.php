@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\JobSeeker;
 use App\Repositories\JobSeeker\JobSeekerRepository;
+use Illuminate\Support\Facades\Storage;
 
 class JobSeekerService
 {
@@ -24,5 +26,30 @@ class JobSeekerService
     public function getAll()
     {
         return $this->jobSeekerRepository->getAll();
+    }
+
+
+    public function uploadLogo($user, $request)
+    {
+        $image = $request->file('logo');
+
+        $name = rand();
+        $path = 'images/job_seeker/' . $name . '.' . pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
+        if (!Storage::disk('public')->exists('images/job_seeker')) {
+            Storage::disk('public')->makeDirectory('images/job_seeker');
+        }
+        Storage::disk('public')->put($path, file_get_contents($image));
+
+        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+        if ($jobSeeker) {
+            $old_path = $jobSeeker->logo;
+            if (isset($old_path) and Storage::disk('public')->exists($old_path)) {
+                Storage::disk('public')->delete($old_path);
+            }
+            $this->jobSeekerRepository->saveLogoPath($jobSeeker, $path);
+        }
+
+        return $path;
+
     }
 }

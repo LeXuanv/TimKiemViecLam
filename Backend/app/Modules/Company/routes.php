@@ -10,7 +10,8 @@ Route::group([
     'namespace' => 'App\Modules\Company\Controllers',
     'middleware' => ['api']
 ], function () {
-
-    Route::post('/upload-logo', [CompanyController::class, 'uploadLogo']);
+    Route::group(['middleware' => ['auth:sanctum', 'company']], function () {
+        Route::post('/upload-logo', [CompanyController::class, 'uploadLogo']);
+    });
     Route::get('/get-all', [CompanyController::class, 'getAll']);
 });

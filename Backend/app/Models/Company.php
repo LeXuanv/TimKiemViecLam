@@ -88,7 +88,7 @@ class Company extends Model
 			'email' => $this->email,
 			'description' => $this->description,
             'scale' => $this->scale,
-            'logo' => $this->logo,
+            'logo' => url('storage/' . $this->logo),
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
         ];
