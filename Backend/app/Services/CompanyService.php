@@ -25,4 +25,8 @@ class CompanyService
         $this->companyRepository->update($company, $params);
     }
 
+    public function getAll()
+    {
+        return $this->companyRepository->getAll();
+    }
 }

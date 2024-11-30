@@ -7,4 +7,6 @@ use App\Models\Company;
 interface   CompanyRepository {
     public function store($params): Company;
     public function update($company, $params): void;
+
+    public function getAll();
 }

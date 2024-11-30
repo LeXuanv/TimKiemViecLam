@@ -21,4 +21,8 @@ class JobSeekerService
         $this->jobSeekerRepository->update($jobSeeker, $params);
     }
 
+    public function getAll()
+    {
+        return $this->jobSeekerRepository->getAll();
+    }
 }

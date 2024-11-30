@@ -1,11 +1,20 @@
 <?php
+
+
+namespace App\Modules\Company\Controllers;
+
 use App\Http\Controllers\Controller;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Company;
 
 class CompanyController extends Controller
 {
+
+    public function __construct(private readonly CompanyService $companyService)
+    {
+
+    }
     public function uploadLogo(Request $request)
     {
         $request->validate([
@@ -28,5 +37,10 @@ class CompanyController extends Controller
         }
 
         return response()->json(['message' => 'No file uploaded'], 400);
+    }
+
+    public function getAll()
+    {
+        return $this->companyService->getAll();
     }
 }
