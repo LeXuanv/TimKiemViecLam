@@ -17,8 +17,28 @@ const QlBaiDang = () => {
     const [jobs, setJobs] = useState([]);
     const [selectedJob, setSelectedJob] = useState(null);
     const [modal, setModal] = useState(false);
+    const [dataUser, setDataUser] = useState("");
     const navigate = useNavigate(); 
 
+
+    const user =  localStorage.getItem("user");
+    useEffect(() => {
+        const fetchDataUser = async () => {
+        try {
+            const response = await axios.get("api/user/show", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            });
+            console.log("lấy dl:",response.data);
+            setDataUser(response.data);
+        } catch (error) {
+            console.error("Lỗi khi lấy dữ liệu:", error);
+        }
+        };
+
+        fetchDataUser(); 
+    }, []);
     const fetchAllJobs = async () => {
         try {
             const response = await axios.get('/company/job-vacancy/get-publish', {
@@ -63,10 +83,10 @@ const QlBaiDang = () => {
         <>
             <MainLayout>
                 <div className="quanlybaidanng">
-                    <HeaderCtyAd/>
+                    <HeaderCtyAd dataUser = {dataUser}/>
                     <div className="hainuaa">
                         <div className="nua1">
-                            <GioiThieuCongTyAd/>
+                            <GioiThieuCongTyAd dataUser = {dataUser}/>
                             <TuyenDungCongtyAd 
                                 modal={modal} 
                                 setModal={setModal}

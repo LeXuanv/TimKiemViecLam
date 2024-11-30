@@ -1,5 +1,6 @@
 
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
+import moment from 'moment';
 
 const DetailFile = ({
     user,
@@ -42,10 +43,25 @@ const DetailFile = ({
   const handleDateChange = (birthdate, dateString) => {
       setFormData((prevData) => ({
           ...prevData,
-          birthdate: dateString,
+          birth_date: dateString,
       }));
   };
-
+  const handleExpChange = (value, option) => {
+    const name = option?.name || 'experience';
+    
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value, 
+    }));
+  };
+  const handleGenderChange = (value, option) => {
+    const name = option?.name || 'gender';
+    
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value, 
+    }));
+  };
   return (
     
       <div className="all-detail">
@@ -187,30 +203,46 @@ const DetailFile = ({
                 <>
                   <Form.Item
                     label="Giới tính:"
-                    name="genner"
                     >
-                      <Select placeholder="Chọn giới tính" >
-                        <Select.Option value="">Nam</Select.Option>
-                        <Select.Option value="">Nữ</Select.Option>
+                      <Select placeholder="Chọn giới tính" 
+                        name = "gender"
+                        value={formData.gender} 
+                        onChange={handleGenderChange}
+                      >
+                        
+                        <Select.Option value="Nam">Nam</Select.Option>
+                        <Select.Option value="Nữ">Nữ</Select.Option>
                       </Select>
                   </Form.Item>
                   <Form.Item
                     label="Ngày sinh:"
-                    name="date"
                     >
+                      
                       <Space direction="vertical">
-                          <DatePicker />
-                      </Space>
+                        <DatePicker
+                            name="birth_date"
+                            placeholder="Ngày sinh"
+                            value={formData.birth_date ? moment(formData.birth_date) : null}
+                            onChange={handleDateChange}
+                        />
+                    </Space>
                   </Form.Item>
                   <Form.Item
                     label="Kinh nghiệm:"
-                    name="exp"
                     >
-                      <Select placeholder="Chọn Kinh Nghiệm" >
-                        <Select.Option value="">Chưa có kinh nghiệm</Select.Option>
-                        <Select.Option value="">1 - 2 năm</Select.Option>
-                        <Select.Option value="">2 - 5 năm</Select.Option>
-                        <Select.Option value="">Trên 5 năm</Select.Option>
+                      <Select 
+                        name = "experience"
+                        placeholder="Chọn Kinh Nghiệm" 
+                        value={formData.experience} 
+                        onChange={handleExpChange}
+                      >
+                        <Select.Option value="Chưa có kinh nghiệm">Chưa có kinh nghiệm</Select.Option>
+                        <Select.Option value="Dưới 1 năm">Dưới 1 năm</Select.Option>
+                        <Select.Option value="1 - 2 năm">1 - 2 năm</Select.Option>
+                        <Select.Option value="2 - 3 năm">2 - 3 năm</Select.Option>
+                        <Select.Option value="3 - 4 năm">3 - 4 năm</Select.Option>
+                        <Select.Option value="4 - 5 năm">4 - 5 năm</Select.Option>
+                        <Select.Option value="Trên 5 năm">Trên 5 năm</Select.Option>
                       </Select>
                   </Form.Item>
                 </>

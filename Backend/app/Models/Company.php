@@ -85,12 +85,12 @@ class Company extends Model
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'ward_code' => $this->ward_code,
-			'email' => $this->email,
 			'description' => $this->description,
             'scale' => $this->scale,
             'logo' => url('storage/' . $this->logo),
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
+			'email' => $this->email,
         ];
     }
 }

@@ -104,6 +104,9 @@ class JobSeeker extends Model
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
             'logo' => url('storage/' . $this->logo),
+			'province_code' => $this->province_code,
+			'district_code' => $this->district_code,
+			'email' => $this->email,
         ];
     }
     public function getFullInfo()
@@ -115,6 +118,9 @@ class JobSeeker extends Model
             'gender' => $this->gender,
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
+			'province_code' => $this->province_code,
+			'district_code' => $this->district_code,
+			'email' => $this->email,
         ];
     }
 }
