@@ -7,6 +7,7 @@ import ChangePassword from "./changePassword";
 import axios from "axios";
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import JobSave from "./JobSave";
 
 const Profile = () => {
   const [titleTabs, setTitleTabs] = useState("Hồ sơ");
@@ -253,6 +254,8 @@ const Profile = () => {
                     handleDistrictChange={handleDistrictChange}
                     handleWardChange={handleWardChange}
                     />
+                ) : titleTabs === "jobsave" ? (
+                  <JobSave />
                 ) : (
                   <ChangePassword />
                 )}
