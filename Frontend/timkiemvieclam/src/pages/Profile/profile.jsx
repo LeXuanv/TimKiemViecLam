@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import MainLayout from "../mainLayout";
+import { useContext, useEffect, useState } from "react";
+import MainLayout, { AddressContext } from "../mainLayout";
 import "./profile.scss";
 import Tabs from "./tabs";
 import DetailFile from "./detailFile";
 import ChangePassword from "./changePassword";
 import axios from "axios";
+import JobSave from "./JobSave";
 
 const Profile = () => {
   const [titleTabs, setTitleTabs] = useState("Hồ sơ");
-  const [name, setName] = useState("");
+  const [data, setData] = useState([]);
+  const [name, setName] = useState();
   const [email, setEmail] = useState("");
   const [sdt, setSdt] = useState("");
   const [tinh, setTinh] = useState("");
@@ -21,6 +23,51 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   
   const [dataUser, setDataUser] = useState("");
+
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await axios.get('/api/province');
+        setProvinces(response.data);
+      } catch (error) {
+        console.error('Lỗi khi lấy danh sách tỉnh:', error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      try {
+        const response = await axios.get(`api/district/${selectedProvince}`);
+        setDistricts(response.data);
+      } catch (error) {
+        console.error('Lỗi khi lấy danh sách huyện:', error);
+      }
+    };
+
+    fetchDistricts();
+  }, [selectedProvince]);
+  useEffect(() => {
+    const fetchWards = async () => {
+      try {
+        const response = await axios.get(`api/ward/${selectedDistrict}`);
+        setWards(response.data);
+        console.log("Danh sách xã:", response.data);
+      } catch (error) {
+        console.error('Lỗi khi lấy danh sách xã:', error);
+      }
+    };
+
+    fetchWards();
+  }, [selectedDistrict]);
+
   const HandleTitle = (newtitle) => {
     setTitleTabs(newtitle);
   };
@@ -76,6 +123,8 @@ const Profile = () => {
               <div className="inner-content">
                 {titleTabs === "Hồ sơ" ? (
                   <DetailFile user={user} dataUser={dataUser} />
+                ) : titleTabs === "jobsave" ? (
+                  <JobSave />
                 ) : (
                   <ChangePassword />
                 )}

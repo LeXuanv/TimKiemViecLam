@@ -220,7 +220,76 @@
                             }
                         }
                     }
+                    .full-box-cv {
+                        display: grid;
+                        grid-template-columns: 50% 50%;
+                        gap: 10px;
+                        padding: 10px;
+                        margin-top: 60px;
+                        .box-cv {
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #fff;
+                            border-radius: 10px;
+                            box-sizing: border-box;
+                            background-color: #fff;
+                            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+                            &:hover {
+                                border: 1px solid #cdcdcd;
+                                cursor: pointer;
+                            }
+
+                            .box {
+
+                                display: flex;
+
+                                .img {
+                                    margin: 0;
+
+                                    img {
+                                        width: 75px;
+                                        height: 75px;
+                                    }
+                                }
+
+                                .infoCty {
+                                    margin: 0 10px;
+
+                                    .tenViec {
+                                        font-size: 20px;
+                                        font-weight: bold;
+                                    }
+
+                                    .tenCty {
+                                        padding: 5px 0;
+                                        font-size: 18px;
+                                        color: #7b7b7b;
+                                    }
+
+                                    .tt-ct {
+                                        display: flex;
+
+                                        .luong {
+                                            background-color: #cdcdcd;
+                                            padding: 3px 5px;
+                                            border-radius: 5px;
+                                            margin-left: 0;
+                                        }
+
+                                        .diadiem {
+                                            background-color: #cdcdcd;
+                                            padding: 3px 5px;
+                                            border-radius: 5px;
+                                            margin-left: 20px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+                
             }
             
         }
