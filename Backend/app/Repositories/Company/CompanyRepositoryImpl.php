@@ -22,4 +22,9 @@ class CompanyRepositoryImpl implements CompanyRepository
     {
         $company->update($params);
     }
+
+    public function getAll()
+    {
+        return $this->company->all();
+    }
 }

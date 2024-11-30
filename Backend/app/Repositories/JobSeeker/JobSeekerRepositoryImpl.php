@@ -23,4 +23,9 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         $jobSeeker->update($params);
     }
 
+    public function getAll()
+    {
+        return $this->jobSeeker->all();
+    }
+
 }

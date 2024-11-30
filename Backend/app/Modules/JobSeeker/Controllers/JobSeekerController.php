@@ -56,4 +56,9 @@ class JobSeekerController extends Controller
         return $destroy['status'] ? $this->sendResponse('',
             'Delete successfully.') : $this->sendResponse($destroy['error'], 'Delete failed.');
     }
+
+    public function getAll()
+    {
+        return $this->jobSeekerService->getAll();
+    }
 }

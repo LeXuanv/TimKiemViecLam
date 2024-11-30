@@ -10,6 +10,7 @@ Route::group([
 ], function () {
     Route::get('/skill/{id}', [JobSeekerController::class, 'getSkill']);
     Route::get('/education-detail/{id}', [JobSeekerController::class, 'getEducationDetail']);
+    Route::get('/get-all', [JobSeekerController::class, 'getAll']);
 
     Route::group(['middleware' => ['auth:sanctum', 'job_seeker']], function () {
 

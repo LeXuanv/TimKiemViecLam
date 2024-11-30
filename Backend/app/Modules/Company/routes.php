@@ -1,7 +1,16 @@
 
 <?php
-use App\Http\Controllers\CompanyController;
+
+use App\Modules\Company\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/company/upload-logo', [CompanyController::class, 'uploadLogo']);
 
+Route::group([
+    'prefix' => 'api/company',
+    'namespace' => 'App\Modules\Company\Controllers',
+    'middleware' => ['api']
+], function () {
+
+    Route::post('/upload-logo', [CompanyController::class, 'uploadLogo']);
+    Route::get('/get-all', [CompanyController::class, 'getAll']);
+});
