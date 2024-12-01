@@ -3,7 +3,9 @@ import { PiBagSimpleFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../../utils/constant";
 
-const TuyenDungCongty = () => {
+const TuyenDungCongty = ({
+    jobs
+}) => {
     return(
         <>
         <div className="tuyendungCty">
@@ -12,12 +14,12 @@ const TuyenDungCongty = () => {
                     <span>Tuyển dụng</span>
                 </div>
                 <div className="search-tttuyendung">
-                    <form id="frm-search-job">
+                    {/* <form id="frm-search-job">
                         <div className="group-search">
                             <div className="item">
                                 <input className="form-input" placeholder="Nhập thông tin việc làm"/>
                             </div>
-                            {/* <div className="search-tinh">
+                             <div className="search-tinh">
                                 <div className="icon">
                                     <FaMapMarkerAlt />
                                 </div>
@@ -28,7 +30,7 @@ const TuyenDungCongty = () => {
                                         <option value="2">TP Ho Chi Minh</option>
                                     </select>
                                 </div>
-                            </div> */}
+                            </div> 
                             <div className="search-nganhnghe">
                                 <div className="icon">
                                     <PiBagSimpleFill />
@@ -45,9 +47,9 @@ const TuyenDungCongty = () => {
                                 <button>Tìm kiếm</button>
                             </div>
                         </div>
-                    </form>
+                    </form> */}
                     <div className="ttTuyendung">
-                        <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
+                        {/* <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
                             <div className="box-cv">
                                 <div className="box">
                                     <div className="img">
@@ -71,107 +73,40 @@ const TuyenDungCongty = () => {
                                     </div>
                                 </div>
                             </div>
-                        </Link>
-                        <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
-                            <div className="box-cv">
+                        </Link> */}
+                        {jobs.length > 0 ? (
+                            jobs.map((job) => (
+                            // <Link key={job.id} to={`${PATH_PAGE.chitietcongviec}/${job.id}`} className="link-deital">
+                            <Link key={job.id} to={PATH_PAGE.chitietcongviec.replace(':id', job.id)} className="link-deital">
+
+                                <div className="box-cv">
                                 <div className="box">
                                     <div className="img">
-                                        <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346"/>
+                                    <img src={job.companyLogo} alt={job.title} />
                                     </div>
                                     <div className="infoCty">
-                                        <div className="tenViec">
-                                            <span>Thực tập sinh Laravel</span>
+                                    <div className="tenViec">
+                                        <span>{job.title}</span>
+                                    </div>
+                                    <div className="tenCty">
+                                        <span>{job.companyName}</span>
+                                    </div>
+                                    <div className="tt-ct">
+                                        <div className="luong">
+                                        <span>{job.salary}</span>
                                         </div>
-                                        <div className="tenCty">
-                                            <span>Công ty TNHH Gol</span>
+                                        <div className="diadiem">
+                                        <span>{job.provinceName}</span>
                                         </div>
-                                        <div className="tt-ct">
-                                            <div className="luong">
-                                                <span>Từ 20 - 25 triệu</span>
-                                            </div>
-                                            <div className="diadiem">
-                                                <span>Hà Nội</span>
-                                            </div>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Link>
-                        <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
-                            <div className="box-cv">
-                                <div className="box">
-                                    <div className="img">
-                                        <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346"/>
-                                    </div>
-                                    <div className="infoCty">
-                                        <div className="tenViec">
-                                            <span>Thực tập sinh Laravel</span>
-                                        </div>
-                                        <div className="tenCty">
-                                            <span>Công ty TNHH Gol</span>
-                                        </div>
-                                        <div className="tt-ct">
-                                            <div className="luong">
-                                                <span>Từ 20 - 25 triệu</span>
-                                            </div>
-                                            <div className="diadiem">
-                                                <span>Hà Nội</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                        <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
-                            <div className="box-cv">
-                                <div className="box">
-                                    <div className="img">
-                                        <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346"/>
-                                    </div>
-                                    <div className="infoCty">
-                                        <div className="tenViec">
-                                            <span>Thực tập sinh Laravel</span>
-                                        </div>
-                                        <div className="tenCty">
-                                            <span>Công ty TNHH Gol</span>
-                                        </div>
-                                        <div className="tt-ct">
-                                            <div className="luong">
-                                                <span>Từ 20 - 25 triệu</span>
-                                            </div>
-                                            <div className="diadiem">
-                                                <span>Hà Nội</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                        <Link to={PATH_PAGE.chitietcongviec} className="link-deital">
-                            <div className="box-cv">
-                                <div className="box">
-                                    <div className="img">
-                                        <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346"/>
-                                    </div>
-                                    <div className="infoCty">
-                                        <div className="tenViec">
-                                            <span>Thực tập sinh Laravel</span>
-                                        </div>
-                                        <div className="tenCty">
-                                            <span>Công ty TNHH Gol</span>
-                                        </div>
-                                        <div className="tt-ct">
-                                            <div className="luong">
-                                                <span>Từ 20 - 25 triệu</span>
-                                            </div>
-                                            <div className="diadiem">
-                                                <span>Hà Nội</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
+                            </Link>
+                            ))
+                        ) : (
+                            <p>Không có công việc nào được tìm thấy.</p>
+                        )}
                     </div>
                 </div>
                 

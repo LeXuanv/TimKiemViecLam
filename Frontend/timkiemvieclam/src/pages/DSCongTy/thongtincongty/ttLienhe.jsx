@@ -1,7 +1,14 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
-const LienHeCongTy = () => {
+const LienHeCongTy = ({
+    company,
+
+    getWardName,
+    getDistrictName,
+    getProvinceName,
+ 
+}) => {
     return(
         <>
             <div className="thongtinlienhe">
@@ -15,8 +22,10 @@ const LienHeCongTy = () => {
                                 <FaMapMarkerAlt />
                             </div>
                             <div className="ttchitiet">
-                                <span>Số 85 Phố Nguyễn Du, Phường Nguyễn Du, Quận Hai Bà Trưng, Thành phố Hà Nội, Việt Nam</span>
+                                <span>{company.address}, {getWardName(company.ward_code)}, {getDistrictName(company.district_code)}, {getProvinceName(company.province_code)}
+                                    </span>
                             </div>
+                            
                         </div>
                         <div className="box-chitiet">
                             <div className="icon-chitiet">

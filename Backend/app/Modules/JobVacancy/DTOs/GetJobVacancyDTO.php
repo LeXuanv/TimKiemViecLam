@@ -8,6 +8,7 @@ class GetJobVacancyDTO
     public $title;
     public $salary;
     public $employmentType;
+    public $companyId;
     public $companyName;
     public $categoryName;
     public $jobPositionName;

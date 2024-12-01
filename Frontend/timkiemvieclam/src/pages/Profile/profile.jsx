@@ -31,7 +31,7 @@ const Profile = () => {
       district_code:"",
       phone_number: "",
       logo: "",
-
+      website: "",
       gender:"",
       birth_date: "",
       experience: "",

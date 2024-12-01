@@ -25,7 +25,7 @@ class JobVacancyService
             $dto->title = $jobVacancy->title;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
-            
+            $dto->companyId = $jobVacancy->company_id;
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
@@ -59,7 +59,7 @@ class JobVacancyService
             $dto->workTime = $jobVacancy->work_time;
             $dto->experience = $jobVacancy->experience;
             $dto->gender = $jobVacancy->gender;
-
+            $dto->companyId = $jobVacancy->company_id;
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
@@ -100,7 +100,7 @@ class JobVacancyService
             $dto->workTime = $jobVacancy->work_time;
             $dto->experience = $jobVacancy->experience;
             $dto->gender = $jobVacancy->gender;
-
+            $dto->companyId = $jobVacancy->company_id;
             $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
@@ -134,6 +134,7 @@ class JobVacancyService
         $dto->workTime = $jobVacancy->work_time;
         $dto->experience = $jobVacancy->experience;
         $dto->gender = $jobVacancy->gender;
+        $dto->companyId = $jobVacancy->company_id;
 
         $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
         $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
@@ -277,7 +278,10 @@ class JobVacancyService
             $dto->id = $job->id;
             $dto->title = $job->title;
             $dto->salary = $job->salary;
+            
             $dto->employmentType = $job->employment_type;
+            $dto->companyId = $job->company_id;
+
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;
@@ -314,6 +318,8 @@ class JobVacancyService
             $dto->title = $job->title;
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;
+            $dto->companyId = $job->company_id;
+
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;
@@ -350,6 +356,8 @@ class JobVacancyService
             $dto->title = $job->title;
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;
+            $dto->companyId = $job->company_id;
+
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;

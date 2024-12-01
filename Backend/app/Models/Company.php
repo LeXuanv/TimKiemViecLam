@@ -51,7 +51,8 @@ class Company extends Model
 		'ward_code',
 		'user_id',
 		'province_code',
-		'district_code'
+		'district_code',
+		'website'
 	];
 
 	public function user()
@@ -91,6 +92,7 @@ class Company extends Model
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
 			'email' => $this->email,
+			'website' => $this->website,
         ];
     }
 }

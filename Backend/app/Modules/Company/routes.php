@@ -14,4 +14,5 @@ Route::group([
         Route::post('/upload-logo', [CompanyController::class, 'uploadLogo']);
     });
     Route::get('/get-all', [CompanyController::class, 'getAll']);
+    Route::get('/show/{companyId}', [CompanyController::class,'getById']);
 });
