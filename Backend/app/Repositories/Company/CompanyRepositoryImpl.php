@@ -27,6 +27,10 @@ class CompanyRepositoryImpl implements CompanyRepository
     {
         return $this->company->all();
     }
+    public function getById($id){
+        return $this->company->find($id);
+    }
+    
 
     public function saveLogoPath($company, $path)
     {

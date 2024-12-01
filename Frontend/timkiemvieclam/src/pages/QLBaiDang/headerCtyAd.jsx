@@ -21,7 +21,7 @@ const HeaderCtyAd = (dataUser) => {
                             <div className="linkCty">
                                 <BiWorld />
                                 <div className="tenlink">
-                                    {dataUser.dataUser.email}
+                                    {dataUser.dataUser.website}
                                 </div>
                             </div>
                             <div className="slNhanVien">

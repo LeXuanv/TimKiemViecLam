@@ -9,7 +9,7 @@ export const PATH_PAGE = {
     cv: "/cv",
 
     dscongty: "/dscongty",
-    chitietcongty: "/chitietcongty",
+    chitietcongty: "/chitietcongty/:id",
 
     dtcongviec: "/dtcongviec",
 

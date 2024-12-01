@@ -3,12 +3,13 @@ import { FaCube } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link} from "react-router-dom";
 import { MdOutlineIosShare } from "react-icons/md";
-
+import { PATH_PAGE } from "../../../utils/constant";
 
 const CongTyCongViec = ({job}) =>{
+    console.log(job)
     if (!job) return null;
     return(
-        <>
+        
             <div className="congtycongviec">
                 <div className="chitietcongty">
                     <div className="congty">
@@ -34,7 +35,7 @@ const CongTyCongViec = ({job}) =>{
                         <div className="icon-chitiet">
                             <FaMapMarkerAlt />
                             <div className="tentitle">
-                                <span>Địa điểm:</span>
+                                <span>Địa chỉ:</span>
                             </div>
                         </div>
                         <div className="ttchitiet">
@@ -43,13 +44,20 @@ const CongTyCongViec = ({job}) =>{
                     </div>
                     <div className="xemttcty">
                         <div className="btn-xemtt">
-                            <Link to="" >Xem thông tin</Link>
+                            <Link 
+                                key={job.companyId} 
+                                to={PATH_PAGE.chitietcongty.replace(':id', job.companyId)} 
+                                className="link-deital"
+                            >
+                                Xem thông tin
+                            </Link>
                             <MdOutlineIosShare />
+
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        
     )
 }
 

@@ -193,6 +193,16 @@ const DetailFile = ({
                           placeholder="Nhập quy mô công ty của bạn" 
                       />
                   </Form.Item>
+                  <Form.Item
+                      label="Website công ty:"
+                    >
+                      <Input 
+                          name="website"
+                          value={formData.website}
+                          onChange={handleChange}
+                          placeholder="Nhập trang web công ty của bạn" 
+                      />
+                  </Form.Item>
                   
                   
                 </>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo')->nullable()->after('scale');
             $table->string('province_code')->nullable();
             $table->string('district_code')->nullable();
+            $table->string('website')->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->dropColumn(['description', 'scale', 'logo']); // Xóa các cột khi rollback
+            $table->dropColumn(['description', 'scale', 'logo', 'website']); // Xóa các cột khi rollback
         });
     }
 };

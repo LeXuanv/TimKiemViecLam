@@ -30,6 +30,10 @@ class CompanyService
     {
         return $this->companyRepository->getAll();
     }
+    public function getById($id)
+    {
+        return $this->companyRepository->getById($id);
+    }
 
     public function uploadLogo($user, $request)
     {

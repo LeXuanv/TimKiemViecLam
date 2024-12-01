@@ -10,6 +10,7 @@ class GetByIdJobVacancyDTO
     public $salary;
     public $employmentType;
     public $applicationDeadline;
+    public $companyId;
     public $companyName;
     public $categoryName;
     public $jobPositionName;

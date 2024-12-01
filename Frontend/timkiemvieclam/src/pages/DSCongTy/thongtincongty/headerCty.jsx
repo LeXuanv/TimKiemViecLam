@@ -1,7 +1,9 @@
 import { BiWorld } from "react-icons/bi";
 import { BiSolidBuildingHouse } from "react-icons/bi";
 
-const HeaderCty = () => {
+const HeaderCty = ({
+    company
+}) => {
     return(
         <>
             <div className="headerCty">
@@ -13,19 +15,19 @@ const HeaderCty = () => {
                     </div>
                     <div className="bottomHeader">
                         <div className="tencty">
-                            <span>Công ty TNHH công nghệ Gol</span>
+                            <span>{company.name}</span>
                         </div>
                         <div className="thongTinCty">
                             <div className="linkCty">
                                 <BiWorld />
                                 <div className="tenlink">
-                                    afasdfasdfasdfasd.com
+                                    {company.website}
                                 </div>
                             </div>
                             <div className="slNhanVien">
                                 <BiSolidBuildingHouse />
                                 <div className="slnv">
-                                    <span>10+ nhân viên</span>
+                                    <span>{company.scale}</span>
                                 </div>
                             </div>
                         </div>
