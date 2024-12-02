@@ -141,6 +141,19 @@
                     }
                 }
             }
+            .utvdd{
+                display: grid;
+                grid-template-columns: 50% 50%;
+
+                .congviecungtuyen{
+                    margin: 10px 0;
+                    .innerCVungtuyen{
+                        .btn-ungtuyen{
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
         }
         .nua2{
             flex: 1;

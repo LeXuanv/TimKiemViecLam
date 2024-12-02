@@ -38,20 +38,20 @@ const FormLogin = ({setUsername, setPassword, apiLogin}) => {
       >
         <Input prefix={<LockOutlined />} type="password" placeholder="Mật khẩu" onChange={(e)=> setPassword(e.target.value)} />
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <Flex justify="space-between" align="center">
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
         </Flex>
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item>
-        <Button block type="primary" htmlType="submit" onClick={() => apiLogin()}>
+        <Button style={{backgroundColor:"green"}} block type="primary" htmlType="submit" onClick={() => apiLogin()}>
           Log in
         </Button>
         <Form.Item>
-            Chưa có tài khoản. <Link to="/signin">Đăng ký ngay !</Link>
+            Chưa có tài khoản. <Link style={{color:"green"}} to="/signin">Đăng ký ngay !</Link>
         </Form.Item>
       </Form.Item>
     </Form>

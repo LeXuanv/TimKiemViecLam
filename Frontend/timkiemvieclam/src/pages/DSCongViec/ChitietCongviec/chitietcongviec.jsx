@@ -154,22 +154,22 @@ const ChiTietCongViec = () => {
                     <div className="nua1">
                         <CongViecUngTuyen job = {job} />
                         <ChiTietTuyenDung job = {job}/>
-                        <UngTuyen 
+                        <div className="utvdd">
+                          <UngTuyen 
                             job = {job}
                             handleApply = {handleApply}
                             isLoading={isLoading} 
                             message={message}
                             hasApplied={hasApplied}
-
-                        />
-                        <DanhDau 
+                          />
+                          <DanhDau 
                             job = {job}
                             handleBookmark = {handleBookmark}
                             isLoading={isLoadingOfBookmark} 
                             message={messageOfBookmark}
                             hasBookmarked={hasBookmarked}
-
-                        />
+                          />
+                        </div>
                     </div>
                     <div className="nua2">
                         <CongTyCongViec job = {job}/>

@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import Header from "../componants/header";
 import "./main.scss"
 import axios from "axios";
+import Footer from "../componants/footer";
 
 export const AddressContext = createContext();
 const MainLayout = ({ children }) => {
@@ -12,6 +13,7 @@ const MainLayout = ({ children }) => {
       <div>
       {children}
       </div>
+      <Footer />
     </div>
   );
 };

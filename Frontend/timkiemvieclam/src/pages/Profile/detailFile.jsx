@@ -265,11 +265,11 @@ const DetailFile = ({
 
                 }
                 
-                <Form.Item>
-                  <Button type="primary" htmlType="submit">
+                <Form.Item style={{ display: "flex", justifyContent: "center" }}>
+                  <Button type="primary" htmlType="submit" style={{ backgroundColor:"green", padding : "5px 20px" }}>
                     Lưu thay đổi
                   </Button>
-              </Form.Item>
+                </Form.Item>
               </Form>
               
             </div>

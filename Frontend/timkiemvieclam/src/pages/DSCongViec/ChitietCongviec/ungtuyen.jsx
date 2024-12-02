@@ -14,7 +14,7 @@ const UngTuyen = ({
   if (!job) return null;
 
   return (
-    <div className="congviecungtuyen">
+    <div className="congviecungtuyen" style={{marginRight:"10px"}}>
       <div className="innerCVungtuyen">
         <div className="btn-ungtuyen" onClick={handleApply} disabled={isLoading}>
           <div className="ut">
