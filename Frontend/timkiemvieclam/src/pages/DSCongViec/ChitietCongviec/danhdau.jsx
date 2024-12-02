@@ -14,7 +14,7 @@ const DanhDau = ({
   if (!job) return null;
 
   return (
-    <div className="congviecungtuyen">
+    <div className="congviecungtuyen" style={{marginLeft:"10px"}}>
       <div className="innerCVungtuyen">
         <div className="btn-ungtuyen" onClick={handleBookmark} disabled={isLoading}>
           <div className="ut">

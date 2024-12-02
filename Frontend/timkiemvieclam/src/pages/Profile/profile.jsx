@@ -8,6 +8,7 @@ import axios from "axios";
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import JobSave from "./JobSave";
+import CvSubmit from "./cvSubmit";
 
 const Profile = () => {
   const [titleTabs, setTitleTabs] = useState("Hồ sơ");
@@ -56,6 +57,7 @@ const Profile = () => {
     setTitleTabs(newtitle);
   };
   const user =  localStorage.getItem("user");
+  // console.log("user", user)
   useEffect(() => {
     const fetchDataUser = async () => {
       try {
@@ -64,7 +66,7 @@ const Profile = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("lấy dl:",response.data);
+        // console.log("lấy dl:",response.data);
         setDataUser(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
@@ -158,7 +160,7 @@ const Profile = () => {
     } catch (error) {
         console.error("Error fetching districts", error);
     }
-    console.log('selectedProvince:',selectedProvince);
+    // console.log('selectedProvince:',selectedProvince);
 
   };
   const fetchWards = async () => {
@@ -170,7 +172,7 @@ const Profile = () => {
     } catch (error) {
         console.error("Error fetching wards", error);
     }
-    console.log('selectedDistrict:',selectedDistrict);
+    // console.log('selectedDistrict:',selectedDistrict);
   };
   useEffect(() => {
     
@@ -275,7 +277,7 @@ const Profile = () => {
             ...prev,
             logo: result.path, 
         }));
-        console.log("Uploaded logo:", result.path);
+        // console.log("Uploaded logo:", result.path);
     } catch (error) {
         console.error("Error uploading logo:", error.message);
     } finally {
@@ -287,7 +289,7 @@ const Profile = () => {
       <MainLayout>
         <div className="container-profile">
           <div className="inner-profle">
-            <Tabs onHandleTitle={HandleTitle} />
+            <Tabs onHandleTitle={HandleTitle} user = {user} />
             <div className="all-content">
               <div className="inner-content">
                 {titleTabs === "Hồ sơ" ? (
@@ -312,9 +314,14 @@ const Profile = () => {
                     handleFileChange={handleFileChange}
                     handleLogoUpload={handleLogoUpload}
                     />
-                ) : titleTabs === "jobsave" ? (
+                ) 
+                : titleTabs === "jobsave" ? (
                   <JobSave />
-                ) : (
+                ) 
+                : titleTabs === "Cv đã nộp" ? (
+                  <CvSubmit />
+                ) 
+                : (
                   <ChangePassword />
                 )}
               </div>

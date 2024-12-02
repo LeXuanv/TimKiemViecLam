@@ -101,11 +101,11 @@ const FormSignIn = ({setName, setEmail, setRole, setPassword, setPasswordConfirm
 </Form.Item>
 
 <Form.Item>
-  <Button block type="primary" htmlType="submit" onClick={() => handleClickRegister()}>
+  <Button style={{backgroundColor:"green"}} block type="primary" htmlType="submit" onClick={() => handleClickRegister()}>
     Đăng ký
   </Button>
   <Form.Item>
-    Đã có tài khoản. <Link to="/login">Đăng nhập ngay !</Link>
+    Đã có tài khoản. <Link style={{color:"green"}} to="/login">Đăng nhập ngay !</Link>
   </Form.Item>
 </Form.Item>
 

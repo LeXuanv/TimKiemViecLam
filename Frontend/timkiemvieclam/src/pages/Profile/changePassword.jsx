@@ -62,8 +62,9 @@ const ChangePassword = () => {
                     offset: 8,
                     span: 16,
                   }}
+                  style={{ display: "flex", justifyContent: "center" }}
                 >
-                  <Button type="primary" htmlType="submit">Xác nhận đổi mật khẩu</Button>
+                  <Button type="primary" htmlType="submit" style={{ backgroundColor:"green", padding : "5px 20px" }}>Xác nhận đổi mật khẩu</Button>
                 </Form.Item>
               </Form>
             </div>

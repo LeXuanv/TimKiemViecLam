@@ -15,6 +15,10 @@ const Tabs = (props) => {
     setClickTab(3);
     props.onHandleTitle("Đổi mật khẩu");
   };
+  const handleClickCv = () => {
+    setClickTab(4);
+    props.onHandleTitle("Cv đã nộp");
+  };
   const name = localStorage.getItem("name");
   return (
     <>
@@ -37,12 +41,23 @@ const Tabs = (props) => {
           >
             Hồ sơ
           </p>
-          <p
-            className={clickTab === 2 ? "activeTab" : ""}
-            onClick={() => handleClickJobSave()}
-          >
-            Công việc đã lưu
-          </p>
+          {props.user == 3 ? 
+          <>
+            <p
+              className={clickTab === 2 ? "activeTab" : ""}
+              onClick={() => handleClickJobSave()}
+            >
+              Công việc đã lưu
+            </p>
+            <p
+              className={clickTab === 4 ? "activeTab" : ""}
+              onClick={() => handleClickCv()}
+            >
+              Cv đã nộp
+            </p>
+          </>
+          : ""}
+          
           <p
             className={clickTab === 3 ? "activeTab" : ""}
             onClick={() => handleClickChangePassWord()}

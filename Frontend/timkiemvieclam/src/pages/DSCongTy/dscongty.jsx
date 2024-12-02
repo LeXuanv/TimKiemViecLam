@@ -38,7 +38,7 @@ const DsCongTy = () => {
     return(
         <>
         <MainLayout>
-            <div style={{background:"rgb(249 249 249)"}}>
+            <div S style={{background:"rgb(249 249 249)"}}>
                 <SearchCty />
                 <ListCty 
                     companies={companies}
