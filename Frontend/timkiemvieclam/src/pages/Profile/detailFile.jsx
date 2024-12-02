@@ -20,7 +20,8 @@ const DetailFile = ({
     handleProvinceChange,
     handleDistrictChange,
     handleWardChange,
-
+    handleFileChange,
+    handleLogoUpload,
   }) => {
 
 
@@ -40,7 +41,7 @@ const DetailFile = ({
   }));
 
  
-  const handleDateChange = (birthdate, dateString) => {
+  const handleDateChange = (birth_date, dateString) => {
       setFormData((prevData) => ({
           ...prevData,
           birth_date: dateString,

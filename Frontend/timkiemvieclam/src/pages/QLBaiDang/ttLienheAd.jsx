@@ -1,7 +1,13 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaHeadphonesAlt } from "react-icons/fa";
+import { FaVoicemail } from "react-icons/fa";
 
-const LienHeCongTyAd = () => {
+const LienHeCongTyAd = ({
+    company,
+
+
+}) => {
     return(
         <>
             <div className="thongtinlienhe">
@@ -15,8 +21,30 @@ const LienHeCongTyAd = () => {
                                 <FaMapMarkerAlt />
                             </div>
                             <div className="ttchitiet">
-                                <span>Số 85 Phố Nguyễn Du, Phường Nguyễn Du, Quận Hai Bà Trưng, Thành phố Hà Nội, Việt Nam</span>
+                                <span>{company.address}
+                                    </span>
                             </div>
+                            
+                        </div>
+                        <div className="box-chitiet">
+                            <div className="icon-chitiet">
+                                <FaHeadphonesAlt />
+                            </div>
+                            <div className="ttchitiet">
+                                <span>{company.phone_number}
+                                    </span>
+                            </div>
+                            
+                        </div>
+                        <div className="box-chitiet">
+                            <div className="icon-chitiet">
+                                <FaVoicemail />
+                            </div>
+                            <div className="ttchitiet">
+                                <span>{company.email}
+                                    </span>
+                            </div>
+                            
                         </div>
                         <div className="box-chitiet">
                             <div className="icon-chitiet">

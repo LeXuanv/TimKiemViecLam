@@ -1,12 +1,14 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaHeadphonesAlt } from "react-icons/fa";
+import { FaVoicemail } from "react-icons/fa";
 
 const LienHeCongTy = ({
     company,
 
-    getWardName,
-    getDistrictName,
-    getProvinceName,
+    // getWardName,
+    // getDistrictName,
+    // getProvinceName,
  
 }) => {
     return(
@@ -22,7 +24,28 @@ const LienHeCongTy = ({
                                 <FaMapMarkerAlt />
                             </div>
                             <div className="ttchitiet">
-                                <span>{company.address}, {getWardName(company.ward_code)}, {getDistrictName(company.district_code)}, {getProvinceName(company.province_code)}
+                                <span>{company.address}
+                                    {/* , {getWardName(company.ward_code)}, {getDistrictName(company.district_code)}, {getProvinceName(company.province_code)} */}
+                                    </span>
+                            </div>
+                            
+                        </div>
+                        <div className="box-chitiet">
+                            <div className="icon-chitiet">
+                                <FaHeadphonesAlt />
+                            </div>
+                            <div className="ttchitiet">
+                                <span>{company.phone_number}
+                                    </span>
+                            </div>
+                            
+                        </div>
+                        <div className="box-chitiet">
+                            <div className="icon-chitiet">
+                                <FaVoicemail />
+                            </div>
+                            <div className="ttchitiet">
+                                <span>{company.email}
                                     </span>
                             </div>
                             

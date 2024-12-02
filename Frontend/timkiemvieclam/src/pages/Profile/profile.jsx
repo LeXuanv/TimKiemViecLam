@@ -112,6 +112,7 @@ const Profile = () => {
           gender: dataUser.gender || "",
           birth_date: dataUser.birth_date || "",
           experience: dataUser.experience || "",
+          website: dataUser.website || "",
         });
     } catch (error) {
         console.error("Error fetching user data", error);
@@ -238,6 +239,49 @@ const Profile = () => {
       province_code: selectedProvinceCode, 
     }));
   };
+
+
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        setFormData((prev) => ({ ...prev, logo: file }));
+    }
+  };
+    const [uploading, setUploading] = useState(false);
+  const handleLogoUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const data = new FormData();
+    data.append("logo", file);
+
+    setUploading(true);
+    try {
+        const response = await fetch("/api/company/upload-logo", {
+            method: "POST",
+            headers: {
+                Authorization: "Bearer YOUR_ACCESS_TOKEN", // Thêm nếu cần
+            },
+            body: data,
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to upload logo");
+        }
+
+        const result = await response.json();
+        setFormData((prev) => ({
+            ...prev,
+            logo: result.path, 
+        }));
+        console.log("Uploaded logo:", result.path);
+    } catch (error) {
+        console.error("Error uploading logo:", error.message);
+    } finally {
+        setUploading(false);
+    }
+  };
   return (
     <>
       <MainLayout>
@@ -265,6 +309,8 @@ const Profile = () => {
                     handleProvinceChange={handleProvinceChange}
                     handleDistrictChange={handleDistrictChange}
                     handleWardChange={handleWardChange}
+                    handleFileChange={handleFileChange}
+                    handleLogoUpload={handleLogoUpload}
                     />
                 ) : titleTabs === "jobsave" ? (
                   <JobSave />
