@@ -101,7 +101,7 @@ const QlBaiDang = () => {
 
                         </div>
                         <div className="nua2">
-                            <LienHeCongTyAd/>
+                            <LienHeCongTyAd company={dataUser}/>
                         </div>
                     </div>
 

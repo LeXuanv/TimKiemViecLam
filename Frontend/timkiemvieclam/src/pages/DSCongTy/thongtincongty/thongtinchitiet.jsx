@@ -41,52 +41,52 @@ const ChiTietCongty = () => {
     useEffect(() => {
         fetchAllJobs(); 
     }, []);
-    const fetchProvinces = async () => {
-        try {
-            const response = await axios.get("/api/province");
-            setProvinces(response.data);
-        } catch (error) {
-            console.error("Error fetching provinces:", error);
-        }
-    };
-    const fetchDistricts = async () => {
-        try {
-            const response = await axios.get("/api/district");
-            setDistricts(response.data);
-        } catch (error) {
-            console.error("Error fetching districts:", error);
-        }
-    };
-    const fetchWards = async () => {
-        try {
-            const response = await axios.get("/api/ward");
-            setWards(response.data);
-        } catch (error) {
-            console.error("Error fetching wards:", error);
-        }
-    };
-    useEffect(() => {
-        fetchProvinces();
-        fetchDistricts();
-        fetchWards();
+    // const fetchProvinces = async () => {
+    //     try {
+    //         const response = await axios.get("/api/province");
+    //         setProvinces(response.data);
+    //     } catch (error) {
+    //         console.error("Error fetching provinces:", error);
+    //     }
+    // };
+    // const fetchDistricts = async () => {
+    //     try {
+    //         const response = await axios.get("/api/district");
+    //         setDistricts(response.data);
+    //     } catch (error) {
+    //         console.error("Error fetching districts:", error);
+    //     }
+    // };
+    // const fetchWards = async () => {
+    //     try {
+    //         const response = await axios.get("/api/ward");
+    //         setWards(response.data);
+    //     } catch (error) {
+    //         console.error("Error fetching wards:", error);
+    //     }
+    // };
+    // useEffect(() => {
+    //     fetchProvinces();
+    //     fetchDistricts();
+    //     fetchWards();
 
-    }, []);
-    const getProvinceName = (province_code) => {
-        if (!Array.isArray(provinces)) {
-            console.error("Provinces is not an array:", provinces);
-            return "Không xác định";
-        }
-        const province = provinces.find((p) => p.code === province_code);
-        return province ? province.name : "Không xác định";
-    };
-    const getDistrictName = (district_code) => {
-        const district = districts.find((d) => d.code === district_code);
-        return district? district.name : "Không xác định";
-    };
-    const getWardName = (ward_code) => {
-        const ward = wards.find((w) => w.code === ward_code);
-        return ward? ward.name : "Không xác định";
-    };
+    // }, []);
+    // const getProvinceName = (province_code) => {
+    //     if (!Array.isArray(provinces)) {
+    //         console.error("Provinces is not an array:", provinces);
+    //         return "Không xác định";
+    //     }
+    //     const province = provinces.find((p) => p.code === province_code);
+    //     return province ? province.name : "Không xác định";
+    // };
+    // const getDistrictName = (district_code) => {
+    //     const district = districts.find((d) => d.code === district_code);
+    //     return district? district.name : "Không xác định";
+    // };
+    // const getWardName = (ward_code) => {
+    //     const ward = wards.find((w) => w.code === ward_code);
+    //     return ward? ward.name : "Không xác định";
+    // };
   
     return(
         <MainLayout>
@@ -99,9 +99,9 @@ const ChiTietCongty = () => {
                 <div className="nua2">
                     <LienHeCongTy 
                         company = {company}
-                        getProvinceName = {getProvinceName}
-                        getDistrictName = {getDistrictName}
-                        getWardName = {getWardName}
+                        // getProvinceName = {getProvinceName}
+                        // getDistrictName = {getDistrictName}
+                        // getWardName = {getWardName}
                     />
                 </div>
             </div>
