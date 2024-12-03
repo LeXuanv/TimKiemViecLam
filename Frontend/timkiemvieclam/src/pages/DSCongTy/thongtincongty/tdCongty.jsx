@@ -2,10 +2,13 @@ import { FaMapMarkerAlt} from "react-icons/fa";
 import { PiBagSimpleFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../../utils/constant";
+import axios from 'axios';
 
 const TuyenDungCongty = ({
     jobs
 }) => {
+    const baseURL = axios.defaults.baseURL;
+
     return(
         <>
         <div className="tuyendungCty">
@@ -82,7 +85,7 @@ const TuyenDungCongty = ({
                                 <div className="box-cv">
                                 <div className="box">
                                     <div className="img">
-                                        <img src={`http://localhost:8000/storage/${job.companyLogo}`} />
+                                        <img src={`${baseURL}/storage/${job.companyLogo}`} />
                                     </div>
                                     <div className="infoCty">
                                     <div className="tenViec">

@@ -2,8 +2,11 @@
 
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
+import axios from 'axios';
 
 function BoxCongViec({ jobs, isSearching }) {
+  const baseURL = axios.defaults.baseURL;
+
   return (
     <div className="full-box-cv">
       {jobs.length > 0 ? (
@@ -14,7 +17,7 @@ function BoxCongViec({ jobs, isSearching }) {
             <div className="box-cv">
               <div className="box">
                 <div className="img">
-                  <img src={`http://localhost:8000/storage/${job.companyLogo}`} />
+                  <img src={`${baseURL}/storage/${job.companyLogo}`} />
                 </div>
                 <div className="infoCty">
                   <div className="tenViec">

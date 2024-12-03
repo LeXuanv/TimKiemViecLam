@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
+import axios from 'axios';
 
 function ListCty({ companies, getProvinceName }) {
   console.log(companies);
+  const baseURL = axios.defaults.baseURL;
+
     return (
       <div className="dscongty">
         <div className="full-box-cty">
@@ -14,7 +17,7 @@ function ListCty({ companies, getProvinceName }) {
                   <div div className="box-cv">
                       <div className="box">
                           <div className="img">
-                            <img src={`http://localhost:8000/storage/${company.logo}`} />
+                            <img src={`${baseURL}/storage/${company.logo}`} />
                           </div>
                           <div className="infoCty">
                               <div className="tenCty">
