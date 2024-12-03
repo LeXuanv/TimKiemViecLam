@@ -4,7 +4,7 @@
         margin: auto;
         display: flex;
         flex-direction: row;
-        max-width: 1440px;
+        max-width: 1500px;
         .tabs{
             width: 20%;
             padding: 10px;
@@ -176,10 +176,42 @@
                             }
                         }
                         .infomation{
-                            width: 60%;
-                            padding: 0 30px;
+                            width: 100%;
+                            // padding: 0 30px;
+                            display: flex;
+                            flex-direction: row;
+                            .logo-infor{
+                                display: flex;
+                                flex-direction: column;
+                                h2{
+                                    margin-bottom: 10px;
+                                }
+                                img{
+                                    width: 200px;
+                                    height: 200px;
+                                    margin-bottom: 10px;
+                                }
+                                input{
+                                    margin-bottom: 10px;
+                                }
+                                button{
+                                    padding: 10px 20px;
+                                    border-radius: 10px;
+                                    color: green;
+                                    background-color: #fff;
+                                    border-color: green;
+                                    &:hover{
+                                        color: #fff;
+                                        background-color: green;
+                                        cursor: pointer;
+                                        border-color: green;
+                                    }
+                                }
+                            }
                             .inner-info{
+                                width: 100%;
                                 .ant-form{
+                                    padding: 20px;
                                     .ant-form-item{
                                         margin-bottom: 10px;
                                         .ant-col{

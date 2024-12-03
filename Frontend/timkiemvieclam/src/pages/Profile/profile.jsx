@@ -70,7 +70,9 @@ const Profile = () => {
           },
         }
       );
-      console.log("Upload logo thành công!", response.data);
+      // console.log("Upload logo thành công!", response.data);
+      alert("Upload logo thành công!");
+
     } catch (error) {
       console.error("Lỗi khi upload logo:", error);
     }
@@ -105,6 +107,7 @@ const Profile = () => {
         }
       );
       console.log("Upload logo thành công!", response.data);
+      alert("Upload logo thành công!");
     } catch (error) {
       console.error("Lỗi khi upload logo:", error);
     }
