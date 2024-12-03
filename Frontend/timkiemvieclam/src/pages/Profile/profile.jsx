@@ -31,33 +31,89 @@ const Profile = () => {
       province_code:"",
       district_code:"",
       phone_number: "",
-      logo: "",
       website: "",
       gender:"",
       birth_date: "",
       experience: "",
 
   });
+  const [logoFile, setLogoFile] = useState(null);
+  const [previewLogo, setPreviewLogo] = useState(null);
+  const handleLogoCompanyChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLogoFile(file); 
+      setPreviewLogo(URL.createObjectURL(file));
+    }
+  };
 
+  const handleLogoCompanyUpload = async () => {
+    if (!logoFile) {
+      alert("Vui lòng chọn logo trước khi upload!");
+      return;
+    }
 
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [sdt, setSdt] = useState("");
-  // const [tinh, setTinh] = useState("");
-  // const [huyen, setHuyen] = useState("");
-  // const [xa, setXa] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [genner, setGenner] = useState("");
-  // const [date, setdate] = useState("");
-  // const [exp, setExp] = useState("");
-  // const [password, setPassword] = useState("");
+    const formData = new FormData();
+    formData.append("logo", logoFile);
+
+    try {
+      const response = await axios.post(
+        "/api/company/upload-logo",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+
+          },
+        }
+      );
+      console.log("Upload logo thành công!", response.data);
+    } catch (error) {
+      console.error("Lỗi khi upload logo:", error);
+    }
+  };  
+  const handleLogoJobSeekerChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLogoFile(file); 
+      setPreviewLogo(URL.createObjectURL(file)); // Xem trước logo
+    }
+  };
+
+  const handleLogoJobSeekerUpload = async () => {
+    if (!logoFile) {
+      alert("Vui lòng chọn logo trước khi upload!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("logo", logoFile);
+
+    try {
+      const response = await axios.post(
+        "/api/job-seeker/upload-logo",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+
+          },
+        }
+      );
+      console.log("Upload logo thành công!", response.data);
+    } catch (error) {
+      console.error("Lỗi khi upload logo:", error);
+    }
+  };
+
   
   const [dataUser, setDataUser] = useState("");
   const HandleTitle = (newtitle) => {
     setTitleTabs(newtitle);
   };
   const user =  localStorage.getItem("user");
-  // console.log("user", user)
   useEffect(() => {
     const fetchDataUser = async () => {
       try {
@@ -75,29 +131,7 @@ const Profile = () => {
 
     fetchDataUser(); 
   }, []);
-  // const apiChanggeAcout = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "api/user/show",{
-  //           name: name,
-  //           email: email,
-  //           phone_number: sdt,
-  //           ward_code: huyen,
-  //           address: address,
-  //           gender: genner,
-  //           birth_date: date,
-  //           experience: exp,
-  //           password: password,
-  //       }
-  //     );
-  //     console.log("thay đôi thông tin",response.data)
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Lỗi khi thay đổi thông tin:", error);
-  //     return false;
-  //   }
-  // };
-
+  
   const fetchUserData = async () => {
     try {
         setFormData({
@@ -244,46 +278,7 @@ const Profile = () => {
 
 
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        setFormData((prev) => ({ ...prev, logo: file }));
-    }
-  };
-    const [uploading, setUploading] = useState(false);
-  const handleLogoUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const data = new FormData();
-    data.append("logo", file);
-
-    setUploading(true);
-    try {
-        const response = await fetch("/api/company/upload-logo", {
-            method: "POST",
-            headers: {
-                Authorization: "Bearer YOUR_ACCESS_TOKEN", // Thêm nếu cần
-            },
-            body: data,
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to upload logo");
-        }
-
-        const result = await response.json();
-        setFormData((prev) => ({
-            ...prev,
-            logo: result.path, 
-        }));
-        // console.log("Uploaded logo:", result.path);
-    } catch (error) {
-        console.error("Error uploading logo:", error.message);
-    } finally {
-        setUploading(false);
-    }
-  };
+  
   return (
     <>
       <MainLayout>
@@ -311,8 +306,13 @@ const Profile = () => {
                     handleProvinceChange={handleProvinceChange}
                     handleDistrictChange={handleDistrictChange}
                     handleWardChange={handleWardChange}
-                    handleFileChange={handleFileChange}
-                    handleLogoUpload={handleLogoUpload}
+
+                    handleLogoCompanyChange={handleLogoCompanyChange}
+                    handleLogoCompanyUpload={handleLogoCompanyUpload}
+
+                    handleLogoJobSeekerChange={handleLogoJobSeekerChange}
+                    handleLogoJobSeekerUpload={handleLogoJobSeekerUpload}
+                    previewLogo={previewLogo}
                     />
                 ) 
                 : titleTabs === "jobsave" ? (

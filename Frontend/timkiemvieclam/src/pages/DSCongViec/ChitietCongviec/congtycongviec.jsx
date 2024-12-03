@@ -5,8 +5,9 @@ import { Link} from "react-router-dom";
 import { MdOutlineIosShare } from "react-icons/md";
 import { PATH_PAGE } from "../../../utils/constant";
 
-const CongTyCongViec = ({job}) =>{
+const CongTyCongViec = ({job, company}) =>{
     console.log(job)
+    console.log(company)
     if (!job) return null;
     return(
         
@@ -14,7 +15,7 @@ const CongTyCongViec = ({job}) =>{
                 <div className="chitietcongty">
                     <div className="congty">
                         <div className="anhCongty">
-                            <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346" />
+                            <img src={`http://localhost:8000/storage/${company.logo}`} />
                         </div>
                         <div className="tencongty">
                             <span>{job.companyName}</span>

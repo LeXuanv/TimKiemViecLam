@@ -21,10 +21,12 @@ const ChiTietCongViec = () => {
     const [messageOfBookmark, setMessageOfBookmark] = useState("");
     const [hasApplied, setHasApplied] = useState(false); 
     const [hasBookmarked, setHasBookmarked] = useState(false); 
+    const [company, setCompany] = useState("");
+    const [jobSeekerApplies, setJobSeekerApplies] = useState("")
 
     const token = localStorage.getItem('authToken');
     const navigate = useNavigate();
-
+    const user =  localStorage.getItem("user");
     const fetchJobDetail = async () => {
         try {
             const response = await axios.get(`/user/job-vacancy/show/${id}`);
@@ -50,30 +52,72 @@ const ChiTietCongViec = () => {
         }
     };
     const checkIfBookmarked = async () => {
-        if (!token || !job) return;
+      if (!token || !job) return;
+      
+      try {
+        const response = await axios.get(`/user/jobs/${job.id}/check-bookmark`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         
-        try {
-          const response = await axios.get(`/user/jobs/${job.id}/check-bookmark`, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-          
-          setHasBookmarked(response.data.isApplied);
-        } catch (error) {
-          console.error("Error checking bookmark status:", error);
-        }
-      };
+        setHasBookmarked(response.data.isApplied);
+      } catch (error) {
+        console.error("Error checking bookmark status:", error);
+      }
+    };
+    
+    const getCompany = async () => {
+      if (!job) return;
+      
+      try {
+        const response = await axios.get(`/api/company/show/${job.companyId}`);
+        setCompany(response.data);
+      } catch (error) {
+        console.error("Error fetching company details:", error);
+      }
+    }
+
+    const getJobSeekerApplies = async () => {
+      if (!job) return;
+      
+      try {
+        const response = await axios.get(`/company/jobs/${job.id}/applications`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        setJobSeekerApplies(response.data);
+      } catch (error) {
+        console.error("Error fetching job seeker applies:", error);
+      }
+    }
+   
     useEffect(() => {
         
         fetchJobDetail();
     }, [id]);
+
+    console.log("Company:", company)
+    console.log("Job:", job)
+
+
+
+    useEffect(() => {
+      if (user === 3) {
+        getJobSeekerApplies();
+      }
+    }, [job, token, user]); 
     useEffect(() => {
         
+      getCompany();
+    }, [job]);
+    useEffect(() => {
+      if (user === 2 && token ) {
         checkIfApplied();
         checkIfBookmarked();
-    }, [job, token]);
-
+    }
+  }, [job]);
     const handleApply = async () => {
         if (!token) {
             alert("Vui lòng đăng nhập để ứng tuyển.");
@@ -154,27 +198,34 @@ const ChiTietCongViec = () => {
                     <div className="nua1">
                         <CongViecUngTuyen job = {job} />
                         <ChiTietTuyenDung job = {job}/>
-                        <div className="utvdd">
-                          <UngTuyen 
-                            job = {job}
-                            handleApply = {handleApply}
-                            isLoading={isLoading} 
-                            message={message}
-                            hasApplied={hasApplied}
-                          />
-                          <DanhDau 
-                            job = {job}
-                            handleBookmark = {handleBookmark}
-                            isLoading={isLoadingOfBookmark} 
-                            message={messageOfBookmark}
-                            hasBookmarked={hasBookmarked}
-                          />
-                        </div>
+
+                        {user == 3 && (
+                        <>
+                          <div className="utvdd">
+                            <UngTuyen 
+                              job = {job}
+                              handleApply = {handleApply}
+                              isLoading={isLoading} 
+                              message={message}
+                              hasApplied={hasApplied}
+                            />
+                            <DanhDau 
+                              job = {job}
+                              handleBookmark = {handleBookmark}
+                              isLoading={isLoadingOfBookmark} 
+                              message={messageOfBookmark}
+                              hasBookmarked={hasBookmarked}
+                            />
+                          </div>
+                        </>
+                      )}
+                        
                     </div>
                     <div className="nua2">
-                        <CongTyCongViec job = {job}/>
+                        <CongTyCongViec job = {job} company ={company}/>
                         <ThongTinChung job = {job}/>
                     </div>
+                    
                 </div>
             </div>  
         </MainLayout>

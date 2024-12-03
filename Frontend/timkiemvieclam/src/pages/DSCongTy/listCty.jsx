@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
 
 function ListCty({ companies, getProvinceName }) {
+  console.log(companies);
     return (
       <div className="dscongty">
         <div className="full-box-cty">
@@ -13,7 +14,7 @@ function ListCty({ companies, getProvinceName }) {
                   <div div className="box-cv">
                       <div className="box">
                           <div className="img">
-                              <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346"/>
+                            <img src={`http://localhost:8000/storage/${company.logo}`} />
                           </div>
                           <div className="infoCty">
                               <div className="tenCty">

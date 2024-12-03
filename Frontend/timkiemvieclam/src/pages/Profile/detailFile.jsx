@@ -20,8 +20,13 @@ const DetailFile = ({
     handleProvinceChange,
     handleDistrictChange,
     handleWardChange,
-    handleFileChange,
+
+    handleLogoChange,
     handleLogoUpload,
+    handleLogoJobSeekerChange,
+    handleLogoJobSeekerUpload,
+    previewLogo,
+   
   }) => {
 
 
@@ -40,6 +45,7 @@ const DetailFile = ({
     label: ward.name,
   }));
 
+ console.log(dataUser)
  
   const handleDateChange = (birth_date, dateString) => {
       setFormData((prevData) => ({
@@ -69,6 +75,42 @@ const DetailFile = ({
         <div className="inner-file">
           <div className="infomation">
             <div className="inner-info">
+            
+              {user == 2 && (
+                <>
+                  <h2>Logo Công Ty</h2>
+                  {!previewLogo && dataUser.logo ? (
+                    <img src={dataUser.logo} alt="Logo Hiện Tại" width="150" />
+                  ) : (
+                    previewLogo ? (
+                      <img src={previewLogo} alt="Logo Mới" width="150" />
+                    ) : (
+                      <p>Chưa có logo</p>
+                    )
+                  )}
+                  <input type="file" onChange={handleLogoChange} />
+                  <button onClick={handleLogoUpload}>Upload Logo</button>
+                </>
+              )}
+
+              {user == 3 && (
+                <>
+                  <h2>Ảnh đại diện</h2>
+                  {!previewLogo && dataUser.logo ? (
+                    <img src={dataUser.logo} alt="Ảnh Hiện Tại" width="150" />
+                  ) : (
+                    previewLogo ? (
+                      <img src={previewLogo} alt="Ảnh Mới" width="150" />
+                    ) : (
+                      <p>Chưa có ảnh</p>
+                    )
+                  )}
+                  <input type="file" onChange={handleLogoJobSeekerChange} />
+                  <button onClick={handleLogoJobSeekerUpload}>Upload Ảnh</button>
+                </>
+              )}
+
+              
               <Form
                 name="basic"
                 labelCol={{
@@ -204,8 +246,7 @@ const DetailFile = ({
                           placeholder="Nhập trang web công ty của bạn" 
                       />
                   </Form.Item>
-                  
-                  
+                      
                 </>
                 
                 :""}
@@ -256,6 +297,7 @@ const DetailFile = ({
                         <Select.Option value="Trên 5 năm">Trên 5 năm</Select.Option>
                       </Select>
                   </Form.Item>
+                  
                 </>
                 
                 :""}
@@ -271,7 +313,6 @@ const DetailFile = ({
                   </Button>
                 </Form.Item>
               </Form>
-              
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ class JobVacancyService
             $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
             $dto->provinceName = Province::find($jobVacancy->province_code) -> name ?? null;
-
+            $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
             return $dto;
         });
     }
@@ -51,6 +51,7 @@ class JobVacancyService
             $dto->applicationDeadline = $jobVacancy->application_deadline;
             // $dto->address = $jobVacancy->address;
             $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
+            $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
 
 
             $dto->request = $jobVacancy->request;
@@ -93,6 +94,7 @@ class JobVacancyService
             // $dto->address = $jobVacancy->address;
             $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
 
+            $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
 
             $dto->request = $jobVacancy->request;
             $dto->interest = $jobVacancy->interest;
@@ -127,6 +129,7 @@ class JobVacancyService
         // $dto->address = $jobVacancy->address;
         $dto->address = Company::find($jobVacancy->company_id)->address ?? null;
 
+        $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
 
         $dto->request = $jobVacancy->request;
         $dto->interest = $jobVacancy->interest;
@@ -281,6 +284,7 @@ class JobVacancyService
             
             $dto->employmentType = $job->employment_type;
             $dto->companyId = $job->company_id;
+            $dto->companyLogo = Company::find($job->company_id)->logo ?? null;
 
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;
@@ -319,7 +323,7 @@ class JobVacancyService
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;
             $dto->companyId = $job->company_id;
-
+            $dto->companyLogo = Company::find($job->company_id)->logo ?? null;
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;
             $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;
@@ -357,6 +361,7 @@ class JobVacancyService
             $dto->salary = $job->salary;
             $dto->employmentType = $job->employment_type;
             $dto->companyId = $job->company_id;
+            $dto->companyLogo = Company::find($job->company_id)->logo ?? null;
 
             $dto->companyName = Company::find($job->company_id)->name ?? null;
             $dto->categoryName = Category::find($job->category_id)->name ?? null;

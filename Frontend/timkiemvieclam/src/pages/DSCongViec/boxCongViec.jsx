@@ -14,7 +14,7 @@ function BoxCongViec({ jobs, isSearching }) {
             <div className="box-cv">
               <div className="box">
                 <div className="img">
-                  <img src={job.companyLogo} alt={job.title} />
+                  <img src={`http://localhost:8000/storage/${job.companyLogo}`} />
                 </div>
                 <div className="infoCty">
                   <div className="tenViec">

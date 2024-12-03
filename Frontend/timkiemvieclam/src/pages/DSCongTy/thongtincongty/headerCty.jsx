@@ -10,7 +10,7 @@ const HeaderCty = ({
                 <div className="innerHeaderCty">
                     <div className="topheader">
                         <div className="biaCty">
-                            <img src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_covers/iG4XtDpniVr6WmwXw0nc.jpg"/>
+                            {/* <img src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_covers/iG4XtDpniVr6WmwXw0nc.jpg"/> */}
                         </div>
                     </div>
                     <div className="bottomHeader">
@@ -32,7 +32,7 @@ const HeaderCty = ({
                             </div>
                         </div>
                         <div className="avtCty">
-                            <img src="https://my.archdaily.net/users/custom_avatars/007/454/945/original/ho.jpg?1675400346" alt="" />
+                            <img src={`http://localhost:8000/storage/${company.logo}`} />
                         </div>
                     </div>
                 </div>
