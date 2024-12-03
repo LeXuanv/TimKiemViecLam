@@ -39,6 +39,8 @@ const Profile = () => {
   });
   const [logoFile, setLogoFile] = useState(null);
   const [previewLogo, setPreviewLogo] = useState(null);
+  const [jobBookmarked, setJobBookmarked] = useState(null);
+  const [jobApplied, setJobApplied] = useState(null);
   const handleLogoCompanyChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -206,8 +208,41 @@ const Profile = () => {
     } catch (error) {
         console.error("Error fetching wards", error);
     }
-    // console.log('selectedDistrict:',selectedDistrict);
   };
+  const fetchJobBookmark = async () => {
+    try {
+        const response = await axios.get(`/user/jobs/bookmarks`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        setJobBookmarked(response.data);
+    } catch (error) {
+        console.error("Error fetching job bookmark", error);
+    }
+  }
+  const fetchJobApplied = async () => {
+    try {
+        const response = await axios.get(`/user/jobs/applied`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        setJobApplied(response.data);
+    } catch (error) {
+        console.error("Error fetching job apply", error);
+    }
+  }
+
+   useEffect(() => {
+    if(user == 3){
+          fetchJobBookmark();
+          fetchJobApplied();
+        }
+
+  }, [user, token]);
   useEffect(() => {
     
     fetchAddressData();
@@ -316,10 +351,10 @@ const Profile = () => {
                     />
                 ) 
                 : titleTabs === "jobsave" ? (
-                  <JobSave />
+                  <JobSave jobs = {jobBookmarked} />
                 ) 
                 : titleTabs === "Cv đã nộp" ? (
-                  <CvSubmit />
+                  <CvSubmit jobs = {jobApplied}/>
                 ) 
                 : (
                   <ChangePassword />
