@@ -113,10 +113,10 @@ const ChiTietCongViec = () => {
       getCompany();
     }, [job]);
     useEffect(() => {
-      if (user === 2 && token ) {
+     
         checkIfApplied();
         checkIfBookmarked();
-    }
+    
   }, [job]);
     const handleApply = async () => {
         if (!token) {
