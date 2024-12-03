@@ -1,9 +1,12 @@
 import { BiWorld } from "react-icons/bi";
 import { BiSolidBuildingHouse } from "react-icons/bi";
+import axios from 'axios';
 
 const HeaderCty = ({
     company
 }) => {
+    const baseURL = axios.defaults.baseURL;
+
     return(
         <>
             <div className="headerCty">
@@ -32,7 +35,7 @@ const HeaderCty = ({
                             </div>
                         </div>
                         <div className="avtCty">
-                            <img src={`http://localhost:8000/storage/${company.logo}`} />
+                            <img src={`${baseURL}/storage/${company.logo}`} />
                         </div>
                     </div>
                 </div>

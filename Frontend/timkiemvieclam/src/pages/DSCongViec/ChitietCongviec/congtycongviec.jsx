@@ -4,8 +4,11 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { Link} from "react-router-dom";
 import { MdOutlineIosShare } from "react-icons/md";
 import { PATH_PAGE } from "../../../utils/constant";
+import axios from 'axios';
 
 const CongTyCongViec = ({job, company}) =>{
+    const baseURL = axios.defaults.baseURL;
+
     console.log(job)
     console.log(company)
     if (!job) return null;
@@ -15,7 +18,7 @@ const CongTyCongViec = ({job, company}) =>{
                 <div className="chitietcongty">
                     <div className="congty">
                         <div className="anhCongty">
-                            <img src={`http://localhost:8000/storage/${company.logo}`} />
+                            <img src={`${baseURL}/storage/${company.logo}`} />
                         </div>
                         <div className="tencongty">
                             <span>{job.companyName}</span>

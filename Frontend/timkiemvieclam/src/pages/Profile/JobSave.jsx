@@ -1,10 +1,14 @@
 
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
+import axios from 'axios';
+
 const JobSave = ({
     jobs
 }) => {
     console.log("job appli: ", jobs);
+    const baseURL = axios.defaults.baseURL;
+
     return(
         <>
         <div className="all-detail">
@@ -17,7 +21,7 @@ const JobSave = ({
                         <div className="box-cv">
                         <div className="box">
                             <div className="img">
-                            <img src={`http://localhost:8000/storage/${job.companyLogo}`} />
+                            <img src={`${baseURL}/storage/${job.companyLogo}`} />
                             </div>
                             <div className="infoCty">
                             <div className="tenViec">
