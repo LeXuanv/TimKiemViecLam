@@ -21,8 +21,8 @@ const DetailFile = ({
     handleDistrictChange,
     handleWardChange,
 
-    handleLogoChange,
-    handleLogoUpload,
+    handleLogoCompanyChange,
+    handleLogoCompanyUpload,
     handleLogoJobSeekerChange,
     handleLogoJobSeekerUpload,
     previewLogo,
@@ -74,8 +74,7 @@ const DetailFile = ({
       <div className="all-detail">
         <div className="inner-file">
           <div className="infomation">
-            <div className="inner-info">
-            
+            <div className="logo-infor">
               {user == 2 && (
                 <>
                   <h2>Logo Công Ty</h2>
@@ -88,11 +87,10 @@ const DetailFile = ({
                       <p>Chưa có logo</p>
                     )
                   )}
-                  <input type="file" onChange={handleLogoChange} />
-                  <button onClick={handleLogoUpload}>Upload Logo</button>
+                  <input type="file" onChange={handleLogoCompanyChange} />
+                  <button onClick={handleLogoCompanyUpload}>Upload Logo</button>
                 </>
               )}
-
               {user == 3 && (
                 <>
                   <h2>Ảnh đại diện</h2>
@@ -109,6 +107,10 @@ const DetailFile = ({
                   <button onClick={handleLogoJobSeekerUpload}>Upload Ảnh</button>
                 </>
               )}
+            </div>
+            <div className="inner-info">
+            
+              
 
               
               <Form

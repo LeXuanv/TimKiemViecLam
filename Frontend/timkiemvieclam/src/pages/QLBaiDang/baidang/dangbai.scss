@@ -1,5 +1,6 @@
 .thembaidang{
     .formDangBai{
+        position: relative;
         .tieudeBaidang {
             margin: 20px;
             font-size: 20px;
@@ -143,6 +144,23 @@
         }
         .mg-bt20{
             margin-bottom: 20px;
+        }
+        .btnSubmit{
+            text-align: center;
+            margin-bottom: 10px;
+            button{
+                padding: 10px 20px;
+                border-radius: 10px;
+                color: #fff;
+                background-color: green;
+                cursor: pointer;
+                font-size: 20px;
+                border: 1px solid green;
+                font-weight: 600;
+                &:hover{
+                    opacity: 0.8;
+                }
+            }
         }
     }
 }
