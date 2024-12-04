@@ -33,6 +33,7 @@ const ModalCtBaiDang = ({
     const [provinces, setProvinces] = useState([]);
     const [categories, setCategories] = useState([]);
     const [jobPositions, setJobPositions] = useState([]);
+    const [modalListUV, setModalListUV] = useState(false);
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -140,177 +141,222 @@ const ModalCtBaiDang = ({
             
         }
     };
-    
+    const handleListUV = () => {
+        setModalListUV(true);
+    }
     if (!formData) return null;
     console.log(formData);
     return (
-        <div className="modal-chitietbaidang" onClick={handleClickOutside}>
-            <div className="chitietbaidang" onClick={(e) => e.stopPropagation()}>
-                <span onClick={() => setModal(false)} className="close-button">&times;</span>
-                <div className="formDangBai">
-                    <div className="tieudeBaidang">
-                        <span>Chi tiết bài đăng tuyển dụng</span>
-                    </div>
-                    <div className="tieudemuc">
-                        <span>Thông tin cơ bản</span>
-                    </div>
-                    <div className="fullprofile">
-                        <div className="name">
-                            <input 
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                placeholder="Tên vị trí cần tuyển dụng"
-                            />
+        <>
+            <div className="modal-chitietbaidang" onClick={handleClickOutside}>
+                <div className="chitietbaidang" onClick={(e) => e.stopPropagation()}>
+                    <span onClick={() => setModal(false)} className="close-button">&times;</span>
+                    <div className="formDangBai">
+                        <div className="tieudeBaidang">
+                            <span>Chi tiết bài đăng tuyển dụng</span>
                         </div>
-                        <div className="birthday">
-                            <Space direction="vertical">
-                                <DatePicker
-                                    name="applicationDeadline"
-                                    placeholder="Ngày hết hạn tuyển dụng"
-                                    value={formData.applicationDeadline ? moment(formData.applicationDeadline) : null}
-                                    onChange={handleDateChange}
+                        <div className="tieudemuc">
+                            <span>Thông tin cơ bản</span>
+                        </div>
+                        <div className="fullprofile">
+                            <div className="name">
+                                <input 
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleChange}
+                                    placeholder="Tên vị trí cần tuyển dụng"
                                 />
-                            </Space>
+                            </div>
+                            <div className="birthday">
+                                <Space direction="vertical">
+                                    <DatePicker
+                                        name="applicationDeadline"
+                                        placeholder="Ngày hết hạn tuyển dụng"
+                                        value={formData.applicationDeadline ? moment(formData.applicationDeadline) : null}
+                                        onChange={handleDateChange}
+                                    />
+                                </Space>
+                            </div>
                         </div>
-                    </div>
-                    <div className="tieudemuc">
-                        <span>Chi tiết tuyển dụng</span>
-                    </div>
-                    <div className="comment">
-                        <textarea
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            placeholder="Mô tả công việc"
-                        />
-                    </div>
-                    <div className="comment">
-                        <textarea
-                            name="request"
-                            value={formData.request}
-                            onChange={handleChange}
-                            placeholder="Yêu cầu công việc"
-                        />
-                    </div>
-                    <div className="comment">
-                        <textarea
-                            name="interest"
-                            value={formData.interest}
-                            onChange={handleChange}
-                            placeholder="Quyền lợi"
-                        />
-                    </div>
-                    <div className="comment">
-                        <textarea
-                            name="location"
-                            value={formData.location}
-                            onChange={handleChange}
-                            placeholder="Địa điểm làm việc"
-                        />
-                    </div>
-                    <div className="comment">
-                        <textarea
-                            name="workTime"
-                            value={formData.workTime}
-                            onChange={handleChange}
-                            placeholder="Thời gian làm việc"
-                        />
-                    </div>
-                    <div className="tieudemuc">
-                        <span>Thông tin chung</span>
-                    </div>
-                    <div className="fullprofile mg-bt20">
-                        <div className="name">
-                            <input
-                                name="salary"
-                                value={formData.salary}
+                        <div className="tieudemuc">
+                            <span>Chi tiết tuyển dụng</span>
+                        </div>
+                        <div className="comment">
+                            <textarea
+                                name="description"
+                                value={formData.description}
                                 onChange={handleChange}
-                                placeholder="Mức lương"
+                                placeholder="Mô tả công việc"
                             />
                         </div>
-                        <div className="tinh">
-                            <select
-                                name="provinceName"
-                                value={formData.provinceName}
+                        <div className="comment">
+                            <textarea
+                                name="request"
+                                value={formData.request}
                                 onChange={handleChange}
-                            >
-                                <option value="">Tất cả các tỉnh</option>
-                                {provinces.map((province) => (
-                                    <option key={province.code} value={province?.code}>
-                                        {province.name}
-                                    </option>
-                                ))}
-                            </select>
+                                placeholder="Yêu cầu công việc"
+                            />
                         </div>
-                        <div className="exp">
-                            <select name="experience" value={formData.experience} onChange={handleChange}>
-                                <option value="">Chọn kinh nghiệm</option>
-                                <option value="Không yêu cầu kinh nghiệm">Không yêu cầu kinh nghiệm</option>
-                                <option value="Dưới 1 năm">Dưới 1 năm</option>
-                                <option value="1 - 2 năm">1 - 2 năm</option>
-                                <option value="2 - 3 năm">2 - 3 năm</option>
-                                <option value="3 - 4 năm">3 - 4 năm</option>
-                                <option value="4 - 5 năm">4 - 5 năm</option>
-                                <option value="Trên 5 năm">Trên 5 năm</option>
-                            </select>
-                        </div>
-                        <div className="tinh">
-                            <select
-                                name="gender"
-                                value={formData.gender}
+                        <div className="comment">
+                            <textarea
+                                name="interest"
+                                value={formData.interest}
                                 onChange={handleChange}
-                            >
-                                <option value="">Chọn giới tính</option>
-                                <option value="Nam">Nam</option>
-                                <option value="Nữ">Nữ</option>
-                                <option value="Không yêu cầu">Cả hai</option>
-                            </select>
+                                placeholder="Quyền lợi"
+                            />
                         </div>
-                        <div className="tinh">
-                            <select
-                                name="categoryName"
-                                value={formData.categoryName}
+                        <div className="comment">
+                            <textarea
+                                name="location"
+                                value={formData.location}
                                 onChange={handleChange}
-                            >
-                                <option value="">Tất cả các ngành nghề</option>
-                                {categories.map((category) => (
-                                    <option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                            </select>
+                                placeholder="Địa điểm làm việc"
+                            />
                         </div>
-                        <div className="genner">
-                            <select
-                                name="jobPositionName"
-                                value={formData.jobPositionName}
+                        <div className="comment">
+                            <textarea
+                                name="workTime"
+                                value={formData.workTime}
                                 onChange={handleChange}
-                            >
-                                <option value="">Cấp bậc</option>
-                                {jobPositions.map((jobPosition) => (
-                                    <option key={jobPosition.id} value={jobPosition.id}>
-                                        {jobPosition.name}
-                                    </option>
-                                ))}
-                            </select>
+                                placeholder="Thời gian làm việc"
+                            />
                         </div>
-                        <div className="genner">
-                            <select name="employmentType" value={formData.employmentType} onChange={handleChange}>
-                                <option value="">Hình thức làm việc</option>
-                                <option value="Toàn thời gian">Toàn thời gian</option>
-                                <option value="Bán thời gian">Bán thời gian</option>
-                                <option value="Linh động thời gian">Cả 2 kết hợp</option>
-                            </select>
+                        <div className="tieudemuc">
+                            <span>Thông tin chung</span>
+                        </div>
+                        <div className="fullprofile mg-bt20">
+                            <div className="name">
+                                <input
+                                    name="salary"
+                                    value={formData.salary}
+                                    onChange={handleChange}
+                                    placeholder="Mức lương"
+                                />
+                            </div>
+                            <div className="tinh">
+                                <select
+                                    name="provinceName"
+                                    value={formData.provinceName}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Tất cả các tỉnh</option>
+                                    {provinces.map((province) => (
+                                        <option key={province.code} value={province?.code}>
+                                            {province.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="exp">
+                                <select name="experience" value={formData.experience} onChange={handleChange}>
+                                    <option value="">Chọn kinh nghiệm</option>
+                                    <option value="Không yêu cầu kinh nghiệm">Không yêu cầu kinh nghiệm</option>
+                                    <option value="Dưới 1 năm">Dưới 1 năm</option>
+                                    <option value="1 - 2 năm">1 - 2 năm</option>
+                                    <option value="2 - 3 năm">2 - 3 năm</option>
+                                    <option value="3 - 4 năm">3 - 4 năm</option>
+                                    <option value="4 - 5 năm">4 - 5 năm</option>
+                                    <option value="Trên 5 năm">Trên 5 năm</option>
+                                </select>
+                            </div>
+                            <div className="tinh">
+                                <select
+                                    name="gender"
+                                    value={formData.gender}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Chọn giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Không yêu cầu">Cả hai</option>
+                                </select>
+                            </div>
+                            <div className="tinh">
+                                <select
+                                    name="categoryName"
+                                    value={formData.categoryName}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Tất cả các ngành nghề</option>
+                                    {categories.map((category) => (
+                                        <option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="genner">
+                                <select
+                                    name="jobPositionName"
+                                    value={formData.jobPositionName}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Cấp bậc</option>
+                                    {jobPositions.map((jobPosition) => (
+                                        <option key={jobPosition.id} value={jobPosition.id}>
+                                            {jobPosition.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="genner">
+                                <select name="employmentType" value={formData.employmentType} onChange={handleChange}>
+                                    <option value="">Hình thức làm việc</option>
+                                    <option value="Toàn thời gian">Toàn thời gian</option>
+                                    <option value="Bán thời gian">Bán thời gian</option>
+                                    <option value="Linh động thời gian">Cả 2 kết hợp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="capnhatvsxoa">
+                        <button className="list-uv" onClick={handleListUV}>Danh sách người ứng cử</button>
+                        <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
+                        <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
+                    </div>
+                </div>
+                {(modalListUV) ? 
+                <div className='modalUV'>
+                    <span onClick={() => setModalListUV(false)} className="close-button-listuv">&times;</span>
+                    <div className="formlistUV">
+                        <div className="titleList">
+                            <p className='tiltle-vt'>Danh sách ứng viên</p>
+                            <p className='tenVt'><span>Tên vị trí:</span> {formData.title} </p>
+                        </div>
+                        <div className="listUV">
+                            <div className="innerList">
+                                <div className="uv">
+                                    <div className="tt">
+                                        <div className="avtUv">
+                                            <img src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" alt="" />
+                                        </div>
+                                        <div className="tt-uv">
+                                            <div className="nameUv mg-bt5">
+                                                <span>Lê Xuân Vũ</span>
+                                            </div>
+                                            <div className="phoneUv mg-bt5">
+                                                <span>0343553263</span>
+                                            </div>
+                                            <div className="emailUv mg-bt5">
+                                                <span>xuanvu@gmail.com</span>
+                                            </div>
+                                            <div className="fileCvPdf mg-bt5">
+                                                <span>file.pdf</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="buttonCn">
+                                        <button className='duyet'>Duyệt</button>
+                                        <button className='huy'>Hủy</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="capnhatvsxoa">
-                    <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
-                    <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
-                </div>
+                 : " "}
             </div>
-        </div>
+        </>
     );
 };
 

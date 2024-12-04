@@ -10,15 +10,13 @@ const CV = () => {
         <>
         <MainLayout >
             <div style={{position: "relative"}}>
-                <div className="save-info">
-                    <button>Lưu</button>
-                </div>
-                <div className="profile">
+                
+                {/* <div className="profile">
                     <div className="title">
                         <span>Thông tin cá nhân</span>
                     </div>
                     <FormProfile/>
-                </div>
+                </div> */}
                 <div className="study">
                     <div className="title">
                         <span className="title">Thông tin học vấn</span>
@@ -31,6 +29,9 @@ const CV = () => {
                     </div>
 
                     <FormSkill/>
+                </div>
+                <div className="save-info">
+                    <button>Lưu</button>
                 </div>
             </div>
         </MainLayout>

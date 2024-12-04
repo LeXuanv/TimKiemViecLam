@@ -16,7 +16,7 @@ const DsCongViec = () => {
     const [provinces, setProvinces] = useState([]); 
     const [categories, setCategories] = useState([]); 
 
-  
+    const user =  localStorage.getItem("user");
     const fetchData = async () => {
         try {
             const provinceResponse = await axios.get('/api/province');  
@@ -35,8 +35,6 @@ const DsCongViec = () => {
             console.error("Error fetching all jobs:", error);
         }
     };
-
-    
     const handleSearch = async (jobTitle, categoryId, provinceId) => {
         setIsSearching(true);
     
@@ -62,10 +60,6 @@ const DsCongViec = () => {
             setIsSearching(false); 
         }
     };
-    
-    
-    
-    
     useEffect(() => {
         fetchAllJobs();
         fetchData();
@@ -88,7 +82,7 @@ const DsCongViec = () => {
                     setProvince={setProvince}
                     setCategory={setCategory}   
                     />
-                <BoxCongViec jobs={jobs} isSearching={isSearching} />
+                <BoxCongViec jobs={jobs} isSearching={isSearching} user={user} />
             </div>
             </MainLayout>
         </div>

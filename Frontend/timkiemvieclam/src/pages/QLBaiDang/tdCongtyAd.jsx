@@ -77,7 +77,7 @@ const TuyenDungCongtyAd = ({
                     modal={modal}
                     setModal={setModal}
                     selectedJob={selectedJob}
-                    handleClickOutside={() => setModal(false)}
+                    // handleClickOutside={() => setModal(false)}
                     handleDeleteJob={handleDeleteJob}
                     token={token}
                 />
