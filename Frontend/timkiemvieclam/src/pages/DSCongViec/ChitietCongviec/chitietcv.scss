@@ -8,6 +8,7 @@
             .congviecungtuyen{
                 background-color: #fff;
                 border-radius: 20px;
+                position: relative;
                 .innerCVungtuyen{
                     padding: 25px;
                     .tencongviec{
@@ -112,6 +113,19 @@
                                 font-weight: 600;
                             }
                         }
+                    }
+                }
+                .admin-delete {
+                    position: absolute;
+                    font-size: 40px;
+                    top: 10px;
+                    right: 20px;
+                    z-index: 1;
+                    color: red;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.7;
                     }
                 }
             }

@@ -1,9 +1,10 @@
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import { CgSandClock } from "react-icons/cg";
 
 
-const CongViecUngTuyen = ({job}) =>{
+const CongViecUngTuyen = ({job,user}) =>{
     if (!job) return null;
     return(
         <>
@@ -49,6 +50,12 @@ const CongViecUngTuyen = ({job}) =>{
                                            
                     </div>
                 </div>
+                {user == 1 ?
+                    <div className="admin-delete">
+                        <MdDelete />
+                    </div>
+                    : ""
+                }
             </div>
         </>
     )

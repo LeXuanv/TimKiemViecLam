@@ -196,7 +196,7 @@ const ChiTietCongViec = () => {
             <div className="detailFull">
                 <div className="detail">
                     <div className="nua1">
-                        <CongViecUngTuyen job = {job} />
+                        <CongViecUngTuyen job = {job} user={user} />
                         <ChiTietTuyenDung job = {job}/>
 
                         {user == 3 && (

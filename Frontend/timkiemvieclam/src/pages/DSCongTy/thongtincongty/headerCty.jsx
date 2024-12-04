@@ -11,11 +11,11 @@ const HeaderCty = ({
         <>
             <div className="headerCty">
                 <div className="innerHeaderCty">
-                    <div className="topheader">
+                    {/* <div className="topheader">
                         <div className="biaCty">
-                            {/* <img src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_covers/iG4XtDpniVr6WmwXw0nc.jpg"/> */}
+                            <img src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_covers/iG4XtDpniVr6WmwXw0nc.jpg"/>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="bottomHeader">
                         <div className="tencty">
                             <span>{company.name}</span>

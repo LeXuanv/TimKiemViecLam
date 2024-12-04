@@ -3,21 +3,7 @@
         background: linear-gradient(90deg, #212f3f, #00b14f);
         .innerHeaderCty {
             color: #fff;
-
-            .topheader {
-                .biaCty {
-                    width: 100%;
-                    height: 400px;
-                    overflow: hidden;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                }
-            }
-
+            margin-top: 145px;
             .bottomHeader {
                 height: 250px;
                 padding-left: 400px;
@@ -329,12 +315,13 @@
 
                                             .tt-ct {
                                                 display: flex;
-
+                                                margin: 10px 0;
                                                 .luong {
                                                     background-color: #cdcdcd;
                                                     padding: 3px 5px;
                                                     border-radius: 5px;
                                                     margin-left: 0;
+                                                    margin-right: 10px;
                                                 }
 
                                                 .diadiem {
@@ -444,7 +431,7 @@
         bottom: 0;
         .chitietbaidang {
             background-color: #fff;
-            margin-top: 10px;
+            margin-top: 30px;
             margin-bottom: 10px;
             padding: 20px;
             border: 1px solid #888;
@@ -458,7 +445,7 @@
             .capnhatvsxoa{
                 position: absolute;
                 top: 100px;
-                right: 100px;
+                right: 10px;
                 font-size: 18px;
                 .capnhat{
                     padding: 10px 20px;
@@ -484,6 +471,21 @@
                     cursor: pointer;
                     &:hover {
                         opacity: 0.7;
+                    }
+                }
+                .list-uv{
+                    padding: 10px 20px;
+                    background-color:#fff ;
+                    border-radius: 10px;
+                    color: green;
+                    font-weight: bold;
+                    border: 1px solid green;
+                    margin-right: 15px;
+                    cursor: pointer;
+                
+                    &:hover {
+                        background-color: green;
+                        color: #fff;
                     }
                 }
             }
@@ -630,6 +632,126 @@
                     margin-bottom: 20px;
                 }
             }
+        }
+        .modalUV{
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            height: 91vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            .close-button-listuv{
+                color: #aaa;
+                float: right;
+                font-size: 24px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: -10px;
+            }
+            .formlistUV{
+                .titleList{
+                    p{
+                        text-align: center;
+                    }
+                    .tiltle-vt{
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                    .tenVt{
+                        font-size: 18px;
+                        span{
+                            font-weight: bold;
+                        }
+                    }
+                }
+                .listUV {
+                    margin-top: 20px;
+                    .innerList{
+                        display: grid;
+                        grid-template-columns: 33% 33% 33%;
+                        gap: 15px;
+                        .uv{
+                            display: flex;
+                            flex-direction: row;
+                            border: 1px solid #cdcdcd;
+                            padding: 10px;
+                            border-radius: 10px;
+                            width: 100%;
+                            box-sizing: border-box;
+                            justify-content: space-between;
+                            .tt{
+                                display: flex;
+                                margin: 0;
+                                .avtUv {
+                                    display: flex;
+                                    margin: 0;
+                                    img {
+                                        width: 100px;
+                                        height: 100px;
+                                        border-radius: 10px;
+                                    }
+                                }
+                                .tt-uv{
+                                    margin: 0;
+                                    padding: 10px;
+                                    .nameUv{
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                    }
+                                    .mg-bt5{
+                                        margin-bottom: 5px;
+                                    }
+                                    .fileCvPdf{
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                            .buttonCn{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-around;
+                                margin: 0;
+                                button{
+                                    width: 60px;
+                                    height: 30px;
+                                    cursor: pointer;
+                                }
+                                .duyet{
+                                    border: 1px solid green;
+                                    background-color: #fff;
+                                    color: green;
+                                    border-radius: 10px;
+                                    &:hover{
+                                        background-color: green;
+                                        color: #fff;
+                                    }
+                                }
+                                .huy {
+                                    border: 1px solid red;
+                                    background-color: #fff;
+                                    color: red;
+                                    border-radius: 10px;
+
+                                    &:hover {
+                                        background-color: red;
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }

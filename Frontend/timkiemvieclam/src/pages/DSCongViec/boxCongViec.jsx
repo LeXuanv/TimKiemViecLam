@@ -3,8 +3,9 @@
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
 import axios from 'axios';
+import { MdDelete } from "react-icons/md";
 
-function BoxCongViec({ jobs, isSearching }) {
+function BoxCongViec({ jobs, isSearching,user }) {
   const baseURL = axios.defaults.baseURL;
 
   return (
@@ -36,6 +37,12 @@ function BoxCongViec({ jobs, isSearching }) {
                   </div>
                 </div>
               </div>
+              {user == 1 ?
+              <div className="admin-delete">
+                <MdDelete />
+              </div>
+              : ""
+              }
             </div>
           </Link>
         ))
