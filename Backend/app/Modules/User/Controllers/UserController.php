@@ -13,8 +13,12 @@ class UserController extends Controller
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
-
-
+    public function getAll(){
+        return $this->userService->getAll();
+    }
+    public function deleteUser($userId){
+        return $this->userService->deleteUser($userId);
+    }
     public function show(Request $request)
     {
         $user = $request->user();

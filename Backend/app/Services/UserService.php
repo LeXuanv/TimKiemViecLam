@@ -22,7 +22,9 @@ class UserService
         $this->companyService = $companyService;
         $this->jobSeekerService = $jobSeekerService;
     }
-
+    public function getAll() {
+        return $this->userRepository->getAll();
+    }
     public function store(Request $request)
     {
         $params = [
@@ -101,5 +103,13 @@ class UserService
             $user->job_seekers->delete();
         }
         $user->delete();
+    }
+    public function deleteUser($userId){
+        $user = User::find($userId);
+        if($user){
+            $this->destroy($user);
+            return response()->json(['message' => 'User deleted successfully'], 200);
+        }
+        return response()->json(['message' => 'User not found'], 404);
     }
 }

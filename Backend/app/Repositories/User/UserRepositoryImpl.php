@@ -23,4 +23,10 @@ class UserRepositoryImpl implements UserRepository
         $user->update($params);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getAll() {
+        return $this->user->all();
+    }
 }
