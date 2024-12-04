@@ -13,7 +13,6 @@ class GetJobVacancyDTO
     public $categoryName;
     public $jobPositionName;
     public $provinceName;
-
     public $companyLogo;
    
     

@@ -95,4 +95,12 @@ class User extends Authentication
     {
         return $this->role->name === 'job_seeker';
     }
+    public function getFullInfo(){
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'role_id' => $this->role_id,
+            
+        ];
+    }
 }
