@@ -5,7 +5,8 @@ import { LockOutlined, MailOutlined, ManOutlined, PhoneOutlined, UsergroupAddOut
 const onFinish = (values) => {
   console.log("Success:", values);
 };
-const FormCapNhat = () => {
+const FormCapNhat = ({
+}) => {
     return(
         <>
             <div className="formA">

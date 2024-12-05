@@ -15,4 +15,5 @@ Route::group([
     });
     Route::get('/get-all', [CompanyController::class, 'getAll']);
     Route::get('/show/{companyId}', [CompanyController::class,'getById']);
+    Route::get("/search-company", [CompanyController::class, 'searchByName']);
 });

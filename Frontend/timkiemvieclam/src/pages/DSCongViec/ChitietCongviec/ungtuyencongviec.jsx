@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { CgSandClock } from "react-icons/cg";
 
 
-const CongViecUngTuyen = ({job,user}) =>{
+const CongViecUngTuyen = ({job, user, handleDeleteJob}) =>{
     if (!job) return null;
     return(
         <>
@@ -52,7 +52,10 @@ const CongViecUngTuyen = ({job,user}) =>{
                 </div>
                 {user == 1 ?
                     <div className="admin-delete">
-                        <MdDelete />
+                    <MdDelete 
+                        className="delete" 
+                        onClick={() => handleDeleteJob(job.id)}
+                    />
                     </div>
                     : ""
                 }

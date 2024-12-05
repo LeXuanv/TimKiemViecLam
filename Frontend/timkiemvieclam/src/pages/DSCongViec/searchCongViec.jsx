@@ -4,7 +4,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { PiBagSimpleFill } from "react-icons/pi";
 
 function SearchCongViec({ 
-    onSearch,
+    handleSearch,
     jobTitle,
     setJobTitle,
     province,
@@ -18,7 +18,7 @@ function SearchCongViec({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSearch(jobTitle, category, province);
+        handleSearch(jobTitle, category, province);
     };
 
     return (

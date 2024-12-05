@@ -5,7 +5,7 @@ import { PATH_PAGE } from "../../utils/constant";
 import axios from 'axios';
 import { MdDelete } from "react-icons/md";
 
-function BoxCongViec({ jobs, isSearching,user }) {
+function BoxCongViec({ jobs, isSearching, user, handleDeleteJob }) {
   const baseURL = axios.defaults.baseURL;
 
   return (
@@ -39,7 +39,10 @@ function BoxCongViec({ jobs, isSearching,user }) {
               </div>
               {user == 1 ?
               <div className="admin-delete">
-                <MdDelete />
+                <MdDelete 
+                    className="delete" 
+                    onClick={() => handleDeleteJob(job.id)}
+                />
               </div>
               : ""
               }
