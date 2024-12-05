@@ -188,7 +188,22 @@ const ChiTietCongViec = () => {
           setIsLoadingOfBookmark(false);
         }
       };
-    
+      const handleDeleteJob = async (jobId) => {
+        try {
+            const response = await axios.delete(`/admin/job-vacancy/delete/${jobId}` , {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            alert('Xóa bài đăng thành công!');
+            navigate("/")
+
+            window.location.reload()   
+        } catch (error) {
+            console.error('Error deleting :', error);
+            alert('Có lỗi xảy ra khi xóa !');
+        }
+    }
     return(
         
         <MainLayout>
@@ -196,7 +211,7 @@ const ChiTietCongViec = () => {
             <div className="detailFull">
                 <div className="detail">
                     <div className="nua1">
-                        <CongViecUngTuyen job = {job} user={user} />
+                        <CongViecUngTuyen job = {job} user={user} handleDeleteJob={handleDeleteJob} />
                         <ChiTietTuyenDung job = {job}/>
 
                         {user == 3 && (

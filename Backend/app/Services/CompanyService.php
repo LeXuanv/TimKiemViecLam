@@ -58,4 +58,11 @@ class CompanyService
         return $path;
 
     }
+    public function searchByName($searchTerm){
+        $companies = Company::where('name', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                ->get();
+        return $companies;
+    }
+
 }

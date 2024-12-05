@@ -15,7 +15,7 @@ Route::group([
         Route::get('/search', 'JobVacancyController@search');
         Route::get('/get-publish/{companyId}', 'JobVacancyController@indexJobPublishWithCompanyId');
         
-        Route::delete('/delete/{id}', 'JobVacancyController@delete');
+        Route::delete('/delete/{id}', 'JobVacancyController@destroy');
     });
 });
 

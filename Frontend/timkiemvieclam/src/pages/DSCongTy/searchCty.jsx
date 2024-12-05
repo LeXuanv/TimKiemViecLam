@@ -1,15 +1,28 @@
 
 
-const SearchCty = () =>{
+const SearchCty = ({
+    handleSearch,
+    companyName,
+    setCompanyName
+}) =>{
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            handleSearch(companyName);
+        };
     return(
         <>
             <>
             <div className="box-search-job">
                 <div className="box-search">
-                    <form id="frm-search-job">
+                    <form id="frm-search-job" onSubmit={handleSubmit}>
                         <div className="group-search">
                             <div className="item">
-                                <input className="form-input" placeholder="Nhập tên công ty"/>
+                                <input 
+                                    className="form-input" 
+                                    placeholder="Nhập tên công ty"
+                                    value = {companyName}
+                                    onChange={(e)=> setCompanyName(e.target.value)}
+                                />
                             </div>
                             {/* <div className="search-tinh">
                                 <div className="icon">
@@ -36,7 +49,7 @@ const SearchCty = () =>{
                                 </div>
                             </div> */}
                             <div className="button-search">
-                                <button>Tìm kiếm</button>
+                                <button type="submit">Tìm kiếm</button>
                             </div>
                         </div>
                     </form>

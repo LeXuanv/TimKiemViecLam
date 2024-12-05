@@ -4,6 +4,7 @@ import SearchCongViec from "./searchCongViec";
 import axios from "axios";
 import "./congviec.scss";
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 const DsCongViec = () => {
@@ -15,8 +16,9 @@ const DsCongViec = () => {
     const [category, setCategory] = useState(""); 
     const [provinces, setProvinces] = useState([]); 
     const [categories, setCategories] = useState([]); 
-
+    const token = localStorage.getItem('authToken');
     const user =  localStorage.getItem("user");
+    const navigate = useNavigate();
     const fetchData = async () => {
         try {
             const provinceResponse = await axios.get('/api/province');  
@@ -65,14 +67,29 @@ const DsCongViec = () => {
         fetchData();
 
     }, []);
-
+    const handleDeleteJob = async (jobId) => {
+        try {
+            const response = await axios.delete(`/admin/job-vacancy/delete/${jobId}` , {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            alert('Xóa bài đăng thành công!');
+            navigate("/")
+            window.location.reload()   
+        } catch (error) {
+            console.error('Error deleting :', error);
+            alert('Có lỗi xảy ra khi xóa !');
+        }
+    }
+    
     return (
         <div>
             
             <MainLayout>
             <div style={{background:"rgb(249 249 249)"}}>
                 <SearchCongViec 
-                    onSearch={handleSearch} 
+                    handleSearch={handleSearch} 
                     jobTitle={jobTitle} 
                     province={province} 
                     category={category} 
@@ -81,8 +98,14 @@ const DsCongViec = () => {
                     setJobTitle={setJobTitle}
                     setProvince={setProvince}
                     setCategory={setCategory}   
-                    />
-                <BoxCongViec jobs={jobs} isSearching={isSearching} user={user} />
+                    
+                />
+                <BoxCongViec 
+                    jobs={jobs}
+                    isSearching={isSearching} 
+                    user={user} 
+                    handleDeleteJob={handleDeleteJob}
+                />
             </div>
             </MainLayout>
         </div>

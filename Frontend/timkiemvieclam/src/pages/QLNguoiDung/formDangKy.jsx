@@ -1,11 +1,47 @@
 import { Button, Form, Input, Select } from "antd";
 import { LockOutlined, MailOutlined, ManOutlined, PhoneOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
-
-
+import axios from "axios";
+import { useState } from "react";
 const onFinish = (values) => {
   console.log("Success:", values);
 };
-const FormDangky = () => {
+const FormDangky = ({
+
+}) => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        role_id: "",
+        password_confirmation: "",
+    });
+    const handleRegister = async () => {
+        try {
+            const response = await axios.post(
+                "api/register",formData
+            );
+            const users = response.data;
+            alert("Thêm tài khoản thành công");
+
+            console.log(users);
+        } catch (error) {
+            console.error(error);
+            console.log(formData);
+        }
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+    const handleRoleChange = (value) => {
+        setFormData({
+            ...formData,
+            role_id: value, 
+        });
+    };
     return(
         <>
             <div className="formA">
@@ -32,13 +68,20 @@ const FormDangky = () => {
                             <Input.Group compact>
                             <Input
                                 style={{ width: '10%' }}
-                                prefix={<UserOutlined />} // Icon hiển thị trước Select
-                                disabled // Input không khả dụng để chỉ làm prefix
+                                prefix={<UserOutlined />}
+                                disabled 
                                 />
-                            <Input style={{ width: '90%' }} placeholder="Họ và tên" />
+                            <Input 
+                                style={{ width: '90%' }} 
+                                placeholder="Họ và tên" 
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
                             </Input.Group>
                         </Form.Item>
-                        <Form.Item
+                        
+                        {/* <Form.Item
                             name="phone"
                             rules={[
                             {
@@ -53,9 +96,15 @@ const FormDangky = () => {
                                 prefix={<PhoneOutlined />}
                                 disabled
                                 />
-                            <Input style={{ width: '90%' }} placeholder="Số điện thoại" />
+                            <Input 
+                                style={{ width: '90%' }} 
+                                placeholder="Số điện thoại" 
+                                name="phone_number"
+                                value={formData.phone_number}
+                                onChange={handleChange}
+                            />
                             </Input.Group>
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item
                             name="email"
                             rules={[
@@ -68,10 +117,16 @@ const FormDangky = () => {
                             <Input.Group compact>
                             <Input
                                 style={{ width: '10%' }}
-                                prefix={<MailOutlined />} // Icon hiển thị trước Select
-                                disabled // Input không khả dụng để chỉ làm prefix
+                                prefix={<MailOutlined />} 
+                                disabled 
                             />
-                            <Input style={{ width: '90%' }} placeholder="Email" />
+                            <Input 
+                                style={{ width: '90%' }} 
+                                placeholder="Email" 
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
                             </Input.Group>
                         </Form.Item>
                         <Form.Item
@@ -86,14 +141,47 @@ const FormDangky = () => {
                             <Input.Group compact>
                             <Input
                                 style={{ width: '10%' }}
-                                prefix={<LockOutlined />} // Icon hiển thị trước Select
-                                disabled // Input không khả dụng để chỉ làm prefix
+                                prefix={<LockOutlined />}
+                                disabled 
                             />
-                            <Input style={{ width: '90%' }} type="password" placeholder="Mật khẩu" />
+                            <Input 
+                                style={{ width: '90%' }} 
+                                type="password" 
+                                placeholder="Mật khẩu" 
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                            />
                             </Input.Group>
                             
                         </Form.Item>
-                        <Form.Item >
+                        <Form.Item
+                            name="password"
+                            rules={[
+                            {
+                                required: true,
+                                message: 'Vui lòng nhập mật khẩu!',
+                            },
+                            ]}
+                        >
+                            <Input.Group compact>
+                            <Input
+                                style={{ width: '10%' }}
+                                prefix={<LockOutlined />}
+                                disabled 
+                            />
+                            <Input 
+                                style={{ width: '90%' }} 
+                                type="password" 
+                                placeholder="Nhập lại Mật khẩu" 
+                                name="password_confirmation"
+                                value={formData.password_confirmation}
+                                onChange={handleChange}
+                            />
+                            </Input.Group>
+                            
+                        </Form.Item>
+                        {/* <Form.Item >
                             <Input.Group compact>
                             <Input
                                 style={{ width: '10%' }}
@@ -106,7 +194,7 @@ const FormDangky = () => {
                                 <Select.Option value="khac">Khác</Select.Option>
                             </Select>
                             </Input.Group>
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item>
                             <Input.Group compact>
                             <Input
@@ -114,13 +202,19 @@ const FormDangky = () => {
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
-                            <Select style={{ width: '90%' }} placeholder="Chọn loại tài khoản" >
-                                <Select.Option value="1">Tìm kiếm việc làm</Select.Option>
+                            <Select 
+                                style={{ width: '90%' }} 
+                                placeholder="Chọn loại tài khoản" 
+                                name="role_id"
+                                value={formData.role_id}
+                                onChange={handleRoleChange}
+                            >
+                                <Select.Option value="3">Tìm kiếm việc làm</Select.Option>
                                 <Select.Option value="2">Nhà tuyển dụng</Select.Option>
                             </Select>
                             </Input.Group>
                         </Form.Item>
-                        <Form.Item>
+                        {/* <Form.Item>
                             <Input.Group compact>
                             <Input
                                 style={{ width: '10%' }}
@@ -159,11 +253,13 @@ const FormDangky = () => {
                             </Select>
                             </Input.Group>
                         </Form.Item>
-                        
+                         */}
                     </div>
                     <Form.Item>
-                        <Button block type="primary" htmlType="submit">
-                        Đăng ký
+                        <Button block type="primary" htmlType="submit"
+                        onClick={handleRegister}
+                            > 
+                            Đăng ký
                         </Button>
                     </Form.Item>
                 </Form>

@@ -29,7 +29,10 @@ class CompanyController extends Controller
 
         return response()->json(['message' => 'No file uploaded'], 400);
     }
-
+    public function searchByName(Request $request){
+        $searchTerm = $request->input('searchTerm');
+        return $this->companyService->searchByName($searchTerm);
+    }
     public function getAll()
     {
         return $this->companyService->getAll();
