@@ -7,6 +7,7 @@ use App\Services\EducationDetailService;
 use App\Services\JobSeekerService;
 use App\Services\SkillService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JobSeekerController extends Controller
 {
@@ -74,5 +75,45 @@ class JobSeekerController extends Controller
         }
 
         return response()->json(['message' => 'No file uploaded'], 400);
+    }
+    public function uploadCv(Request $request)
+    {
+        $user = $request->user();
+        $request->validate([
+            'cv' => 'required|mimes:pdf,doc,docx,txt,rtf|max:4096',
+        ]);
+        if ($request->hasFile('cv')) {
+            $path = $this->jobSeekerService->uploadCv($user, $request);
+            return response()->json(['message' => 'Cv uploaded successfully!', 'path' => $path]);
+        }
+
+        return response()->json(['message' => 'No file uploaded'], 400);
+    }
+
+    public function downloadCv($id)
+    {
+        $cv = $this->jobSeekerService->getCvByJobSeekerId($id);
+
+        if (isset($cv) and Storage::disk('public')->exists($cv)) {
+            return Storage::disk('public')->download($cv);
+        }
+
+        return response()->json(['message' => 'File không tồn tại!'], 404);
+    }
+
+    public function viewCv($id)
+    {
+        $cv = $this->jobSeekerService->getCvByJobSeekerId($id);
+
+        if (isset($cv) and Storage::disk('public')->exists($cv)) {
+            $file = Storage::disk('public')->get($cv);
+            $mimeType = Storage::disk('public')->mimeType($cv);
+
+            return response($file, 200)
+                ->header('Content-Type', $mimeType)
+                ->header('Content-Disposition', 'inline');
+        }
+
+        return response()->json(['message' => 'File không tồn tại!'], 404);
     }
 }

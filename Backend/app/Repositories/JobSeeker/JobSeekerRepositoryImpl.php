@@ -33,4 +33,18 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         $jobSeeker->logo = $path;
         $jobSeeker->save();
     }
+    public function saveCvPath($jobSeeker, $path)
+    {
+        $jobSeeker->cv = $path;
+        $jobSeeker->save();
+    }
+
+    public function getCvByJobSeekerId($id)
+    {
+        $jobSeeker = $this->jobSeeker->find($id);
+        if ($jobSeeker) {
+            return $jobSeeker->cv;
+        }
+        return null;
+    }
 }
