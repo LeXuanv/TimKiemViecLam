@@ -90,16 +90,31 @@ class JobApplicationController extends Controller
 
     public function index($job_vacancy)
     {
-        $user = Auth::user();
         
-        
-        $company = Company::where('user_id', $user->id)->first();
-        if (!$company) {
-            return response()->json(['message' => 'Unauthorizeda'], 403);
-        }
-        $applications = JobApplication::where('job_vacancy_id', $job_vacancy)->get();
+        $applications = JobApplication::where('job_vacancy_id', $job_vacancy)
+            ->with('job_seeker')
+            ->get();
+        $jobSeekers = $applications
+            ->filter(function ($application) {
+                return $application->status === "0";
+            })
+            ->pluck('job_seeker');
+        return response()->json($jobSeekers, 200);
 
-        return response()->json($applications, 200);
+    }
+    public function indexAccept($job_vacancy)
+    {
+        
+        $applications = JobApplication::where('job_vacancy_id', $job_vacancy)
+            ->with('job_seeker')
+            ->get();
+        $jobSeekers = $applications
+            ->filter(function ($application) {
+                return $application->status === "1";
+            })
+            ->pluck('job_seeker');
+        return response()->json($jobSeekers, 200);
+
     }
     public function accept($job_vacancy, $job_seeker_id)
     {
@@ -108,7 +123,7 @@ class JobApplicationController extends Controller
         // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return respons()->json(['message' => 'Unauthorized'], 403);
         }
         
         $jobVacancy = JobVacancy::where('id', $job_vacancy)
@@ -135,6 +150,38 @@ class JobApplicationController extends Controller
 
         return response()->json(['message' => 'Application has already been accepted or has invalid status'], 400);
     }
+    public function reject($job_vacancy, $job_seeker_id){
+        $user = Auth::user();
+        
+        // Kiểm tra công ty của người dùng
+        $company = Company::where('user_id', $user->id)->first();
+        if (!$company) {
+            return respons()->json(['message' => 'Unauthorized'], 403);
+        }
+        
+        $jobVacancy = JobVacancy::where('id', $job_vacancy)
+                                ->where('company_id', $company->id)
+                                ->first();
+        if (!$jobVacancy) {
+            return response()->json(['message' => 'Job vacancy not found or you are not authorized to accept applicants for this job'], 404);
+        }
 
+        $applicationJob = JobApplication::where('job_vacancy_id', $job_vacancy)
+                                        ->where('job_seeker_id', $job_seeker_id)
+                                        ->first();
+
+        if (!$applicationJob) {
+            return response()->json(['message' => 'Application job not found'], 404);
+        }
+
+        if ($applicationJob->status != 2) {
+            $applicationJob->status = 2;
+            $applicationJob->save();
+            
+            return response()->json(['message' => 'Application rejected successfully']);
+        }
+
+        return response()->json(['message' => 'Application has already been rejected or has invalid status'], 400);
+    }
     
 }

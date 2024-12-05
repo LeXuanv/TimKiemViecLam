@@ -22,8 +22,12 @@ Route::group([
 ], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
-        Route::get('/{job_vacancy}/applications', [JobApplicationController::class, 'index']);
+        // Route::get('/{job_vacancy}/applications', [JobApplicationController::class, 'index']);
         Route::post('/{job_vacancy}/applications/{job_seeker_id}/accept', [JobApplicationController::class, 'accept']);
+        Route::post('/{job_vacancy}/applications/{job_seeker_id}/reject', [JobApplicationController::class, 'reject']);
 
     });
+    Route::get('/{job_vacancy}/applications', [JobApplicationController::class, 'index']);
+    Route::get('/{job_vacancy}/applications-accept', [JobApplicationController::class, 'indexAccept']);
+
 });

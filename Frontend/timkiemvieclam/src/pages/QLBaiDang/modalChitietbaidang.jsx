@@ -5,6 +5,8 @@ import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import { Link } from "react-router-dom";
+import { PATH_PAGE } from "../../utils/constant";
 const ModalCtBaiDang = ({ 
     modal, 
     setModal, 
@@ -29,13 +31,62 @@ const ModalCtBaiDang = ({
         categoryName: "",
         applicationDeadline: "",
     });
+    const baseURL = axios.defaults.baseURL;
 
     const [provinces, setProvinces] = useState([]);
     const [categories, setCategories] = useState([]);
     const [jobPositions, setJobPositions] = useState([]);
     const [modalListUV, setModalListUV] = useState(false);
+    const [modalListUVAccept, setModalListUVAccept] = useState(false);
     const navigate = useNavigate(); 
+    const [jobSeekers, setJobSeekers] = useState([]);
+    const [jobSeekersAccept, setJobSeekersAccept] = useState([]);
+    useEffect(() => {
+        const fetchDataJobSeekers = async () => {
+            try {
+                console.log("Fetched data:", selectedJob);
 
+                const { data : jobSeekersResponseData } = await axios.get(`/company/jobs/${selectedJob.id}/applications`);
+                const { data : jobSeekersAcceptResponseData } = await axios.get(`/company/jobs/${selectedJob.id}/applications-accept`);
+                console.log(jobSeekersAcceptResponseData);
+                console.log(jobSeekersResponseData);
+
+                setJobSeekersAccept(jobSeekersAcceptResponseData);
+                setJobSeekers(jobSeekersResponseData);
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        };
+        fetchDataJobSeekers();
+    }, []);
+    const handleAcceptJobSeeker = async (jobSeekerId) => {
+        try {
+            await axios.post(`/company/jobs/${selectedJob.id}/applications/${jobSeekerId}/accept`, {}, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const updatedJobSeekers = jobSeekers.filter(
+                (jobSeeker) => jobSeeker.id!== jobSeekerId
+            );
+            setJobSeekers(updatedJobSeekers);
+            alert('Phê duyệt thành công!');
+        } catch (error) {
+            console.error("Error accepting job seeker: ", error);
+        }
+    }
+    const handleRejectJobSeeker = async (jobSeekerId) => {
+        try {
+            await axios.post(`/company/jobs/${selectedJob.id}/applications/${jobSeekerId}/reject`, {}, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const updatedJobSeekers = jobSeekers.filter(
+                (jobSeeker) => jobSeeker.id!== jobSeekerId
+            );
+            setJobSeekersAccept(updatedJobSeekers);
+            alert('Từ chối thành công!');
+        } catch (error) {
+            console.error("Error reject job seeker: ", error);
+        }
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -143,6 +194,9 @@ const ModalCtBaiDang = ({
     };
     const handleListUV = () => {
         setModalListUV(true);
+    }
+    const handleListUVAccept = () => {
+        setModalListUVAccept(true);
     }
     if (!formData) return null;
     console.log(formData);
@@ -311,6 +365,8 @@ const ModalCtBaiDang = ({
                     </div>
                     <div className="capnhatvsxoa">
                         <button className="list-uv" onClick={handleListUV}>Danh sách người ứng cử</button>
+                        <button className="list-uv" onClick={handleListUVAccept}>DS ứng cử được phê duyệt</button>
+
                         <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
                         <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
                     </div>
@@ -321,37 +377,129 @@ const ModalCtBaiDang = ({
                     <div className="formlistUV">
                         <div className="titleList">
                             <p className='tiltle-vt'>Danh sách ứng viên</p>
-                            <p className='tenVt'><span>Tên vị trí:</span> {formData.title} </p>
+                            <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
-                        <div className="listUV">
-                            <div className="innerList">
-                                <div className="uv">
-                                    <div className="tt">
-                                        <div className="avtUv">
-                                            <img src="https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" alt="" />
-                                        </div>
-                                        <div className="tt-uv">
-                                            <div className="nameUv mg-bt5">
-                                                <span>Lê Xuân Vũ</span>
-                                            </div>
-                                            <div className="phoneUv mg-bt5">
-                                                <span>0343553263</span>
-                                            </div>
-                                            <div className="emailUv mg-bt5">
-                                                <span>xuanvu@gmail.com</span>
-                                            </div>
-                                            <div className="fileCvPdf mg-bt5">
-                                                <span>file.pdf</span>
+                        {jobSeekers.length > 0 ? (
+                            jobSeekers.map((jobSeeker) => (
+                            // <Link 
+                            //     key={jobSeeker.id} 
+                            //     to={PATH_PAGE.chitietcongviec.replace(':id', jobSeeker.id)} 
+                            //     className="link-deital"
+                            // >
+
+                                    <div className="listUV">
+                                                    
+                                        <div className="innerList">
+                                            <div className="uv">
+                                                <div className="tt">
+                                                    <div className="avtUv">
+                                                        <img src={`${baseURL}/storage/${jobSeeker.logo}`} />
+                                                    </div>
+                                                    <div className="tt-uv">
+                                                        <div className="nameUv mg-bt5">
+                                                            <span>{jobSeeker.name}</span>
+                                                        </div>
+                                                        <div className="phoneUv mg-bt5">
+                                                            <span>{jobSeeker.phone_number}</span>
+                                                        </div>
+                                                        <div className="emailUv mg-bt5">
+                                                            <span>{jobSeeker.email}</span>
+                                                        </div>
+                                                        <div className="fileCvPdf mg-bt5">
+                                                            <span>file.pdf</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="buttonCn">
+                                                    <button 
+                                                        className='duyet' 
+                                                        onClick={() =>handleAcceptJobSeeker(jobSeeker.id)}
+                                                    >
+                                                        Duyệt
+                                                    </button>
+                                                    <button 
+                                                        className='huy'
+                                                        onClick={() =>handleRejectJobSeeker(jobSeeker.id)}
+                                                    >
+                                                        Hủy
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="buttonCn">
-                                        <button className='duyet'>Duyệt</button>
-                                        <button className='huy'>Hủy</button>
-                                    </div>
-                                </div>
-                            </div>
+                            // </Link>
+                            ))
+                        ) : (
+                            <p>Không có ứng viên nào được tìm thấy.</p>
+                        )}
+
+
+                    </div>
+                </div>
+                 : " "}
+                 {(modalListUVAccept) ? 
+                <div className='modalUV'>
+                    <span onClick={() => setModalListUVAccept(false)} className="close-button-listuv">&times;</span>
+                    <div className="formlistUV">
+                        <div className="titleList">
+                            <p className='tiltle-vt'>Danh sách ứng viên</p>
+                            <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
+                        {jobSeekersAccept.length > 0 ? (
+                            jobSeekersAccept.map((jobSeeker) => (
+                            // <Link 
+                            //     key={jobSeeker.id} 
+                            //     to={PATH_PAGE.chitietcongviec.replace(':id', jobSeeker.id)} 
+                            //     className="link-deital"
+                            // >
+
+                                    <div className="listUV">
+                                                    
+                                        <div className="innerList">
+                                            <div className="uv">
+                                                <div className="tt">
+                                                    <div className="avtUv">
+                                                        <img src={`${baseURL}/storage/${jobSeeker.logo}`} />
+                                                    </div>
+                                                    <div className="tt-uv">
+                                                        <div className="nameUv mg-bt5">
+                                                            <span>{jobSeeker.name}</span>
+                                                        </div>
+                                                        <div className="phoneUv mg-bt5">
+                                                            <span>{jobSeeker.phone_number}</span>
+                                                        </div>
+                                                        <div className="emailUv mg-bt5">
+                                                            <span>{jobSeeker.email}</span>
+                                                        </div>
+                                                        <div className="fileCvPdf mg-bt5">
+                                                            <span>file.pdf</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="buttonCn">
+                                                    {/* <button 
+                                                        className='duyet' 
+                                                        onClick={() =>handleAcceptJobSeeker(jobSeeker.id)}
+                                                    >
+                                                        Duyệt
+                                                    </button> */}
+                                                    <button 
+                                                        className='huy'
+                                                        onClick={() =>handleRejectJobSeeker(jobSeeker.id)}
+                                                    >
+                                                        Hủy
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            // </Link>
+                            ))
+                        ) : (
+                            <p>Không có ứng viên nào được tìm thấy.</p>
+                        )}
+
+
                     </div>
                 </div>
                  : " "}
@@ -361,3 +509,4 @@ const ModalCtBaiDang = ({
 };
 
 export default ModalCtBaiDang;
+
