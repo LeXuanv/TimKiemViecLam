@@ -53,8 +53,12 @@ const FormLogin = ({setUsername, setPassword, apiLogin}) => {
         <Form.Item>
             Chưa có tài khoản. <Link style={{color:"green"}} to="/signin">Đăng ký ngay !</Link>
         </Form.Item>
+        <Form.Item>
+             <Link style={{color:"green"}} to="/">Quên mật khẩu?!</Link>
+        </Form.Item>
       </Form.Item>
     </Form>
+    
     )
 } 
 

@@ -21,6 +21,8 @@ const Profile = () => {
   const [selectedWard, setSelectedWard] = useState("");
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const [dataUser, setDataUser] = useState("");
+
   const [formData, setFormData] = useState({
       name: "",
       email: "",
@@ -114,7 +116,6 @@ const Profile = () => {
   };
 
   
-  const [dataUser, setDataUser] = useState("");
   const HandleTitle = (newtitle) => {
     setTitleTabs(newtitle);
   };
@@ -360,7 +361,7 @@ const Profile = () => {
                   <CvSubmit jobs = {jobApplied}/>
                 ) 
                 : (
-                  <ChangePassword />
+                  <ChangePassword token= {token}/>
                 )}
               </div>
             </div>

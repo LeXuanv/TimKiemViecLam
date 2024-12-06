@@ -11,6 +11,7 @@ use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserService
 {
@@ -93,6 +94,43 @@ class UserService
             $this->jobSeekerService->update($jobSeeker, $params);
         }
     }
+    public function changePassword1($user, Request $request)
+    {
+        
+        $params = [
+            'password' => Hash::make($request->password),
+        ];
+        $this->userRepository->update($user, $params);
+        
+    }
+    public function changePassword($user, Request $request)
+{
+    // Validate the input
+    $validator = Validator::make($request->all(), [
+        'old_password' => 'required|string', // Mật khẩu cũ
+        'password' => 'required|string|min:6|confirmed', // Mật khẩu mới
+    ]);
+
+    if ($validator->fails()) {
+        throw new \Illuminate\Validation\ValidationException($validator);
+    }
+
+    // Check if the old password is correct
+    if (!Hash::check($request->old_password, $user->password)) {
+        throw new \UnexpectedValueException('The current password is incorrect.');
+    }
+
+    // Check if the new password is the same as the old one
+    if (Hash::check($request->password, $user->password)) {
+        throw new \UnexpectedValueException('The new password cannot be the same as the current password.');
+    }
+
+    // Hash and update the new password
+    $params = [
+        'password' => Hash::make($request->password),
+    ];
+    $this->userRepository->update($user, $params);
+}
 
     public function destroy(User $user)
     {
