@@ -11,13 +11,10 @@ Route::group([
     Route::get('/skill/{id}', [JobSeekerController::class, 'getSkill']);
     Route::get('/education-detail/{id}', [JobSeekerController::class, 'getEducationDetail']);
     Route::get('/get-all', [JobSeekerController::class, 'getAll']);
-    Route::get('/download-cv/{id}', [JobSeekerController::class, 'downloadCv']);
-    Route::get('/view-cv/{id}', [JobSeekerController::class, 'viewCv']);
 
     Route::group(['middleware' => ['auth:sanctum', 'job_seeker']], function () {
 
         Route::post('/upload-logo', [JobSeekerController::class, 'uploadLogo']);
-        Route::post('/upload-cv', [JobSeekerController::class, 'uploadCv']);
 //        Skill
         Route::post('/skill/update', [JobSeekerController::class, 'updateSkill']);
 

@@ -29,6 +29,7 @@ const Login = () =>{
         localStorage.setItem("authToken", users.data.token);
         localStorage.setItem("user", users.data.role);
         localStorage.setItem("name", users.data.name)
+
         console.log("token trả ve kh login",users.data.token)
         navigate(`${PATH_PAGE.dscongviec}`);
         return true;

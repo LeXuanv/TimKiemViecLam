@@ -104,7 +104,6 @@ class JobSeeker extends Model
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
             'logo' => url('storage/' . $this->logo),
-            'cv' => route(),
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
 			'email' => $this->email,
