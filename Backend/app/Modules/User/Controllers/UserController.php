@@ -71,7 +71,7 @@ class UserController extends Controller
     
         Mail::send('forgot-password', ['password' => $newPassword], function ($message) use ($user) {
             $message->to($user->email)
-                    ->subject('Your New Password');
+                    ->subject('Mật khẩu mới của bạn');
         });
     
         return response()->json(['message' => 'A new password has been sent to your email.']);

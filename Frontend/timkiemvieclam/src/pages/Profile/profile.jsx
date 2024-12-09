@@ -37,6 +37,7 @@ const Profile = () => {
       gender:"",
       birth_date: "",
       experience: "",
+      cv:"",
 
   });
   const [logoFile, setLogoFile] = useState(null);
@@ -155,6 +156,7 @@ const Profile = () => {
           birth_date: dataUser.birth_date || "",
           experience: dataUser.experience || "",
           website: dataUser.website || "",
+          cv: dataUser.cv || "",
         });
     } catch (error) {
         console.error("Error fetching user data", error);

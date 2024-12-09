@@ -59,7 +59,8 @@ class JobSeeker extends Model
 		'user_id',
         'logo',
         'province_code',
-        'district_code'
+        'district_code',
+		'cv'
 	];
 
 	public function user()
@@ -104,7 +105,8 @@ class JobSeeker extends Model
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
             'logo' => url('storage/' . $this->logo),
-            'cv' => route(),
+            // 'cv' => route(),
+			'cv'=> $this->cv,
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
 			'email' => $this->email,

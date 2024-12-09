@@ -4,8 +4,8 @@
     <title>New Password</title>
 </head>
 <body>
-    <h1>Your New Password</h1>
-    <p>Your new password is: <strong>{{ $password }}</strong></p>
-    <p>Please log in and change your password immediately.</p>
+    <h1>Yêu cầu thay đổi mật khẩu</h1>
+    <p>Mật khẩu mới của bạn là: <strong>{{ $password }}</strong></p>
+    <p>Vui lòng đăng nhập và thay đổi mật khẩu mới ngay sau đó. Tuyệt đối không được chia sẻ mật khẩu cho bất cứ ai.</p>
 </body>
 </html>
