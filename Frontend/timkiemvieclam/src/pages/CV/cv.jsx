@@ -3,9 +3,25 @@ import FormProfile from "./formProfile";
 import FormSkill from "./formSkill";
 import FormStudy from "./formStudy";
 import "./cv.scss"
-
+import { useState } from "react";
+import axios from "axios";
 
 const CV = () => {
+    const token = localStorage.getItem('authToken');
+    const [dataUser, setDataUser] = useState("");
+
+    const [dataStudy, setdataStudy] = useState([]);
+
+    const [formData, setFormData] = useState({
+        // id:"",
+        university:"",
+        degree:"",
+        major:"",
+        graduation_year:"",
+        gpa:"",
+        
+    });
+    
     return(
         <>
         <MainLayout >
@@ -28,7 +44,9 @@ const CV = () => {
                         <span className="title">Thông tin kỹ năng</span>
                     </div>
 
-                    <FormSkill/>
+                    <FormSkill
+
+                    />
                 </div>
                 <div className="save-info">
                     <button>Lưu</button>
