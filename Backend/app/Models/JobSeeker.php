@@ -98,6 +98,7 @@ class JobSeeker extends Model
     public function getInfo()
     {
         return [
+			'job_seeker_id' => $this->id,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'ward_code' => $this->ward_code,
@@ -105,7 +106,6 @@ class JobSeeker extends Model
             'birth_date' => $this->birth_date,
             'experience' => $this->experience,
             'logo' => url('storage/' . $this->logo),
-            // 'cv' => route(),
 			'cv'=> $this->cv,
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,

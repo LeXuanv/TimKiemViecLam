@@ -5,8 +5,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { Link } from "react-router-dom";
-import { PATH_PAGE } from "../../utils/constant";
 import { Bounce, toast } from 'react-toastify';
 const ModalCtBaiDang = ({ 
     modal, 
@@ -245,6 +243,25 @@ const ModalCtBaiDang = ({
     }
     if (!formData) return null;
     console.log(formData);
+
+    
+    const viewCV = async (id) => {
+        try {
+          const response = await axios.get(`/api/job-seeker/view-cv/${id}`, {
+            headers: {
+              // Authorization: `Bearer ${token}`,
+            },
+            responseType: 'blob',
+          });
+      
+          const pdfBlob = response.data;
+          const pdfURL = URL.createObjectURL(pdfBlob); 
+          console.log("cv data:",response.data);
+          window.open(pdfURL, "_blank");
+        } catch (error) {
+          console.error("Lỗi khi lấy dữ liệu:", error);
+        }
+      };
     return (
         <>
             <div className="modal-chitietbaidang" onClick={handleClickOutside}>
@@ -451,7 +468,7 @@ const ModalCtBaiDang = ({
                                                             <span>{jobSeeker.email}</span>
                                                         </div>
                                                         <div className="fileCvPdf mg-bt5">
-                                                            <span>file.pdf</span>
+                                                            <button onClick={() => viewCV(jobSeeker.id)}>Xem CV</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -517,7 +534,7 @@ const ModalCtBaiDang = ({
                                                             <span>{jobSeeker.email}</span>
                                                         </div>
                                                         <div className="fileCvPdf mg-bt5">
-                                                            <span>file.pdf</span>
+                                                        <button onClick={() => viewCV(jobSeeker.id)}>Xem CV</button>
                                                         </div>
                                                     </div>
                                                 </div>
