@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
 import { Link } from "react-router-dom";
 
-const FormLogin = ({setUsername, setPassword, apiLogin}) => {
+const FormLogin = ({setUsername, setPassword, apiLogin, setModalForgotPassword}) => {
     return(
     <Form
       name="login"
@@ -38,14 +38,6 @@ const FormLogin = ({setUsername, setPassword, apiLogin}) => {
       >
         <Input prefix={<LockOutlined />} type="password" placeholder="Mật khẩu" onChange={(e)=> setPassword(e.target.value)} />
       </Form.Item>
-      {/* <Form.Item>
-        <Flex justify="space-between" align="center">
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-        </Flex>
-      </Form.Item> */}
-
       <Form.Item>
         <Button style={{backgroundColor:"green"}} block type="primary" htmlType="submit" onClick={() => apiLogin()}>
           Log in
@@ -53,8 +45,8 @@ const FormLogin = ({setUsername, setPassword, apiLogin}) => {
         <Form.Item>
             Chưa có tài khoản. <Link style={{color:"green"}} to="/signin">Đăng ký ngay !</Link>
         </Form.Item>
-        <Form.Item>
-             <Link style={{color:"green"}} to="/">Quên mật khẩu?!</Link>
+        <Form.Item style={{textAlign:"center"}}>
+             <Link style={{color:"green"}} onClick={() => setModalForgotPassword(true)}>Quên mật khẩu ?</Link>
         </Form.Item>
       </Form.Item>
     </Form>

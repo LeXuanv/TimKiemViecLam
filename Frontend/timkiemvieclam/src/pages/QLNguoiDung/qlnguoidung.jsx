@@ -6,6 +6,7 @@ import "./qlnguoidung.scss";
 import FormCapNhat from "./formCapNhat";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 
 const QlNguoiDung = () => {
     const [modalAdmin, setModalAdmin] = useState(false);
@@ -67,12 +68,33 @@ const QlNguoiDung = () => {
                 },
             });
     
-            alert('Xóa tài khoản thành công!');
-            
+            // alert('Xóa tài khoản thành công!');
+            toast.success('Xóa tài khoản thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             window.location.reload()    
         } catch (error) {
             console.error('Error deleting user:', error);
-            alert('Có lỗi xảy ra khi xóa người dùng!');
+            // alert('Có lỗi xảy ra khi xóa người dùng!');
+            toast.error('Có lỗi xảy ra khi xóa người dùng!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
     };
     

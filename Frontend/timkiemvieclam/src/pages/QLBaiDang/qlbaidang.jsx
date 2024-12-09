@@ -8,6 +8,7 @@ import LienHeCongTyAd from "./ttLienheAd";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Bounce, toast } from "react-toastify";
 
 
 const QlBaiDang = () => {
@@ -68,14 +69,35 @@ const QlBaiDang = () => {
                 },
             });
 
-            alert('Xóa công việc thành công!');
-
+            // alert('Xóa công việc thành công!');
+            toast.success('Xóa công việc thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             navigate('/qlcongty');
 
             window.location.reload();
         } catch (error) {
             console.error('Error deleting job:', error);
-            alert('Có lỗi xảy ra khi xóa công việc!');
+            // alert('Có lỗi xảy ra khi xóa công việc!');
+            toast.error('Có lỗi xảy ra khi xóa công việc!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
     };
 

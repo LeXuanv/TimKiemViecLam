@@ -18,4 +18,65 @@
             margin-bottom: 10px;
         }
     }
+    .modalForgot{
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        .innerModal{
+            background-color: #fff;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 750px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+            position: relative;
+            .titleForgot{
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                .close-button{
+                    color: #aaa;
+                    float: right;
+                    font-size: 24px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: -10px;
+                }
+            }
+            form{
+                display: grid;
+                grid-template-columns: 590px 100px;
+                width: 100%;
+                .ant-form-item{
+                    width: 100%;
+                    margin-top: 20px;
+                    margin-bottom: 0;
+                    .ant-row{
+                        margin: 0;
+                        width: 100%;
+                        .ant-col {
+                            max-width: unset;
+                            margin: 0;
+                            flex: none;
+                            .ant-form-item-control-input {
+                                margin: 0;
+                                button{
+                                    margin-left: 10px;
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
+import { Bounce, toast } from 'react-toastify';
 const ModalCtBaiDang = ({ 
     modal, 
     setModal, 
@@ -68,7 +69,18 @@ const ModalCtBaiDang = ({
                 (jobSeeker) => jobSeeker.id!== jobSeekerId
             );
             setJobSeekers(updatedJobSeekers);
-            alert('Phê duyệt thành công!');
+            // alert('Phê duyệt thành công!');
+            toast.success('Phê duyệt thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
         } catch (error) {
             console.error("Error accepting job seeker: ", error);
         }
@@ -82,7 +94,18 @@ const ModalCtBaiDang = ({
                 (jobSeeker) => jobSeeker.id!== jobSeekerId
             );
             setJobSeekersAccept(updatedJobSeekers);
-            alert('Từ chối thành công!');
+            // alert('Từ chối thành công!');
+            toast.success('Từ chối thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         } catch (error) {
             console.error("Error reject job seeker: ", error);
         }
@@ -181,14 +204,36 @@ const ModalCtBaiDang = ({
                 },
             });
             console.log(token);
-            alert('Cập nhật thành công!');
+            // alert('Cập nhật thành công!');
+            toast.success('Cập nhật thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             setModal(false);
             navigate('/qlcongty');
 
             window.location.reload();
         } catch (error) {
             console.error('Error updating job:', error);
-            alert('Lỗi khi cập nhật!');
+            // alert('Lỗi khi cập nhật!');
+            toast.error('Lỗi khi cập nhật!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             
         }
     };

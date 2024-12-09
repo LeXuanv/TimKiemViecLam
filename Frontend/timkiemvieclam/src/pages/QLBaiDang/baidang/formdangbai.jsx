@@ -5,6 +5,7 @@ import { DatePicker, Space } from "antd";
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import { Bounce, toast } from "react-toastify";
 
 const FormDangBai = () => {
     const token = localStorage.getItem('authToken');
@@ -69,11 +70,33 @@ const FormDangBai = () => {
                     'Content-Type': 'application/json',
                 }
             });
-            alert("Đăng bài thành công");
+            // alert("Đăng bài thành công");
+            toast.success('Đăng bài thành công', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             console.log('Đăng bài thành công:', response.data);
             navigate('/qlcongty');
         } catch (error) {
-            alert("Đăng bài thất bại");
+            // alert("Đăng bài thất bại");
+            toast.error('Đăng bài thất bại', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             console.error("Có lỗi xảy ra:", error);
         }
         console.log(formData);
