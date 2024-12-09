@@ -36,10 +36,13 @@ const Login = () =>{
         return true;
       } else {
         console.log("Đăng nhập thất bại:", users);
+        alert("Đăng nhập thất bại! \n Tài khoản hoặc mật khẩu không chính xác")
         return false;
       }
     } catch (error) {
       console.error("Lỗi khi đăng nhập:", error);
+      alert(" Đăng nhập thất bại! \n Tài khoản hoặc mật khẩu không chính xác")
+
       return false;
     }
   };
