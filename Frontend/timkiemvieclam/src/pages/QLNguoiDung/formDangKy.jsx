@@ -1,7 +1,8 @@
 import { Button, Form, Input, Select } from "antd";
-import { LockOutlined, MailOutlined, ManOutlined, PhoneOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined, UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import axios from "axios";
 import { useState } from "react";
+import { Bounce, toast } from "react-toastify";
 const onFinish = (values) => {
   console.log("Success:", values);
 };
@@ -21,8 +22,18 @@ const FormDangky = ({
                 "api/register",formData
             );
             const users = response.data;
-            alert("Thêm tài khoản thành công");
-
+            // alert("Thêm tài khoản thành công");
+            toast.success("Thêm tài khoản thành công", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             console.log(users);
         } catch (error) {
             console.error(error);

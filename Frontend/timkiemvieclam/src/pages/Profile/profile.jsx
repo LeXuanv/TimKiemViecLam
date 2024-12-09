@@ -9,6 +9,7 @@ import { DatePicker, Form, Input, Select, Space, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import JobSave from "./JobSave";
 import CvSubmit from "./cvSubmit";
+import { Bounce, toast } from "react-toastify";
 
 const Profile = () => {
   const [titleTabs, setTitleTabs] = useState("Hồ sơ");
@@ -54,7 +55,18 @@ const Profile = () => {
 
   const handleLogoCompanyUpload = async () => {
     if (!logoFile) {
-      alert("Vui lòng chọn logo trước khi upload!");
+      // alert("Vui lòng chọn logo trước khi upload!");
+      toast.error('Vui lòng chọn logo trước khi upload!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       return;
     }
 
@@ -74,7 +86,18 @@ const Profile = () => {
         }
       );
       // console.log("Upload logo thành công!", response.data);
-      alert("Upload logo thành công!");
+      // alert("Upload logo thành công!");
+      toast.success('Upload logo thành công!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
 
     } catch (error) {
       console.error("Lỗi khi upload logo:", error);
@@ -90,7 +113,18 @@ const Profile = () => {
 
   const handleLogoJobSeekerUpload = async () => {
     if (!logoFile) {
-      alert("Vui lòng chọn logo trước khi upload!");
+      // alert("Vui lòng chọn logo trước khi upload!");
+      toast.error('Vui lòng chọn logo trước khi upload!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
 
@@ -110,9 +144,31 @@ const Profile = () => {
         }
       );
       console.log("Upload logo thành công!", response.data);
-      alert("Upload logo thành công!");
+      // alert("Upload logo thành công!");
+      toast.success('Upload logo thành công!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } catch (error) {
       console.error("Lỗi khi upload logo:", error);
+      // toast.error(`Lỗi khi upload logo: ${error}`, {
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   transition: Bounce,
+      // });
     }
   };
 
@@ -271,14 +327,36 @@ const Profile = () => {
                 'Authorization': `Bearer ${token}`,
             }
         });
-        alert("Thay đổi thành công");
+        // alert("Thay đổi thành công");
+        toast.success('Thay đổi thành công', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         console.log("Update successful:", response.data);
         console.log(formData);
 
         navigate("/profile"); 
         window.location.reload()    
       } catch (error) {
-        alert("Thay đổi thất bại");
+        // alert("Thay đổi thất bại");
+        toast.error('Thay đổi thất bại', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         console.error("Có lỗi xảy ra:", error);
     }
 

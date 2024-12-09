@@ -11,6 +11,7 @@ import axios from 'axios';
 import UngTuyen from "./ungtuyen";
 import DanhDau from "./danhdau";
 import { useNavigate } from 'react-router-dom';
+import { Bounce, toast } from "react-toastify";
 
 const ChiTietCongViec = () => {
     const { id } = useParams();
@@ -120,7 +121,18 @@ const ChiTietCongViec = () => {
   }, [job]);
     const handleApply = async () => {
         if (!token) {
-            alert("Vui lòng đăng nhập để ứng tuyển.");
+            // alert("Vui lòng đăng nhập để ứng tuyển.");
+            toast.error('Vui lòng đăng nhập để ứng tuyển', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
             navigate('/login');
             return;
         }
@@ -137,16 +149,60 @@ const ChiTietCongViec = () => {
   
           if (response.status === 201 || response.status === 200) {
               setHasApplied(!hasApplied); 
-              alert(hasApplied ? "Hủy ứng tuyển thành công!" : "Ứng tuyển thành công!");
+              
+              toast.success(hasApplied ? "Hủy ứng tuyển thành công!" : "Ứng tuyển thành công!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
           } else {
-              alert(response.data.message || "Ứng tuyển thất bại!");
+              // alert(response.data.message || "Ứng tuyển thất bại!");
+              toast.error("Ứng tuyển thất bại!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+              });
           }
           } catch (error) {
               console.error("Có lỗi xảy ra:", error);
               if (error.response) {
-                  alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
+                  // alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
+                  toast.error("Có lỗi xảy ra, vui lòng thử lại sau.", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
               } else {
-                  alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
+                  // alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
+                  toast.error("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                  });
               }
           } finally {
               setIsLoading(false);
@@ -156,7 +212,18 @@ const ChiTietCongViec = () => {
         e.preventDefault();
     
         if (!token) {
-          alert("Vui lòng đăng nhập để đánh dấu.");
+          // alert("Vui lòng đăng nhập để đánh dấu.");
+          toast.error("Vui lòng đăng nhập để đánh dấu", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
           navigate('/login');
           return;
         }
@@ -173,16 +240,60 @@ const ChiTietCongViec = () => {
     
           if (response.status === 201 || response.status === 200) {
             setHasBookmarked(!hasBookmarked); 
-            alert(hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!");
+            // alert(hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!");
+            toast.success(hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
           } else {
-            alert(response.data.message || "Đánh dấu thất bại!");
+            // alert(response.data.message || "Đánh dấu thất bại!");
+            toast.error("Đánh dấu thất bại!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              });
           }
         } catch (error) {
           console.error("Có lỗi xảy ra:", error);
           if (error.response) {
-            alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
+            // alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
+            toast.error("Có lỗi xảy ra, vui lòng thử lại sau", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
           } else {
-            alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
+            // alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
+            toast.error("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
           }
         } finally {
           setIsLoadingOfBookmark(false);
@@ -195,13 +306,35 @@ const ChiTietCongViec = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            alert('Xóa bài đăng thành công!');
+            // alert('Xóa bài đăng thành công!');
+            toast.success('Xóa bài đăng thành công!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
             navigate("/")
 
             window.location.reload()   
         } catch (error) {
             console.error('Error deleting :', error);
-            alert('Có lỗi xảy ra khi xóa !');
+            // alert('Có lỗi xảy ra khi xóa !');
+            toast.error('Có lỗi xảy ra khi xóa !', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
         }
     }
     return(

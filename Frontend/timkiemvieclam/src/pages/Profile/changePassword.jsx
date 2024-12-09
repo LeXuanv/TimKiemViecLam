@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
+import { Bounce, toast } from "react-toastify";
 
 const ChangePassword = ({ token }) => {
   console.log("token nay", token);
@@ -9,7 +10,18 @@ const ChangePassword = ({ token }) => {
     const { old_password, password, password_confirmation } = values;
 
     if (password !== password_confirmation) {
-      alert("Mật khẩu mới và xác nhận mật khẩu không khớp!");
+      // alert("Mật khẩu mới và xác nhận mật khẩu không khớp!");
+      toast.error('Mật khẩu mới và xác nhận mật khẩu không khớp!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       return;
     }
 
@@ -23,9 +35,31 @@ const ChangePassword = ({ token }) => {
           },
         }
       );
-      alert("Đổi mật khẩu thành công!");
+      // alert("Đổi mật khẩu thành công!");
+      toast.success('Đổi mật khẩu thành công!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } catch (error) {
-      alert(error.response?.data?.message || "Nhập sai mật khẩu cũ!");
+      // alert(error.response?.data?.message || "Nhập sai mật khẩu cũ!");
+      toast.error('Nhập sai mật khẩu cũ!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       console.log("old pw, pw, cf pw: ", old_password, password, password_confirmation)
     }
   };

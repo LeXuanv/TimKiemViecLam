@@ -5,6 +5,7 @@ import axios from "axios";
 import "./congviec.scss";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
 
 
 const DsCongViec = () => {
@@ -74,12 +75,34 @@ const DsCongViec = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            alert('Xóa bài đăng thành công!');
+            // alert('Xóa bài đăng thành công!');
+            toast.success('Xóa bài đăng thành công!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
             navigate("/")
             window.location.reload()   
         } catch (error) {
             console.error('Error deleting :', error);
-            alert('Có lỗi xảy ra khi xóa !');
+            // alert('Có lỗi xảy ra khi xóa !');
+            toast.error('Có lỗi xảy ra khi xóa!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
     }
     

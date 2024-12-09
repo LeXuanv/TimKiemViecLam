@@ -3,6 +3,8 @@ import MainLayout from "../mainLayout"
 import FormSignIn from "./formSignIn"
 import { PATH_PAGE } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
+import { Bounce, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const SignIn = () =>{
@@ -31,10 +33,32 @@ const SignIn = () =>{
           role_id: role,
         }
       );
+      toast.success('Đăng ký hành công', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       navigate(`${PATH_PAGE.login}`);
-      alert("Đăng ký thành công");
+      // alert("Đăng ký thành công");
     } catch (error) {
       console.error("loi", error);
+      toast.error('Đăng ký thất bại', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 
