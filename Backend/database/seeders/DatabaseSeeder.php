@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             JobPositionSeeder::class,
+            TypeSkillSeeder::class,
+            SkillSeeder::class,
         ]);
         // User::faModulesctory(10)->create();
 

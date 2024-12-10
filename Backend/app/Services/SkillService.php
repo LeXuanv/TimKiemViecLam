@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\JobSeeker;
 use App\Repositories\Skill\SkillRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -115,7 +116,9 @@ class SkillService
         }
         $user = $request->user();
         if ($user->isJobSeeker()) {
-            $jobSeeker = $user->job_seekers->first();
+            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+
+            // $jobSeeker = $user->job_seekers->first();
             $params = $request->skill_ids;
             if ($this->skillRepository->updateJobSeekerSkills($jobSeeker, $params)) {
                 return [
