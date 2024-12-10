@@ -19,7 +19,7 @@ class SkillRepositoryImpl implements SkillRepository
 
     public function getAllSkill()
     {
-        return $this->skill->select('id', 'name')->get();
+        return $this->skill->select('id', 'name', "type_skill_id")->get();
     }
 
     public function store($params)

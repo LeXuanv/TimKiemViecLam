@@ -11,7 +11,6 @@ const CV = () => {
     const token = localStorage.getItem('authToken');
     const [dataUser, setDataUser] = useState("");
     const [dataEdu, setDataEdu] = useState([])
-    const [dataStudy, setdataStudy] = useState([]);
 
     const [formData, setFormData] = useState({
         id:"",

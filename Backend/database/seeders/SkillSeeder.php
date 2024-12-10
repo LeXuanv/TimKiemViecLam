@@ -17,64 +17,84 @@ class SkillSeeder extends Seeder
 
         DB::table('skills')->insert([
            0 => [
-               'name' => 'Lập trình'
+               'name' => 'Lập trình',
+               'type_skill_id' => '2',
            ],
            1 => [
-               'name' => 'Quản trị cơ sở dữ liệu'
+               'name' => 'Quản trị cơ sở dữ liệu',
+               'type_skill_id' => '2',
            ],
            2 => [
-               'name' => 'DevOps'
+               'name' => 'DevOps',
+               'type_skill_id' => '2',
            ],
            3 => [
-               'name' => 'Phân tích dữ liệu'
+               'name' => 'Phân tích dữ liệu',
+               'type_skill_id' => '2',
            ],
            4 => [
-               'name' => 'Thiết kế đồ họa'
+               'name' => 'Thiết kế đồ họa',
+               'type_skill_id' => '2',
            ],
            5 => [
-               'name' => 'Quản lý dự án'
+               'name' => 'Quản lý dự án',
+               'type_skill_id' => '2',
            ],
            6 => [
-               'name' => 'Tiếp thị số'
+               'name' => 'Tiếp thị số',
+               'type_skill_id' => '2',
            ],
            7 => [
-               'name' => 'Viết nội dung'
+               'name' => 'Viết nội dung',
+               'type_skill_id' => '1',
            ],
            8 => [
-               'name' => 'Giao tiếp'
+               'name' => 'Giao tiếp',
+               'type_skill_id' => '1',
            ],
            9 => [
-               'name' => 'Làm việc nhóm'
+               'name' => 'Làm việc nhóm',
+               'type_skill_id' => '1',
            ],
            10 => [
-               'name' => 'Quản lý thời gian'
+               'name' => 'Quản lý thời gian',
+               'type_skill_id' => '1',
            ],
            11 => [
-               'name' => 'Giải quyết vấn đề'
+               'name' => 'Giải quyết vấn đề',
+               'type_skill_id' => '1',
            ],
            12 => [
-               'name' => 'Lãnh đạo'
+               'name' => 'Lãnh đạo',
+               'type_skill_id' => '1',
            ],
            13 => [
-               'name' => 'Sáng tạo'
+               'name' => 'Sáng tạo',
+               'type_skill_id' => '1',
            ],
            14 => [
-               'name' => 'Thích ứng'
+               'name' => 'Thích ứng',
+               'type_skill_id' => '1',
            ],
            15 => [
-               'name' => 'Tiếng Anh'
+               'name' => 'Tiếng Anh',
+               'type_skill_id' => '3',
            ],
            16 => [
-               'name' => 'Tiếng Pháp'
+               'name' => 'Tiếng Pháp',
+               'type_skill_id' => '3',
            ],
            17 => [
-               'name' => 'Tiếng Trung'
+               'name' => 'Tiếng Trung',
+               'type_skill_id' => '3',
            ],
            18 => [
-               'name' => 'Tiếng Nhật'
+               'name' => 'Tiếng Nhật',
+               'type_skill_id' => '3',
            ],
            19 => [
-               'name' => 'Tiếng Hàn'
+               'name' => 'Tiếng Hàn',
+               'type_skill_id' => '3',
            ],
         ]);
     }

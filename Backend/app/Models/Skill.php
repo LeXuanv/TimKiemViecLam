@@ -27,7 +27,8 @@ class Skill extends Model
 	protected $table = 'skills';
 
 	protected $fillable = [
-		'name'
+		'name',
+		'type_skil_id',
 	];
 
 	public function job_seekers()
@@ -35,5 +36,9 @@ class Skill extends Model
 		return $this->belongsToMany(JobSeeker::class, 'job_seeker_skills')
 					->withPivot('id')
 					->withTimestamps();
+	}
+	public function type_skills()
+	{
+		return $this->belongsTo(TypeSkill::class);
 	}
 }
