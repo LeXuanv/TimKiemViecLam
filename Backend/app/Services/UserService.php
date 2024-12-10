@@ -39,15 +39,23 @@ class UserService
         ];
         $user = $this->userRepository->store($params);
 
-        $otherParams = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'user_id' => $user->id,
-        ];
+        
 
         if ($request->role_id == 2) {
+            $otherParams = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'user_id' => $user->id,
+                'logo' => "images/companylogo.png"
+            ];
             $this->companyService->store($otherParams);
         } elseif ($request->role_id == 3) {
+            $otherParams = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'user_id' => $user->id,
+                'logo' => "images/userlogo.png"
+            ];
             // $this->jobSeekerService->store($otherParams);
             $jobSeeker = $this->jobSeekerService->store($otherParams);
             $finalParams = [

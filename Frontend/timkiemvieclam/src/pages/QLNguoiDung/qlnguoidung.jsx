@@ -150,7 +150,7 @@ const QlNguoiDung = () => {
                                 >
                                     &times;
                                 </span>
-                                {update ? <FormCapNhat setSelectedUser = {setSelectedUser} /> : <FormDangky />}
+                                 <FormCapNhat setSelectedUser = {setSelectedUser} /> 
                             </div>
                         </div>
                     ) : (
