@@ -39,7 +39,9 @@ class JobSeekerController extends Controller
 
     public function storeEducationDetail(Request $request)
     {
-        $store = $this->educationDetailService->store($request);
+        $data = $request->only(['job_seeker_id', 'university', 'degree', 'gpa']);
+        $store = $this->educationDetailService->store($data);
+
         return $store['status'] ? $this->sendResponse('',
             'Store successfully.') : $this->sendResponse($store['error'], 'Store failed.');
     }

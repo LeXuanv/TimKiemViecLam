@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\JobSeeker;
 use App\Models\User;
 use App\Repositories\Company\CompanyRepository;
+use App\Repositories\EducationDetail\EducationDetailRepository;
 use App\Repositories\JobSeeker\JobSeekerRepository;
 use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
@@ -18,10 +19,12 @@ class UserService
     public function __construct(
         private readonly UserRepository $userRepository,
         CompanyService $companyService,
-        JobSeekerService $jobSeekerService
+        JobSeekerService $jobSeekerService,
+        EducationDetailService $educationDetailService,
     ) {
         $this->companyService = $companyService;
         $this->jobSeekerService = $jobSeekerService;
+        $this->educationDetailService = $educationDetailService;
     }
     public function getAll() {
         return $this->userRepository->getAll();
@@ -45,7 +48,12 @@ class UserService
         if ($request->role_id == 2) {
             $this->companyService->store($otherParams);
         } elseif ($request->role_id == 3) {
-            $this->jobSeekerService->store($otherParams);
+            // $this->jobSeekerService->store($otherParams);
+            $jobSeeker = $this->jobSeekerService->store($otherParams);
+            $finalParams = [
+                'job_seeker_id' => $jobSeeker->id
+            ];
+            $this->educationDetailService->store($finalParams);
         }
 
         return $user;
