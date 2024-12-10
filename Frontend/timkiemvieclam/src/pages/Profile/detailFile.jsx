@@ -284,22 +284,35 @@ const DetailFile = ({
                   <Form.Item
                     label="Kinh nghiệm:"
                     >
-                      <Select 
+                      <Input 
                         name = "experience"
                         placeholder="Chọn Kinh Nghiệm" 
                         value={formData.experience} 
-                        onChange={handleExpChange}
+                        onChange={handleChange}
                       >
-                        <Select.Option value="Chưa có kinh nghiệm">Chưa có kinh nghiệm</Select.Option>
-                        <Select.Option value="Dưới 1 năm">Dưới 1 năm</Select.Option>
-                        <Select.Option value="1 - 2 năm">1 - 2 năm</Select.Option>
-                        <Select.Option value="2 - 3 năm">2 - 3 năm</Select.Option>
-                        <Select.Option value="3 - 4 năm">3 - 4 năm</Select.Option>
-                        <Select.Option value="4 - 5 năm">4 - 5 năm</Select.Option>
-                        <Select.Option value="Trên 5 năm">Trên 5 năm</Select.Option>
-                      </Select>
+    
+                      </Input>
                   </Form.Item>
-                  
+                  <Form.Item
+                    label="Chuyên ngành:"
+                  >
+                    <Input 
+                        name="industry_job"
+                        value={formData.industry_job}
+                        onChange={handleChange}
+                        placeholder="Nhập Chuyên ngành của bạn" 
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Định hướng công việc:"
+                  >
+                    <Input 
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Nhập Định hướng công việc của bạn" 
+                    />
+                  </Form.Item>
                 </>
                 
                 :""}
