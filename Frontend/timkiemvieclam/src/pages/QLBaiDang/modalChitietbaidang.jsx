@@ -46,11 +46,8 @@ const ModalCtBaiDang = ({
                 console.log("Fetched data:", selectedJob);
 
                 const { data : jobSeekersResponseData } = await axios.get(`/company/jobs/${selectedJob.id}/applications`);
-                const { data : jobSeekersAcceptResponseData } = await axios.get(`/company/jobs/${selectedJob.id}/applications-accept`);
-                console.log(jobSeekersAcceptResponseData);
                 console.log(jobSeekersResponseData);
 
-                setJobSeekersAccept(jobSeekersAcceptResponseData);
                 setJobSeekers(jobSeekersResponseData);
             } catch (error) {
                 console.error("Error fetching data: ", error);
@@ -58,6 +55,21 @@ const ModalCtBaiDang = ({
         };
         fetchDataJobSeekers();
     }, []);
+    useEffect(() => {
+        const fetchDataJobSeekers = async () => {
+            try {
+                console.log("Fetched data:", selectedJob);
+
+                const { data : jobSeekersAcceptResponseData } = await axios.get(`/company/jobs/${selectedJob.id}/applications-accept`);
+                console.log(jobSeekersAcceptResponseData);
+
+                setJobSeekersAccept(jobSeekersAcceptResponseData);
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        };
+        fetchDataJobSeekers();
+    }, [jobSeekers]);
     const handleAcceptJobSeeker = async (jobSeekerId) => {
         try {
             await axios.post(`/company/jobs/${selectedJob.id}/applications/${jobSeekerId}/accept`, {}, {

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('province_code')->nullable();
             $table->string('district_code')->nullable();
+            $table->string('description')->nullable();
+            $table->string('industry_job')->nullable();
         });
     }
 
