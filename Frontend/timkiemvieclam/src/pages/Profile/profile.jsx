@@ -207,7 +207,7 @@ const Profile = () => {
           phone_number: dataUser.phone_number || "",
           province_code: dataUser.province_code || "",
           district_code: dataUser.district_code || "",
-          logo: dataUser.logo || "",
+          // logo: dataUser.logo || "",
           gender: dataUser.gender || "",
           birth_date: dataUser.birth_date || "",
           experience: dataUser.experience || "",
