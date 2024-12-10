@@ -1,9 +1,0 @@
-cd backend
-php artisan serve
-
-cd frontend/timkiemvieclam
-yarn start
-
-php artisan migrate:refresh --seed   
-
-php artisan route:list

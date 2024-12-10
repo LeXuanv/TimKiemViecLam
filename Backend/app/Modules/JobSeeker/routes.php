@@ -23,7 +23,7 @@ Route::group([
 
 //        Education Detail
         Route::post('/education-detail/store', [JobSeekerController::class, 'storeEducationDetail']);
-        Route::post('/education-detail/update/', [JobSeekerController::class, 'updateEducationDetail']);
-        Route::post('/education-detail/delete/', [JobSeekerController::class, 'destroyEducationDetail']);
+        Route::post('/education-detail/update', [JobSeekerController::class, 'updateEducationDetail']);
+        Route::post('/education-detail/delete', [JobSeekerController::class, 'destroyEducationDetail']);
     });
 });

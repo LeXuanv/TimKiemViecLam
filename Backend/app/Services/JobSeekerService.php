@@ -15,7 +15,9 @@ class JobSeekerService
     }
     public function store($params)
     {
-        $this->jobSeekerRepository->store($params);
+        // $this->jobSeekerRepository->store($params);
+        return $this->jobSeekerRepository->store($params);
+
     }
 
     public function update($jobSeeker, $params)

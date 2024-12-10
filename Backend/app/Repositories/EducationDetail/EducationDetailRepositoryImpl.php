@@ -16,18 +16,20 @@ class EducationDetailRepositoryImpl implements EducationDetailRepository
     }
 
 
-    public function store($params)
+    public function store($params): EducationDetail
     {
-        DB::beginTransaction();
-        try {
-            $this->educationDetail->create($params);
-            DB::commit();
-            return true;
-        } catch (\Error $e) {
-            DB::rollBack();
-            Log::error($e);
-            return false;
-        }
+        // DB::beginTransaction();
+        // try {
+        //     $this->educationDetail->create($params);
+        //     DB::commit();
+    //     return true;
+        // } catch (\Error $e) {
+        //     DB::rollBack();
+        //     Log::error($e);
+        //     return false;
+        // }
+        return $this->educationDetail->create($params);
+
     }
 
     public function updateById($id, $params)
@@ -53,7 +55,7 @@ class EducationDetailRepositoryImpl implements EducationDetailRepository
     public function getByJobSeekerId($id)
     {
         return $this->educationDetail->where('job_seeker_id',
-            $id)->select('university', 'degree', 'major', 'graduation_year', 'gpa')->get();
+            $id)->select('id','university', 'degree', 'major', 'graduation_year', 'gpa')->get();
     }
 
     public function findById($id): EducationDetail

@@ -39,6 +39,7 @@ class EducationDetail extends Model
 	];
 
 	protected $fillable = [
+		'id',
 		'university',
 		'degree',
 		'major',

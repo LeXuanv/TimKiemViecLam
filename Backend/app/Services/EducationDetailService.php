@@ -18,40 +18,45 @@ class EducationDetailService
         return $this->educationDetailRepository->getAllSkill();
     }
 
-    public function store(Request $request)
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'university' => 'string',
+    //         'degree' => 'string',
+    //         'major' => 'string',
+    //         'graduation_year' => 'string',
+    //         'gpa' => 'string',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return [
+    //             'status' => false,
+    //             'error' =>
+    //                 $validator->errors()
+    //         ];
+    //     }
+    //     $params = $request->all();
+    //     $user = $request->user();
+    //     if ($user->isJobSeeker()) {
+    //         $jobSeeker = $user->job_seekers->first();
+    //         $params['job_seeker_id'] = $jobSeeker->id;
+    //         if ($this->educationDetailRepository->store($params)) {
+    //             return [
+    //                 'status' => true,
+    //             ];
+    //         }
+    //     }
+    //     return [
+    //         'status' => false,
+    //         'error' => 'server err'
+    //     ];
+    // }
+
+    
+    public function store($params)
     {
-        $validator = Validator::make($request->all(), [
-            'university' => 'required|string',
-            'degree' => 'required|string',
-            'major' => 'required|string',
-            'graduation_year' => 'required|string',
-            'gpa' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'status' => false,
-                'error' =>
-                    $validator->errors()
-            ];
-        }
-        $params = $request->all();
-        $user = $request->user();
-        if ($user->isJobSeeker()) {
-            $jobSeeker = $user->job_seekers->first();
-            $params['job_seeker_id'] = $jobSeeker->id;
-            if ($this->educationDetailRepository->store($params)) {
-                return [
-                    'status' => true,
-                ];
-            }
-        }
-        return [
-            'status' => false,
-            'error' => 'server err'
-        ];
-    }
-
+        $this->educationDetailRepository->store($params);
+    }    
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -72,6 +77,7 @@ class EducationDetailService
         }
         $id = $request->id;
         $params = [
+            'id' => $request->id,
             'university' => $request->university,
             'degree' => $request->degree,
             'major' => $request->major,
