@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import MainLayout from "../mainLayout"
 import FormLogin from "./formLogin"
 import "./login.scss"
@@ -8,11 +8,22 @@ import axios from "axios";
 import { Button, Checkbox, Form, Input, Flex } from 'antd';
 import { Bounce, toast } from "react-toastify"
 
-
-
+const inputLogin = {
+  username: " ",
+  password: " "
+}
+function loginReduce (state, action){
+  switch(action.type){
+    case "USERNAME":
+      return {...state, username: action.payload};
+    case "PASSWORD":
+      return {...state, password: action.payload};
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+}
 const Login = () =>{
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [stateLogin, dispatchLogin] = useReducer(loginReduce, inputLogin);
     const [modalForgotPassword, setModalForgotPassword] = useState(false);
     // console.log(password)
 
@@ -22,8 +33,8 @@ const Login = () =>{
     try {
       const response = await axios.post(
         "api/login",{
-            email: username,
-            password: password
+            email: stateLogin.username,
+            password: stateLogin.password
         }
       );
       const users = response.data;
@@ -124,8 +135,10 @@ const Login = () =>{
                 <div className="d-login">
                     <div className="f-login">
                         <FormLogin
-                            setUsername={setUsername}
-                            setPassword={setPassword}
+                            setUsername={(value) =>
+                              dispatchLogin({ type: "USERNAME", payload: value })
+                            }
+                            setPassword={(value) => dispatchLogin({type:"PASSWORD", payload:value})}
                             apiLogin={apiLogin}
                             setModalForgotPassword={setModalForgotPassword}
                         >

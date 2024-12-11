@@ -232,7 +232,7 @@ const Profile = () => {
       setSelectedDistrict(dataUser.district_code);
       await fetchWards();
     }
-
+    // console.log("SelectedDistrictA", selectedDistrict);
 
     form.setFieldsValue({
       province_code: dataUser.province_code,

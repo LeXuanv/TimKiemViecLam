@@ -27,7 +27,7 @@ function ListCty({ companies, getProvinceName }) {
                                   </div>
                               </div>
                               <div className="gt-cty">
-                                  <pre>{company.description}</pre>
+                                  <p>{company.description}</p>
                               </div>
                           </div>
                       </div>
