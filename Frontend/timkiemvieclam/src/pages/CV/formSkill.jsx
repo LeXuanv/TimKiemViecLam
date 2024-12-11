@@ -174,6 +174,8 @@ const FormSkill = () => {
                     placeholder="Gõ để tìm kiếm..."
                     value={searchText}
                     onChange={handleSearch}
+                    // onClick={() => setFilteredSkills(skills)}
+                    // onFocus={() => setFilteredSkills(skills)}
                     style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
                   />
                   {searchText && (
