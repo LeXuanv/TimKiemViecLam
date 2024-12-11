@@ -16,7 +16,7 @@ const ChiTietTuyenDung = ({job}) =>{
                         - Chăm sóc và đồng hành cùng khách hàng trong hành trình sống khỏe <br/>
                         - Lên kế hoạch công việc và báo cáo hàng tuần <br/>
                         - Thực hiện các công việc khác theo chỉ thị của quản lý <br/> */}
-                        <span>{job.description}</span>
+                        <pre>{job.description}</pre>
                     </p>
 
                     <p className="tieudeyeucau">Yêu cầu ứng viên</p>
@@ -26,7 +26,7 @@ const ChiTietTuyenDung = ({job}) =>{
                         - Không có kinh nghiệm sẽ được đào tạo từ Công ty <br/>
                         - Kỹ năng giao tiếp tốt <br/>
                         - Yêu thích công việc bán hàng, thích gặp gỡ khách hang <br/> */}
-                        <span>{job.request}</span>
+                        <pre>{job.request}</pre>
                     </p>
 
                     <p className="tieudeyeucau">Quyền lợi</p>
@@ -34,19 +34,19 @@ const ChiTietTuyenDung = ({job}) =>{
                         {/* - Lương cứng 7M + Thưởng hoa hồng 7 – 10% + Thưởng nóng <br/>
                         - Chế độ BHXH, BHYT, BHTN, nghỉ lễ tết theo quy định của nhà nước <br/>
                         - Được tham gia quy trình đào tạo bài bản và đặc biệt hưởng lương trong thời gian đào tạo. <br/> */}
-                        <span>{job.interest}</span>
+                        <pre>{job.interest}</pre>
                     </p>
 
                     <p className="tieudeyeucau">Địa điểm làm việc</p>
                     <p className="chitietyeucau">
                         {/* -  Hà Nội: 85 Nguyễn Du, Phường Nguyễn Du, Hai Bà Trưng <br/> */}
-                        <span>{job.location}</span>
+                        <pre>{job.location}</pre>
                     </p>
 
                     <p className="tieudeyeucau">Thời gian làm việc</p>
                     <p className="chitietyeucau">
                         {/* - Thứ 2 - Thứ 6 (từ 08:00 đến 17:30) <br/> */}
-                        <span>{job.workTime}</span>
+                        <pre>{job.workTime}</pre>
                     </p>
                 </div>
                 
