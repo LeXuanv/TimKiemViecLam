@@ -37,6 +37,7 @@ const ModalCtBaiDang = ({
     const [jobPositions, setJobPositions] = useState([]);
     const [modalListUV, setModalListUV] = useState(false);
     const [modalListUVAccept, setModalListUVAccept] = useState(false);
+    // const [modalChitietUV, setModalChitietUV] = useState(false);
     const navigate = useNavigate(); 
     const [jobSeekers, setJobSeekers] = useState([]);
     const [jobSeekersAccept, setJobSeekersAccept] = useState([]);
@@ -461,8 +462,7 @@ const ModalCtBaiDang = ({
                             //     className="link-deital"
                             // >
 
-                                    <div className="listUV">
-                                                    
+                                    <div className="listUV" >
                                         <div className="innerList">
                                             <div className="uv">
                                                 <div className="tt">
@@ -577,6 +577,15 @@ const ModalCtBaiDang = ({
                     </div>
                 </div>
                  : " "}
+                 {/* {modalChitietUV ? 
+                 <div className="modalChitietUV">
+                    <span onClick={() => setModalChitietUV(false)} className="close-button-listuv">&times;</span>
+                    <div className="formChitietUV">
+                        <p>Chi tiết ứng viên</p>
+                        
+                    </div>
+                 </div>
+                 :""} */}
             </div>
         </>
     );

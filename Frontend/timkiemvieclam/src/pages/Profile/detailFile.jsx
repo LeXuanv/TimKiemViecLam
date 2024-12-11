@@ -1,5 +1,6 @@
 
 import { DatePicker, Form, Input, Select, Space, Button } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import moment from 'moment';
 
 const DetailFile = ({
@@ -29,7 +30,7 @@ const DetailFile = ({
    
   }) => {
 
-
+    console.log ("selectedDistrict:", selectedDistrict);
   const provinceOptions = provinces.map((province) => ({
     value: province.code,
     label: province.name,
@@ -221,7 +222,7 @@ const DetailFile = ({
                   <Form.Item
                       label="Giới thiệu:"
                     >
-                      <Input 
+                      <TextArea 
                           name="description"
                           value={formData.description}
                           onChange={handleChange}
@@ -282,6 +283,16 @@ const DetailFile = ({
                     </Space>
                   </Form.Item>
                   <Form.Item
+                    label="Chuyên ngành:"
+                  >
+                    <Input 
+                        name="industry_job"
+                        value={formData.industry_job}
+                        onChange={handleChange}
+                        placeholder="Nhập Chuyên ngành của bạn" 
+                    />
+                  </Form.Item>
+                  <Form.Item
                     label="Kinh nghiệm:"
                     >
                       <Input 
@@ -293,20 +304,11 @@ const DetailFile = ({
     
                       </Input>
                   </Form.Item>
+                  
                   <Form.Item
-                    label="Chuyên ngành:"
+                    label="Định hướng công việc :"
                   >
-                    <Input 
-                        name="industry_job"
-                        value={formData.industry_job}
-                        onChange={handleChange}
-                        placeholder="Nhập Chuyên ngành của bạn" 
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Định hướng công việc:"
-                  >
-                    <Input 
+                    <TextArea 
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
