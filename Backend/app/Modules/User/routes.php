@@ -19,6 +19,8 @@ Route::group([
     Route::get('/get-all', action: [UserController::class, 'getAll']);
     Route::delete('/delete-user/{userId}', action: [UserController::class, 'deleteUser']);
     Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
+    Route::post('/reset-password', [UserController::class, 'resetPassword']);
+    Route::post('/check-verification-code', [UserController::class, 'checkVerificationCode']);
+
 
 });
-Route::get('/send-test-email', [UserController::class, 'sendTestEmail']);

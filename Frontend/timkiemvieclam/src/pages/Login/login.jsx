@@ -5,8 +5,9 @@ import "./login.scss"
 import { PATH_PAGE } from "../../utils/constant"
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
-import { Button, Checkbox, Form, Input, Flex } from 'antd';
+import { Button, Checkbox, Form, Input, Flex, message  } from 'antd';
 import { Bounce, toast } from "react-toastify"
+import FormItem from "antd/es/form/FormItem"
 
 const inputLogin = {
   username: " ",
@@ -92,43 +93,91 @@ const Login = () =>{
     }
   };
 
+  const [formData, setFormData] = useState({
+    email: "",
+    verification_code: "",
+    new_password: "",
+    new_password_confirmation: "",
+  });
 
-    const handleForgotPassword = async (values) => {
-        const { email } = values;
-        try {
-          const response = await axios.post(
-            "/api/user/forgot-password",{
-                email
-            }
-          );
-          console.log(response.data);
-          toast.success('"Mật khẩu mới đã được gửi đến email của bạn!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-        } catch(error){
-          // alert(error.response?.data?.message || "Email không tồn tại hoặc sai cú pháp");
-          toast.error('Email không tồn tại hoặc sai cú pháp!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-          console.error("mail:", email);
-        }
+  const [verificationChecked, setVerificationChecked] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [timer, setTimer] = useState(0);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleForgotPassword = async () => {
+    setIsButtonDisabled(true);
+  
+    let countdown = 60;
+    setTimer(countdown);
+  
+    const interval = setInterval(() => {
+      countdown -= 1;
+      setTimer(countdown);
+  
+      if (countdown <= 0) {
+        clearInterval(interval);
+        setIsButtonDisabled(false); 
+      }
+    }, 1000);
+  
+    // Thực hiện gửi API
+    try {
+      await axios.post("/api/user/forgot-password", { email: formData.email });
+      message.success("Mã xác thực đã được gửi đến email của bạn!");
+    } catch (error) {
+      message.error("Email không tồn tại hoặc sai cú pháp!");
+  
+      // Dừng đếm ngược nếu API thất bại
+      clearInterval(interval);
+      setIsButtonDisabled(false);
+      setTimer(0);
+      console.error("error:", error);
     }
+  };
+
+  const handleCheckVerificationCode = async () => {
+    try {
+      await axios.post("/api/user/check-verification-code", {
+        email: formData.email,
+        verification_code: formData.verification_code,
+      });
+      message.success("Mã xác thực chính xác!");
+      setVerificationChecked(true);
+    } catch (error) {
+      message.error("Mã xác thực sai!");
+      console.error("error:", error);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    try {
+      await axios.post("/api/user/reset-password", {
+        email: formData.email,
+        verification_code: formData.verification_code,
+        new_password: formData.new_password,
+        new_password_confirmation: formData.new_password_confirmation,
+      });
+      message.success("Mật khẩu mới đã được đặt thành công!");
+      setVerificationChecked(false);
+      setFormData({
+        email: "",
+        verification_code: "",
+        new_password: "",
+        new_password_confirmation: "",
+      });
+    } catch (error) {
+      message.error("Có lỗi xảy ra, vui lòng thử lại!");
+      console.error("error:", error);
+    }
+  };
     return(
         <>
             <MainLayout>
@@ -151,37 +200,94 @@ const Login = () =>{
                             <span>Quên mật khẩu</span>
                             <span onClick={() => setModalForgotPassword(false)} className="close-button">&times;</span>
                           </div>
-                          <Form
-                          name="forgot-password"
-                          onFinish={handleForgotPassword}
+                      
+                          <Form>
+                            
+                          <Form.Item
+                            name="email"
+                            rules={[{ required: true, message: "Vui lòng nhập email!" }]}
                           >
-                            <Form.Item
+                            <Input
                               name="email"
-                              rules={[
-                                {
-                                  required: true,
-                                  message: 'Vui lòng nhập email!',
-                                },
-                              ]}
+                              placeholder="Email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                            />
+                          </Form.Item>
+                          <Form.Item>
+                            <Button
+                              type="primary"
+                              onClick={handleForgotPassword}
+                              disabled={isButtonDisabled}
+
+                              style={{ backgroundColor: "green", padding: "5px 20px", marginBottom: "10px" }}
                             >
-                              <Input placeholder="Email"  />
-                            </Form.Item>
-                            <Form.Item
-                              wrapperCol={{
-                                offset: 8,
-                                span: 16,
-                              }}
-                              style={{ display: "flex", justifyContent: "center" }}
-                            >
-                              <Button
-                                type="primary"
-                                htmlType="submit"
-                                style={{ backgroundColor: "green", padding: "5px 20px" }}
-                              >
-                                Lấy mật khẩu mới
+                              {isButtonDisabled ? `Đợi ${timer}s` : "Lấy Mã xác thực"}
                             </Button>
                           </Form.Item>
-                          </Form>
+
+                          <Form.Item
+                            name="verification_code"
+                            rules={[{ required: true, message: "Vui lòng nhập mã xác thực!" }]}
+                          >
+                            <Input
+                              name="verification_code"
+                              placeholder="Mã xác thực"
+                              value={formData.verification_code}
+                              onChange={handleInputChange}
+                            />
+                          </Form.Item>
+                          <Form.Item>
+
+                            <Button
+                              type="primary"
+                              onClick={handleCheckVerificationCode}
+                              style={{ backgroundColor: "blue", padding: "5px 20px", marginBottom: "10px" }}
+                            >
+                              Kiểm tra
+                            </Button>
+                          </Form.Item>
+
+                          {verificationChecked && (
+                            <>
+                              <Form.Item
+                                name="new_password"
+                                rules={[{ required: true, message: "Vui lòng nhập mật khẩu mới!" }]}
+                              >
+                                <Input.Password
+                                  name="new_password"
+                                  placeholder="Mật khẩu mới"
+                                  value={formData.new_password}
+                                  onChange={handleInputChange}
+                                />
+                              </Form.Item>
+                              <FormItem></FormItem>
+                              <Form.Item
+                                name="new_password_confirmation"
+                                rules={[
+                                  { required: true, message: "Vui lòng xác nhận mật khẩu mới!" },
+                                ]}
+                              >
+                                <Input.Password
+                                  name="new_password_confirmation"
+                                  placeholder="Xác nhận mật khẩu mới"
+                                  value={formData.new_password_confirmation}
+                                  onChange={handleInputChange}
+                                />
+                              </Form.Item>
+                              <FormItem></FormItem>
+                              <FormItem>
+                                <Button
+                                  type="primary"
+                                  onClick={handleResetPassword}
+                                  style={{ backgroundColor: "green", padding: "5px 20px" }}
+                                >
+                                  Đặt lại mật khẩu
+                                </Button>
+                              </FormItem>
+                            </>
+                          )}
+                        </Form>
                         </div>
                       </div>
                         :""

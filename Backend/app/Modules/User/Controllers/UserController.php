@@ -58,37 +58,69 @@ class UserController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
-    
+
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return response()->json(['error' => 'Email not found.'], 404);
         }
-    
-        $newPassword = Str::random(10);
+
+        $verificationCode = Str::random(6);
         $user->update([
-            'password' => Hash::make($newPassword),
+            'verification_code' => $verificationCode,
+            'verification_code_expires_at' => now()->addMinutes(15),
         ]);
-    
-        Mail::send('forgot-password', ['password' => $newPassword], function ($message) use ($user) {
+
+        Mail::send('forgot-password', ['code' => $verificationCode], function ($message) use ($user) {
             $message->to($user->email)
-                    ->subject('Mật khẩu mới của bạn');
+                    ->subject('Mã xác thực thay đổi mật khẩu');
         });
-    
-        return response()->json(['message' => 'A new password has been sent to your email.']);
+
+        return response()->json(['message' => 'A verification code has been sent to your email.']);
     }
-    public function sendTestEmail()
+    public function checkVerificationCode(Request $request)
     {
-        $recipient = 'buivanthieu108@gmail.com';
-        $subject = 'Test Email from Laravel';
-        $body = 'This is a test email sent from Laravel app!';
+        $request->validate([
+            'email' => 'required|email',
+            'verification_code' => 'required|string',
+        ]);
 
-        Mail::raw($body, function ($message) use ($recipient, $subject) {
-            $message->to($recipient)
-                    ->subject($subject);
-        });
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return response()->json(['error' => 'Email không tồn tại'], 404);
+        }
 
-        return 'Email sent successfully!';
+        if ($user->verification_code !== $request->verification_code) {
+            return response()->json(['error' => 'Mã xác thực không chính xác'], 400);
+        }
+
+        if ($user->verification_code_expires_at < now()) {
+            return response()->json(['error' => 'Mã xác thực hết hạn'], 400);
+        }
+
+        return response()->json(['message' => 'Mã xác thực chính xác']);
     }
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'verification_code' => 'required|string',
+            'new_password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !$user->verification_code) {
+            return response()->json(['error' => 'error'], 404);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+            'verification_code' => null,
+            'verification_code_expires_at' => null,
+        ]);
+
+        return response()->json(['message' => 'Mật khẩu mới đã được cập nhật']);
+    }
+
     public function destroy(Request $request)
     {
         $user = $request->user();
