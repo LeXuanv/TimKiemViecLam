@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Password</title>
+    <title>Yêu cầu thay đổi mật khẩu</title>
 </head>
 <body>
-    <h1>Yêu cầu thay đổi mật khẩu</h1>
-    <p>Mật khẩu mới của bạn là: <strong>{{ $password }}</strong></p>
-    <p>Vui lòng đăng nhập và thay đổi mật khẩu mới ngay sau đó. Tuyệt đối không được chia sẻ mật khẩu cho bất cứ ai.</p>
+    <p>Xin chào {{ $user->email ?? 'Người dùng' }},</p>
+    <p>Mã xác thực của bạn là: <strong>{{ $code }}</strong></p>
+    <p>Mã này sẽ hết hạn sau 15 phút.</p>
+    <p>Tuyệt đối không chia sẻ mã xá thực cho bất cứ ai vì yêu cầu bảo mật.</p>
+
 </body>
 </html>

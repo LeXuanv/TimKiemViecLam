@@ -110,40 +110,31 @@ class UserService
             $this->jobSeekerService->update($jobSeeker, $params);
         }
     }
-    public function changePassword1($user, Request $request)
+    public function changePassword($user, Request $request)
     {
-        
+        // Validate the input
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|string',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Illuminate\Validation\ValidationException($validator);
+        }
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            throw new \UnexpectedValueException('The current password is incorrect.');
+        }
+
+        if (Hash::check($request->password, $user->password)) {
+            throw new \UnexpectedValueException('The new password cannot be the same as the current password.');
+        }
+
         $params = [
             'password' => Hash::make($request->password),
         ];
         $this->userRepository->update($user, $params);
-        
     }
-    public function changePassword($user, Request $request)
-{
-    // Validate the input
-    $validator = Validator::make($request->all(), [
-        'old_password' => 'required|string',
-        'password' => 'required|string|min:6|confirmed',
-    ]);
-
-    if ($validator->fails()) {
-        throw new \Illuminate\Validation\ValidationException($validator);
-    }
-
-    if (!Hash::check($request->old_password, $user->password)) {
-        throw new \UnexpectedValueException('The current password is incorrect.');
-    }
-
-    if (Hash::check($request->password, $user->password)) {
-        throw new \UnexpectedValueException('The new password cannot be the same as the current password.');
-    }
-
-    $params = [
-        'password' => Hash::make($request->password),
-    ];
-    $this->userRepository->update($user, $params);
-}
 
     public function destroy(User $user)
     {

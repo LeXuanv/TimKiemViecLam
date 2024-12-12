@@ -58,7 +58,9 @@ class User extends Authentication
         'email_verified_at',
         'password',
         'role_id',
-        'remember_token'
+        'remember_token',
+        'verification_code',
+        'verification_code_expires_at'
     ];
 
     public function role()

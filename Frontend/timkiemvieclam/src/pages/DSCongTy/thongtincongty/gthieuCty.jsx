@@ -11,9 +11,9 @@ const GioiThieuCongTy = ({
                         <span>Giới thiệu công ty</span>
                     </div>
                     <div className="noidungGt">
-                        <p>
+                        <pre>
                             {company.description}
-                        </p>
+                        </pre>
                     </div>
                 </div>
             </div>
