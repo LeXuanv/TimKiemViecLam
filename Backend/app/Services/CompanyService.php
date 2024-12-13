@@ -50,7 +50,10 @@ class CompanyService
         if ($company) {
             $old_path = $company->logo;
             if (isset($old_path) and Storage::disk('public')->exists($old_path)) {
-                Storage::disk('public')->delete($old_path);
+                if($old_path!="images/companylogo.png"){
+                    Storage::disk('public')->delete($old_path);
+
+                }
             }
             $this->companyRepository->saveLogoPath($company, $path);
         }

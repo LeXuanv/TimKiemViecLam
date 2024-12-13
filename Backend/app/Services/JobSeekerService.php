@@ -70,7 +70,10 @@ class JobSeekerService
         if ($jobSeeker) {
             $old_path = $jobSeeker->cv;
             if (isset($old_path) and Storage::disk('public')->exists($old_path)) {
-                Storage::disk('public')->delete($old_path);
+                if($old_path != "images/userlogo.png"){
+                    Storage::disk('public')->delete($old_path);
+
+                }
             }
             $this->jobSeekerRepository->saveCvPath($jobSeeker, $path);
         }

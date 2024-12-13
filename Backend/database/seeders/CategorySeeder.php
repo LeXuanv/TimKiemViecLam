@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
                'name' => 'Công nghệ thông tin'
            ],
            1 => [
-               'name' => 'Kinh doanh'
+               'name' => 'Du lịch, khách sạn'
            ],
            2 => [
                'name' => 'Dược phẩm, y tế'
@@ -33,10 +33,16 @@ class CategorySeeder extends Seeder
                'name' => 'Giao thông, vận tải'
            ],
            5 => [
-               'name' => 'Phục vụ'
+               'name' => 'Giáo dục'
            ],
            6 => [
-                'name' => 'Kế toán'
+                'name' => 'Tài chính, ngân hàng'
+           ],
+           7 => [
+                'name' => 'Truyền thông, giải trí'
+            ],
+            8 => [
+                'name' => 'Thời trang, làm đẹp'
             ]
         ]);
     }
