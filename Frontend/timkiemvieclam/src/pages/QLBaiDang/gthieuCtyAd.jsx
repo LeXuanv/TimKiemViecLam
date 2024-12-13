@@ -8,9 +8,9 @@ const GioiThieuCongTyAd = (dataUser) => {
                         <span>Giới thiệu công ty</span>
                     </div>
                     <div className="noidungGt">
-                        <p>
+                        <pre>
                            {dataUser.dataUser.description}
-                        </p>
+                        </pre> 
                     </div>
                 </div>
             </div>

@@ -16,11 +16,27 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AddressSeeder::class,
             RoleSeeder::class,
-            UserSeeder::class,
             CategorySeeder::class,
-            JobPositionSeeder::class,
-            TypeSkillSeeder::class,
             SkillSeeder::class,
+            TypeSkillSeeder::class,
+            JobPositionSeeder::class,
+
+
+            UserSeeder::class,
+            CompanySeeder::class,
+            JobSeekerSeeder::class,
+
+            JobVacancySeeder::class,
+
+
+
+            JobSeekerSkillSeeder::class,
+            EducationDetailSeeder::class,
+            BookmarkSeeder::class,
+            JobApplicationSeeder::class,
+
+
+            
         ]);
         // User::faModulesctory(10)->create();
 
