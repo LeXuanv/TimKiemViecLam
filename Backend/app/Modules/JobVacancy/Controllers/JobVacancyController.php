@@ -168,7 +168,7 @@ class JobVacancyController extends Controller
         $jobVacanciesDTOs = $this->jobVacancyService->searchJobsFinal($searchTerm, $categoryId, $provinceId);
 
         if ($jobVacanciesDTOs->isEmpty()) {
-            return response()->json( 404);
+            return;
         }
 
         return response()->json($jobVacanciesDTOs);

@@ -46,6 +46,12 @@ const Profile = () => {
   const [previewLogo, setPreviewLogo] = useState(null);
   const [jobBookmarked, setJobBookmarked] = useState(null);
   const [jobApplied, setJobApplied] = useState(null);
+  const [currentPageBookmarked, setCurrentPageBookmarked] = useState(1);
+  const [totalPagesBookmarked, setTotalPagesBookmarked] = useState(1);
+  const [loadingBookmarked, setLoadingBookmarked] = useState(false);
+  const [currentPageApplied, setCurrentPageApplied] = useState(1);
+  const [totalPagesApplied, setTotalPagesApplied] = useState(1);
+  const [loadingApplied, setLoadingApplied] = useState(false);
   const handleLogoCompanyChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -273,28 +279,40 @@ const Profile = () => {
         console.error("Error fetching wards", error);
     }
   };
-  const fetchJobBookmark = async () => {
+  const fetchJobBookmark = async (page) => {
     try {
-        const response = await axios.get(`/user/jobs/bookmarks`,
+      setLoadingBookmarked(true);
+
+        const response = await axios.get(`/user/jobs/bookmarks?page=${page}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-        setJobBookmarked(response.data);
+        setJobBookmarked(response.data.data);
+        setCurrentPageBookmarked(response.data.current_page);
+        setTotalPagesBookmarked(response.data.last_page);
+        setLoadingBookmarked(false);
     } catch (error) {
         console.error("Error fetching job bookmark", error);
+        setLoadingBookmarked(false);
+
     }
   }
-  const fetchJobApplied = async () => {
+  const fetchJobApplied = async (page) => {
     try {
-        const response = await axios.get(`/user/jobs/applied`,
+      setLoadingApplied(true);
+
+        const response = await axios.get(`/user/jobs/applied?page=${page}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-        setJobApplied(response.data);
+        setJobApplied(response.data.data);
+        setCurrentPageApplied(response.data.current_page);
+        setTotalPagesApplied(response.data.last_page);
+        setLoadingApplied(false);
     } catch (error) {
         console.error("Error fetching job apply", error);
     }
@@ -307,6 +325,16 @@ const Profile = () => {
         }
 
   }, [user, token]);
+  const handlePageChangeBookmarked = (page) => {
+    if (page >= 1 && page <= totalPagesBookmarked) {
+      setCurrentPageBookmarked(page);
+    }
+  };
+  const handlePageChangeApplied = (page) => {
+    if (page >= 1 && page <= totalPagesApplied) {
+      setCurrentPageApplied(page);
+    }
+  };
   useEffect(() => {
     
     fetchAddressData();
@@ -437,10 +465,22 @@ const Profile = () => {
                     />
                 ) 
                 : titleTabs === "jobsave" ? (
-                  <JobSave jobs = {jobBookmarked} />
+                  <JobSave 
+                    jobs = {jobBookmarked}
+                    loading={loadingBookmarked}
+                    currentPage={currentPageBookmarked}
+                    handlePageChange={handlePageChangeBookmarked}
+                    totalPages={totalPagesBookmarked}
+                   />
                 ) 
                 : titleTabs === "Cv đã nộp" ? (
-                  <CvSubmit jobs = {jobApplied}/>
+                  <CvSubmit 
+                    jobs = {jobApplied}
+                    loading={loadingApplied}
+                    currentPage={currentPageApplied}
+                    handlePageChange={handlePageChangeApplied}
+                    totalPages={totalPagesApplied}
+                  />
                 ) 
                 : (
                   <ChangePassword token= {token}/>

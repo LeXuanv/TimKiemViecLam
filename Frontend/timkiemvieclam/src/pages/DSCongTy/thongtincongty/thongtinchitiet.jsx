@@ -7,6 +7,7 @@ import LienHeCongTy from "./ttLienhe";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import PageCongViec from "../../DSCongViec/pageCongViec";
 
 const ChiTietCongty = () => {
     const [company, setCompany] = useState("");
@@ -15,7 +16,9 @@ const ChiTietCongty = () => {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     const [jobs, setJobs] = useState([]);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
     const token = localStorage.getItem('authToken');
     const fetchCompanyDetail = async () => {
         try {
@@ -28,19 +31,27 @@ const ChiTietCongty = () => {
     useEffect(() => {
         fetchCompanyDetail();
     }, [id]);
-    const fetchAllJobs = async () => {
+    const fetchAllJobs = async (page) => {
         try {
-            const response = await axios.get(`/user/job-vacancy/get-publish/${id}`, {
+            const response = await axios.get(`/user/job-vacancy/get-publish/${id}?page=${page}`, {
             });
             console.log("cascasc" , response.data);
-            setJobs(response.data);  
+            setJobs(response.data.data);
+            setCurrentPage(response.data.current_page);
+            setTotalPages(response.data.last_page);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching all jobs:", error);  
         }
     };
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= totalPages) {
+          setCurrentPage(page);
+        }
+      };
     useEffect(() => {
-        fetchAllJobs(); 
-    }, []);
+        fetchAllJobs(currentPage); 
+    }, [currentPage]);
     // const fetchProvinces = async () => {
     //     try {
     //         const response = await axios.get("/api/province");
@@ -95,6 +106,12 @@ const ChiTietCongty = () => {
                 <div className="nua1">
                     <GioiThieuCongTy company = {company}/>
                     <TuyenDungCongty jobs = {jobs}/>
+                    <PageCongViec
+                        loading={loading}
+                        currentPage={currentPage}
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}
+                    />
                 </div>
                 <div className="nua2">
                     <LienHeCongTy 

@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Bounce, toast } from "react-toastify";
+import PageCongViec from "../DSCongViec/pageCongViec";
 
 
 const QlBaiDang = () => {
@@ -19,6 +20,9 @@ const QlBaiDang = () => {
     const [selectedJob, setSelectedJob] = useState(null);
     const [modal, setModal] = useState(false);
     const [dataUser, setDataUser] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); 
 
 
@@ -40,9 +44,11 @@ const QlBaiDang = () => {
 
         fetchDataUser(); 
     }, []);
-    const fetchAllJobs = async () => {
+    const fetchAllJobs = async (page) => {
+        setLoading(true);
+
         try {
-            const response = await axios.get('/company/job-vacancy/get-publish', {
+            const response = await axios.get(`/company/job-vacancy/get-publish?page=${page}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -50,14 +56,17 @@ const QlBaiDang = () => {
             
             console.log("cascasc" , response.data);
 
-            setJobs(response.data);  
+            setJobs(response.data.data);
+            setCurrentPage(response.data.current_page);
+            setTotalPages(response.data.last_page);
+            setLoading(false)  
         } catch (error) {
             console.error("Error fetching all jobs:", error);  
         }
     };
     useEffect(() => {
-        fetchAllJobs(); 
-    }, [token]);
+        fetchAllJobs(currentPage); 
+    }, [token,currentPage]);
     
 
     const handleDeleteJob = async () => {
@@ -100,7 +109,11 @@ const QlBaiDang = () => {
             });
         }
     };
-
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= totalPages) {
+          setCurrentPage(page);
+        }
+      };
     return(
         <>
             <MainLayout>
@@ -118,7 +131,12 @@ const QlBaiDang = () => {
                                 handleDeleteJob={handleDeleteJob}
                                 token = {token}
                             />
-                            
+                            <PageCongViec
+                                loading={loading}
+                                currentPage={currentPage}
+                                handlePageChange={handlePageChange}
+                                totalPages={totalPages}
+                            />
 
 
                         </div>

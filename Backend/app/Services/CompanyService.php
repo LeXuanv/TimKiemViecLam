@@ -64,7 +64,7 @@ class CompanyService
     public function searchByName($searchTerm){
         $companies = Company::where('name', 'LIKE', '%' . $searchTerm . '%')
                 ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
-                ->get();
+                ->paginate(9);
         return $companies;
     }
 
