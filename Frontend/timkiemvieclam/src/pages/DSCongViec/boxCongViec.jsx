@@ -5,11 +5,20 @@ import { PATH_PAGE } from "../../utils/constant";
 import axios from 'axios';
 import { MdDelete } from "react-icons/md";
 
-function BoxCongViec({ jobs, isSearching, user, handleDeleteJob }) {
+function BoxCongViec({ 
+    
+    jobs, 
+    isSearching, 
+    user, 
+    handleDeleteJob,
+
+  }) {
   const baseURL = axios.defaults.baseURL;
 
   return (
+    
     <div className="full-box-cv">
+
       {jobs.length > 0 ? (
         jobs.map((job) => (
           // <Link key={job.id} to={`${PATH_PAGE.chitietcongviec}/${job.id}`} className="link-deital">
@@ -53,6 +62,7 @@ function BoxCongViec({ jobs, isSearching, user, handleDeleteJob }) {
         <p>Không có công việc nào được tìm thấy.</p>
       )}
     </div>
+    
   );
 }
 

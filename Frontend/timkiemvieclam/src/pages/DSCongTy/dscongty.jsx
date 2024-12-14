@@ -4,19 +4,30 @@ import SearchCty from "./searchCty";
 import "./dscty.scss";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import PageCongViec from "../DSCongViec/pageCongViec";
 
 
 const DsCongTy = () => {
     const [companies, setCompanies] = useState([]); 
     const [provinces, setProvinces] = useState([]);
     const [companyName, setCompanyName] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(false);
 
-    const fetchAllCompanies = async () => {
+    const fetchAllCompanies = async (page) => {
         try {
-            const response = await axios.get('/api/company/get-all');
-            setCompanies(response.data);
+            setLoading(true);
+
+            const response = await axios.get(`/api/company/get-all?page=${page}`);
+            setCompanies(response.data.data);
+            setCurrentPage(response.data.current_page);
+            setTotalPages(response.data.last_page);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching all companies:", error);
+            setLoading(false);
+
         }
     };
     const fetchProvinces = async () => {
@@ -28,29 +39,30 @@ const DsCongTy = () => {
         }
     };
     useEffect(() => {
-        fetchAllCompanies();
+        fetchAllCompanies(currentPage);
         fetchProvinces();
 
-    }, []);
-    const handleSearch = async (companyName) => {
-    
+    }, [currentPage]);
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= totalPages) {
+          setCurrentPage(page);
+        }
+      };
+      const handleSearch = async (searchTerm, page = 1) => {
         const searchParams = {
-            searchTerm: companyName || undefined
+            searchTerm: searchTerm || undefined,
+            page: page,
         };
     
         try {
             const response = await axios.get('/api/company/search-company', { params: searchParams });
-    
-            if (Array.isArray(response.data) && response.data.length === 0) {
-                setCompanies([]);
-                console.log("Không có công ty nào được tìm thấy.");
-            } else {
-                setCompanies(response.data);
-            }
+            setCompanies(response.data.data);
+            setCurrentPage(response.data.current_page);
+            setTotalPages(response.data.last_page);
         } catch (error) {
-            console.error("Error fetching :", error);
-            fetchAllCompanies();
-        } 
+            console.error("Error fetching search results:", error);
+            setCompanies([]);
+        }
     };
     const getProvinceName = (provinceCode) => {
         const province = provinces.find((p) => p.code === provinceCode);
@@ -68,6 +80,12 @@ const DsCongTy = () => {
                 <ListCty 
                     companies={companies}
                     getProvinceName={getProvinceName}  
+                />
+                <PageCongViec
+                    loading={loading}
+                    currentPage={currentPage}
+                    handlePageChange={handlePageChange}
+                    totalPages={totalPages}
                 />
                 
             </div>

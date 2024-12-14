@@ -2,9 +2,14 @@
 import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
 import axios from 'axios';
+import PageCongViec from "../DSCongViec/pageCongViec";
 
 const JobSave = ({
-    jobs
+    jobs,
+    loading,
+    currentPage,
+    handlePageChange,
+    totalPages,
 }) => {
     console.log("job appli: ", jobs);
     const baseURL = axios.defaults.baseURL;
@@ -43,10 +48,17 @@ const JobSave = ({
                         </div>
                     </Link>
                     ))
+                    
                 ) : (
                     <p>Không có công việc nào được tìm thấy.</p>
                 )}
             </div>
+            <PageCongViec
+                loading={loading}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+                totalPages={totalPages}
+            />
         </div>
         </>
     )

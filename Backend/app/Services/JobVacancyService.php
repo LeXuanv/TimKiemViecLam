@@ -17,31 +17,36 @@ class JobVacancyService
 {
     public function getAllJobVacancies()
     {
-        $jobVacancies = JobVacancy::all();
+        $perPage = 20;
 
-        return $jobVacancies->map(function ($jobVacancy) {
+        $jobVacancies = JobVacancy::with(['company', 'category', 'job_position', 'province'])
+            ->paginate($perPage);
+
+        $jobVacancies->getCollection()->transform(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
             $dto->salary = $jobVacancy->salary;
             $dto->employmentType = $jobVacancy->employment_type;
             $dto->companyId = $jobVacancy->company_id;
-            $dto->companyName = Company::find($jobVacancy->company_id)->name ?? null;
-            $dto->categoryName = Category::find($jobVacancy->category_id)->name ?? null;
-            $dto->jobPositionName = JobPosition::find($jobVacancy->job_position_id)->name ?? null;
-            $dto->provinceName = Province::find($jobVacancy->province_code) -> name ?? null;
-            $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
+            $dto->companyName = $jobVacancy->company->name ?? null;
+            $dto->categoryName = $jobVacancy->category->name ?? null;
+            $dto->jobPositionName = $jobVacancy->jobPosition->name ?? null;
+            $dto->provinceName = $jobVacancy->province->name ?? null;
+            $dto->companyLogo = $jobVacancy->company->logo ?? null;
             return $dto;
         });
+
+    return $jobVacancies;
     }
     public function getAllJobPublishByCompanyWithCompanyId($companyId)
     {
         
         $company = Company::find($companyId);
         
-        $jobVacancies = JobVacancy::where('company_id', $company->id)->get();
+        $jobVacancies = JobVacancy::where('company_id', $company->id)->paginate(5);
 
-        return $jobVacancies->map(function ($jobVacancy) {
+        $jobVacancies->getCollection()->transform(function ($jobVacancy) {
             $dto = new GetByIdJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
@@ -68,9 +73,11 @@ class JobVacancyService
 
             return $dto;
         });
+        return $jobVacancies;
     }
     public function getAllJobPublishByCompany()
     {
+        
         $user = Auth::user();
 
         if (!$user) {
@@ -81,9 +88,9 @@ class JobVacancyService
         if (!$company) {
             return response()->json(['error' => 'Company not found.', 'user_id' => $user->id, 'user_email' => $user->email], 404);
         }
-        $jobVacancies = JobVacancy::where('company_id', $company->id)->get();
+        $jobVacancies = JobVacancy::where('company_id', $company->id)->paginate(5);
 
-        return $jobVacancies->map(function ($jobVacancy) {
+        $jobVacancies->getCollection()->transform(function ($jobVacancy) {
             $dto = new GetByIdJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
@@ -110,6 +117,7 @@ class JobVacancyService
 
             return $dto;
         });
+        return $jobVacancies;
     }
     public function getByIdJobVacancy($id)
     {
@@ -299,6 +307,7 @@ class JobVacancyService
 
     public function searchJobsFinal($searchTerm, $categoryId, $provinceId)
     {
+        $perPage = 2;
         $jobs = JobVacancy::query()
             ->when($searchTerm, function ($query) use ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
@@ -312,11 +321,11 @@ class JobVacancyService
             ->when($categoryId, function ($query) use ($categoryId) {
                 $query->where('category_id', $categoryId);
             })
-            ->get();
+            ->paginate($perPage);
 
         
         // Chuyển đổi sang DTO
-        $jobVacancyDTOs = $jobs->map(function ($job) {
+        $jobs->getCollection()->transform(function ($job) {
             $dto = new GetJobVacancyDTO();
             $dto->id = $job->id;
             $dto->title = $job->title;
@@ -332,7 +341,7 @@ class JobVacancyService
             return $dto;
         });
 
-        return $jobVacancyDTOs;
+        return $jobs;
     }
  
     public function searchCompanyJobs($searchTerm)

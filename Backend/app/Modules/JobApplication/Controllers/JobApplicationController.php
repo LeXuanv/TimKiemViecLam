@@ -67,9 +67,9 @@ class JobApplicationController extends Controller
         $user = Auth::user();
         $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
         $jobApplicationIds = JobApplication::where('job_seeker_id', $jobSeeker->id)->pluck('job_vacancy_id');
-        $jobVacancies = JobVacancy::whereIn('id', $jobApplicationIds)->get();
+        $jobVacancies = JobVacancy::whereIn('id', $jobApplicationIds)->paginate(10);
 
-        return $jobVacancies->map(function ($jobVacancy) {
+        $jobVacancies->getCollection()->transform(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
             $dto->id = $jobVacancy->id;
             $dto->title = $jobVacancy->title;
@@ -83,6 +83,8 @@ class JobApplicationController extends Controller
             $dto->companyLogo = Company::find($jobVacancy->company_id)->logo ?? null;
             return $dto;
         });
+
+        return $jobVacancies;
     }
 
 
