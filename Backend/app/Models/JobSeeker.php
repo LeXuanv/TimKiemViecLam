@@ -60,7 +60,9 @@ class JobSeeker extends Model
         'logo',
         'province_code',
         'district_code',
-		'cv'
+		'cv',
+		'description',
+		'industry_job'
 	];
 
 	public function user()
@@ -110,6 +112,8 @@ class JobSeeker extends Model
 			'province_code' => $this->province_code,
 			'district_code' => $this->district_code,
 			'email' => $this->email,
+			'industry_job' => $this->industry_job,
+			'description' => $this->description,
         ];
     }
     public function getFullInfo()

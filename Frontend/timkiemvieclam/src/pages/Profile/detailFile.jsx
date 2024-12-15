@@ -48,28 +48,28 @@ const DetailFile = ({
 
  console.log(dataUser)
  
-  const handleDateChange = (birth_date, dateString) => {
-      setFormData((prevData) => ({
-          ...prevData,
-          birth_date: dateString,
-      }));
-  };
-  const handleExpChange = (value, option) => {
-    const name = option?.name || 'experience';
+  // const handleDateChange = (birth_date, dateString) => {
+  //     setFormData((prevData) => ({
+  //         ...prevData,
+  //         birth_date: dateString,
+  //     }));
+  // };
+  // const handleGenderChange = (value, option) => {
+  //   const name = option?.name || 'gender';
     
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value, 
-    }));
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value, 
+  //   }));
+  // };
+
+  const handleDateChange = (date, dateString) => {
+    setFormData({ birth_date: dateString }); // Cập nhật birth_date
   };
-  const handleGenderChange = (value, option) => {
-    const name = option?.name || 'gender';
-    
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value, 
-    }));
+  const handleGenderChange = (value) => {
+    setFormData({ gender: value }); // Cập nhật gender
   };
+  
   return (
     
       <div className="all-detail">
