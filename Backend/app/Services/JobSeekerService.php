@@ -86,4 +86,9 @@ class JobSeekerService
     {
         return $this->jobSeekerRepository->getCvByJobSeekerId($id);
     }
+
+    public function find($id)
+    {
+        return $this->jobSeekerRepository->find($id);
+    }
 }

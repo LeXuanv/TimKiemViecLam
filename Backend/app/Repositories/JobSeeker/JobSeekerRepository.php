@@ -12,4 +12,5 @@ interface   JobSeekerRepository {
     public function saveCvPath($jobSeeker, $path);
 
     public function getCvByJobSeekerId($id);
+    public function find($id);
 }

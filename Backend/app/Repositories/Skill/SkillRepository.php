@@ -13,4 +13,5 @@ interface   SkillRepository {
     public function findById($id): Skill;
     public function getByJobSeekerId($id);
     public function updateJobSeekerSkills($jobSeeker, $skill_ids);
+    public function getAllTypeSkill();
 }
