@@ -1,14 +1,18 @@
 
 
 const SearchCty = ({
-    handleSearch,
-    companyName,
-    setCompanyName
+    // handleSearch,
+    // companyName,
+    // setCompanyName
+    state,
+    dispatch,
+    handleSearch
 }) =>{
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            handleSearch(companyName);
-        };
+    const { companyName } = state;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleSearch(companyName);
+    };
     return(
         <>
             <>
@@ -21,7 +25,9 @@ const SearchCty = ({
                                     className="form-input" 
                                     placeholder="Nhập tên công ty"
                                     value = {companyName}
-                                    onChange={(e)=> setCompanyName(e.target.value)}
+                                    onChange={(e) =>
+                                        dispatch({ type: "SET_COMPANY_NAME", payload: e.target.value })
+                                    }
                                 />
                             </div>
                             {/* <div className="search-tinh">

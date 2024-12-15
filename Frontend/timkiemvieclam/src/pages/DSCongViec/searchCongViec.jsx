@@ -4,22 +4,25 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { PiBagSimpleFill } from "react-icons/pi";
 
 function SearchCongViec({ 
-    handleSearch,
-    jobTitle,
-    setJobTitle,
-    province,
-    setProvince,
-    category,
-    setCategory,
-    provinces,
-    categories
-}) {
-    
+    // handleSearch,
+    // jobTitle,
+    // setJobTitle,
+    // province,
+    // setProvince,
+    // category,
+    // setCategory,
+    // provinces,
+    // categories
 
+    state,
+    dispatch,
+    handleSearch
+}) {
+    const { jobTitle, category, province, provinces, categories } = state;
     const handleSubmit = (e) => {
         e.preventDefault();
         handleSearch(jobTitle, category, province);
-    };
+      };
 
     return (
         <div className="box-search-job">
@@ -31,7 +34,9 @@ function SearchCongViec({
                                 className="form-input" 
                                 placeholder="Nhập thông tin việc làm" 
                                 value={jobTitle}
-                                onChange={(e) => setJobTitle(e.target.value)}
+                                onChange={(e) =>
+                                    dispatch({ type: "SET_JOB_TITLE", payload: e.target.value })
+                                }
                             />
                         </div>
                         <div className="search-tinh">
@@ -43,7 +48,9 @@ function SearchCongViec({
                                     name="city" 
                                     id="city" 
                                     value={province} 
-                                    onChange={(e) => setProvince(e.target.value)}
+                                    onChange={(e) =>
+                                        dispatch({ type: "SET_PROVINCE", payload: e.target.value })
+                                    }   
                                 >
                                     <option value="">Tất cả các tỉnh</option>
                                     {provinces.map((province) => (
@@ -63,7 +70,9 @@ function SearchCongViec({
                                     name="nghe" 
                                     id="nghe" 
                                     value={category} 
-                                    onChange={(e) => setCategory(e.target.value)}
+                                    onChange={(e) =>
+                                        dispatch({ type: "SET_CATEGORY", payload: e.target.value })
+                                    }
                                 >
                                     <option value="">Tất cả các ngành nghề</option>
                                     {categories.map((category) => (

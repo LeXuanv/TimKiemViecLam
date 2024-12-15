@@ -307,7 +307,7 @@ class JobVacancyService
 
     public function searchJobsFinal($searchTerm, $categoryId, $provinceId)
     {
-        $perPage = 2;
+        $perPage = 20;
         $jobs = JobVacancy::query()
             ->when($searchTerm, function ($query) use ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {

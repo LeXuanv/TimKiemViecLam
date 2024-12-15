@@ -1,383 +1,199 @@
+import React, { useEffect, useReducer } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Bounce, toast } from "react-toastify";
+
 import MainLayout from "../../mainLayout";
-import SearchCongViec from "../searchCongViec";
-import './chitietcv.scss'
 import ChiTietTuyenDung from "./chitiettuyendung";
 import CongTyCongViec from "./congtycongviec";
 import ThongTinChung from "./thongtinchung";
 import CongViecUngTuyen from "./ungtuyencongviec";
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import UngTuyen from "./ungtuyen";
 import DanhDau from "./danhdau";
-import { useNavigate } from 'react-router-dom';
-import { Bounce, toast } from "react-toastify";
+import UngTuyen from "./ungtuyen";
+
+import './chitietcv.scss';
+
+const showToast = (type, message) => {
+  toast[type](message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
+};
+
+const jobReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_JOB':
+      return { ...state, job: action.payload.job, company: action.payload.company };
+    case 'SET_APPLIED':
+      return { ...state, hasApplied: action.payload };
+    case 'SET_BOOKMARKED':
+      return { ...state, hasBookmarked: action.payload };
+    case 'SET_LOADING':
+      return { ...state, isLoading: action.payload };
+    case 'SET_BOOKMARK_LOADING':
+      return { ...state, isLoadingOfBookmark: action.payload };
+    default:
+      return state;
+  }
+};
 
 const ChiTietCongViec = () => {
-    const { id } = useParams();
-    const [job, setJob] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState("");
-    const [isLoadingOfBookmark, setIsLoadingOfBookmark] = useState(false);
-    const [messageOfBookmark, setMessageOfBookmark] = useState("");
-    const [hasApplied, setHasApplied] = useState(false); 
-    const [hasBookmarked, setHasBookmarked] = useState(false); 
-    const [company, setCompany] = useState("");
-    const [jobSeekerApplies, setJobSeekerApplies] = useState("")
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const token = localStorage.getItem('authToken');
+  const user = localStorage.getItem("user");
 
-    const token = localStorage.getItem('authToken');
-    const navigate = useNavigate();
-    const user =  localStorage.getItem("user");
-    const fetchJobDetail = async () => {
-        try {
-            const response = await axios.get(`/user/job-vacancy/show/${id}`);
-            setJob(response.data);
-        } catch (error) {
-            console.error("Error fetching job details:", error);
-        }
-    };
+  // Using useReducer to manage the state
+  const [state, dispatch] = useReducer(jobReducer, {
+    job: null,
+    company: null,
+    hasApplied: false,
+    hasBookmarked: false,
+    isLoading: false,
+    isLoadingOfBookmark: false,
+  });
 
-    const checkIfApplied = async () => {
-        if (!token || !job) return;
-        
-        try {
-            const response = await axios.get(`/user/jobs/${job.id}/check-application`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-            });
-            
-            setHasApplied(response.data.isApplied);
-        } catch (error) {
-            console.error("Error checking application status:", error);
+  const fetchJobDetails = async () => {
+    try {
+      const jobResponse = await axios.get(`/user/job-vacancy/show/${id}`);
+      const companyResponse = await axios.get(`/api/company/show/${jobResponse.data.companyId}`);
+      const applicationResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-application`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      const bookmarkResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-bookmark`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+
+      dispatch({
+        type: 'SET_JOB',
+        payload: {
+          job: jobResponse.data,
+          company: companyResponse.data
         }
-    };
-    const checkIfBookmarked = async () => {
-      if (!token || !job) return;
-      
-      try {
-        const response = await axios.get(`/user/jobs/${job.id}/check-bookmark`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        
-        setHasBookmarked(response.data.isApplied);
-      } catch (error) {
-        console.error("Error checking bookmark status:", error);
-      }
-    };
-    
-    const getCompany = async () => {
-      if (!job) return;
-      
-      try {
-        const response = await axios.get(`/api/company/show/${job.companyId}`);
-        setCompany(response.data);
-      } catch (error) {
-        console.error("Error fetching company details:", error);
-      }
+      });
+      dispatch({ type: 'SET_APPLIED', payload: applicationResponse.data.isApplied });
+      dispatch({ type: 'SET_BOOKMARKED', payload: bookmarkResponse.data.isApplied });
+
+    } catch (error) {
+      console.error("Error fetching job details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobDetails();
+  }, [id]);
+
+  const handleApply = async () => {
+    if (!token) {
+      showToast('error', 'Vui lòng đăng nhập để ứng tuyển');
+      navigate('/login');
+      return;
     }
 
-    const getJobSeekerApplies = async () => {
-      if (!job) return;
-      
-      try {
-        const response = await axios.get(`/company/jobs/${job.id}/applications`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        setJobSeekerApplies(response.data);
-      } catch (error) {
-        console.error("Error fetching job seeker applies:", error);
+    dispatch({ type: 'SET_LOADING', payload: true });
+    try {
+      const response = await axios.post(`/user/jobs/${state.job.id}/apply`, {}, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        dispatch({ type: 'SET_APPLIED', payload: !state.hasApplied });
+        showToast('success', state.hasApplied ? "Hủy ứng tuyển thành công!" : "Ứng tuyển thành công!");
+      } else {
+        showToast('error', "Ứng tuyển thất bại!");
       }
+    } catch (error) {
+      console.error("Error applying for job:", error);
+      showToast('error', "Có lỗi xảy ra, vui lòng thử lại sau.");
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false });
     }
-   
-    useEffect(() => {
-        
-        fetchJobDetail();
-    }, [id]);
+  };
 
-    console.log("Company:", company)
-    console.log("Job:", job)
+  const handleBookmark = async (e) => {
+    e.preventDefault();
 
+    if (!token) {
+      showToast('error', "Vui lòng đăng nhập để đánh dấu");
+      navigate('/login');
+      return;
+    }
 
+    dispatch({ type: 'SET_BOOKMARK_LOADING', payload: true });
+    try {
+      const response = await axios.post(`/user/jobs/${state.job.id}/bookmark`, {}, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
 
-    useEffect(() => {
-      if (user === 3) {
-        getJobSeekerApplies();
+      if (response.status === 200 || response.status === 201) {
+        dispatch({ type: 'SET_BOOKMARKED', payload: !state.hasBookmarked });
+        showToast('success', state.hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!");
+      } else {
+        showToast('error', "Đánh dấu thất bại!");
       }
-    }, [job, token, user]); 
-    useEffect(() => {
-        
-      getCompany();
-    }, [job]);
-    useEffect(() => {
-     
-        checkIfApplied();
-        checkIfBookmarked();
-    
-  }, [job]);
-    const handleApply = async () => {
-        if (!token) {
-            // alert("Vui lòng đăng nhập để ứng tuyển.");
-            toast.error('Vui lòng đăng nhập để ứng tuyển', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-            navigate('/login');
-            return;
-        }
-  
-        setIsLoading(true);
-        setMessage("");
-  
-        try {
-            const response = await axios.post(`/user/jobs/${job.id}/apply`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-  
-          if (response.status === 201 || response.status === 200) {
-              setHasApplied(!hasApplied); 
-              
-              toast.success(hasApplied ? "Hủy ứng tuyển thành công!" : "Ứng tuyển thành công!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-          } else {
-              // alert(response.data.message || "Ứng tuyển thất bại!");
-              toast.error("Ứng tuyển thất bại!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-              });
-          }
-          } catch (error) {
-              console.error("Có lỗi xảy ra:", error);
-              if (error.response) {
-                  // alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
-                  toast.error("Có lỗi xảy ra, vui lòng thử lại sau.", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                  });
-              } else {
-                  // alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
-                  toast.error("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.", {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                  });
-              }
-          } finally {
-              setIsLoading(false);
-          }
-    };
-    const handleBookmark = async (e) => {
-        e.preventDefault();
-    
-        if (!token) {
-          // alert("Vui lòng đăng nhập để đánh dấu.");
-          toast.error("Vui lòng đăng nhập để đánh dấu", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-          navigate('/login');
-          return;
-        }
-    
-        setIsLoadingOfBookmark(true);
-        setMessageOfBookmark("");
-    
-        try {
-          const response = await axios.post(`/user/jobs/${job.id}/bookmark`, {}, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-    
-          if (response.status === 201 || response.status === 200) {
-            setHasBookmarked(!hasBookmarked); 
-            // alert(hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!");
-            toast.success(hasBookmarked ? "Hủy đánh dấu thành công!" : "Đánh dấu thành công!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-          } else {
-            // alert(response.data.message || "Đánh dấu thất bại!");
-            toast.error("Đánh dấu thất bại!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-              });
-          }
-        } catch (error) {
-          console.error("Có lỗi xảy ra:", error);
-          if (error.response) {
-            // alert(error.response.data.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
-            toast.error("Có lỗi xảy ra, vui lòng thử lại sau", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-          } else {
-            // alert("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.");
-            toast.error("Có lỗi xảy ra, vui lòng kiểm tra kết nối internet.", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-          }
-        } finally {
-          setIsLoadingOfBookmark(false);
-        }
-      };
-      const handleDeleteJob = async (jobId) => {
-        try {
-            const response = await axios.delete(`/admin/job-vacancy/delete/${jobId}` , {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            // alert('Xóa bài đăng thành công!');
-            toast.success('Xóa bài đăng thành công!', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-            navigate("/")
-
-            window.location.reload()   
-        } catch (error) {
-            console.error('Error deleting :', error);
-            // alert('Có lỗi xảy ra khi xóa !');
-            toast.error('Có lỗi xảy ra khi xóa !', {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-        }
+    } catch (error) {
+      console.error("Error bookmarking job:", error);
+      showToast('error', "Có lỗi xảy ra, vui lòng thử lại sau.");
+    } finally {
+      dispatch({ type: 'SET_BOOKMARK_LOADING', payload: false });
     }
-    return(
-        
-        <MainLayout>
-            {/* <SearchCongViec/> */}
-            <div className="detailFull">
-                <div className="detail">
-                    <div className="nua1">
-                        <CongViecUngTuyen job = {job} user={user} handleDeleteJob={handleDeleteJob} />
-                        <ChiTietTuyenDung job = {job}/>
+  };
 
-                        {user == 3 && (
-                        <>
-                          <div className="utvdd">
-                            <UngTuyen 
-                              job = {job}
-                              handleApply = {handleApply}
-                              isLoading={isLoading} 
-                              message={message}
-                              hasApplied={hasApplied}
-                            />
-                            <DanhDau 
-                              job = {job}
-                              handleBookmark = {handleBookmark}
-                              isLoading={isLoadingOfBookmark} 
-                              message={messageOfBookmark}
-                              hasBookmarked={hasBookmarked}
-                            />
-                          </div>
-                        </>
-                      )}
-                        
-                    </div>
-                    <div className="nua2">
-                        <CongTyCongViec job = {job} company ={company}/>
-                        <ThongTinChung job = {job}/>
-                    </div>
-                    
+  const handleDeleteJob = async () => {
+    try {
+      const response = await axios.delete(`/admin/job-vacancy/delete/${state.job.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      showToast('success', 'Xóa bài đăng thành công!');
+      navigate("/");
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      showToast('error', 'Có lỗi xảy ra khi xóa!');
+    }
+  };
+
+  return (
+    <MainLayout>
+      <div className="detailFull">
+        <div className="detail">
+          <div className="nua1">
+            <CongViecUngTuyen job={state.job} user={user} handleDeleteJob={handleDeleteJob} />
+            <ChiTietTuyenDung job={state.job} />
+
+            {user === '3' && (
+              <>
+                <div className="utvdd">
+                  <UngTuyen
+                    job={state.job}
+                    handleApply={handleApply}
+                    isLoading={state.isLoading}
+                    hasApplied={state.hasApplied}
+                  />
+                  <DanhDau
+                    job={state.job}
+                    handleBookmark={handleBookmark}
+                    isLoading={state.isLoadingOfBookmark}
+                    hasBookmarked={state.hasBookmarked}
+                  />
                 </div>
-            </div>  
-        </MainLayout>
-    )
-}
+              </>
+            )}
+          </div>
+          <div className="nua2">
+            <CongTyCongViec job={state.job} company={state.company} />
+            <ThongTinChung job={state.job} />
+          </div>
+        </div>
+      </div>
+    </MainLayout>
+  );
+};
 
 export default ChiTietCongViec;
