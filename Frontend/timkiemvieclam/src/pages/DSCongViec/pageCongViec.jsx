@@ -10,7 +10,7 @@ function PageCongViec({
     dispatch
 })  { 
     const { currentPage, totalPages, loading } = state; 
-
+    console.log(currentPage, totalPages, loading);
     return (
       
 

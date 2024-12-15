@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import MainLayout from "../mainLayout";
 import "./profile.scss";
 import Tabs from "./tabs";
@@ -10,58 +10,141 @@ import { useNavigate } from "react-router-dom";
 import JobSave from "./JobSave";
 import CvSubmit from "./cvSubmit";
 import { Bounce, toast } from "react-toastify";
+const initialState = {
+  titleTabs: "Hồ sơ",
+  provinces: [],
+  districts: [],
+  wards: [],
+  selectedProvince: "",
+  selectedDistrict: "",
+  selectedWard: "",
+  dataUser: "",
+  formData: {
+    name: "",
+    email: "",
+    description: "",
+    address: "",
+    scale: "",
+    ward_code: "",
+    province_code: "",
+    district_code: "",
+    phone_number: "",
+    website: "",
+    gender: "",
+    birth_date: "",
+    experience: "",
+    cv: "",
+    industry_job: "",
+  },
+  logoFile: null,
+  previewLogo: null,
+  jobs:null,
+  currentPage: 1,
+  totalPages: 1,
+  loading: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_TITLE_TABS":
+      return { ...state, titleTabs: action.payload };
+    case "SET_PROVINCES":
+      return { ...state, provinces: action.payload };
+    case "SET_DISTRICTS":
+      return { ...state, districts: action.payload };
+    case "SET_WARDS":
+      return { ...state, wards: action.payload };
+    case "SET_SELECTED_PROVINCE":
+      return { ...state, selectedProvince: action.payload };
+    case "SET_SELECTED_DISTRICT":
+      return { ...state, selectedDistrict: action.payload };
+    case "SET_SELECTED_WARD":
+      return { ...state, selectedWard: action.payload };
+    case "SET_DATA_USER":
+      return { ...state, dataUser: action.payload };
+    case "SET_FORM_DATA":
+      return { ...state, formData: { ...state.formData, ...action.payload } };
+    case "SET_LOGO_FILE":
+      return { ...state, logoFile: action.payload };
+    case "SET_PREVIEW_LOGO":
+      return { ...state, previewLogo: action.payload };
+    case "SET_JOBS":
+      return { ...state, jobs: action.payload };
+    case "SET_CURRENT_PAGE":
+      return { ...state, currentPage: action.payload };
+    case "SET_TOTAL_PAGES":
+      return { ...state, totalPages: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    default:
+      return state;
+  }
+};
+
 
 const Profile = () => {
-  const [titleTabs, setTitleTabs] = useState("Hồ sơ");
-  const token = localStorage.getItem('authToken');
-  const [provinces, setProvinces] = useState([]); 
-  const [districts, setDistricts] = useState([]); 
-  const [wards, setWards] = useState([]); 
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedWard, setSelectedWard] = useState("");
+  // const [titleTabs, setTitleTabs] = useState("Hồ sơ");
+  // const token = localStorage.getItem('authToken');
+  // const [provinces, setProvinces] = useState([]); 
+  // const [districts, setDistricts] = useState([]); 
+  // const [wards, setWards] = useState([]); 
+  // const [selectedProvince, setSelectedProvince] = useState("");
+  // const [selectedDistrict, setSelectedDistrict] = useState("");
+  // const [selectedWard, setSelectedWard] = useState("");
+  // const [form] = Form.useForm();
+  // const navigate = useNavigate();
+  // const [dataUser, setDataUser] = useState("");
+
+  // const [formData, setFormData] = useState({
+  //     name: "",
+  //     email: "",
+  //     description: "",
+  //     address: "",
+  //     scale: "",
+  //     ward_code: "",
+  //     province_code:"",
+  //     district_code:"",
+  //     phone_number: "",
+  //     website: "",
+  //     gender:"",
+  //     birth_date: "",
+  //     experience: "",
+  //     cv:"",
+  //     industry_job:"",
+
+  // });
+  // const [logoFile, setLogoFile] = useState(null);
+  // const [previewLogo, setPreviewLogo] = useState(null);
+  // const [jobBookmarked, setJobBookmarked] = useState(null);
+  // const [jobApplied, setJobApplied] = useState(null);
+  // const [currentPageBookmarked, setCurrentPageBookmarked] = useState(1);
+  // const [totalPagesBookmarked, setTotalPagesBookmarked] = useState(1);
+  // const [loadingBookmarked, setLoadingBookmarked] = useState(false);
+  // const [currentPageApplied, setCurrentPageApplied] = useState(1);
+  // const [totalPagesApplied, setTotalPagesApplied] = useState(1);
+  // const [loadingApplied, setLoadingApplied] = useState(false);
+
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const token = localStorage.getItem("authToken");
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [dataUser, setDataUser] = useState("");
 
-  const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      description: "",
-      address: "",
-      scale: "",
-      ward_code: "",
-      province_code:"",
-      district_code:"",
-      phone_number: "",
-      website: "",
-      gender:"",
-      birth_date: "",
-      experience: "",
-      cv:"",
-      industry_job:"",
 
-  });
-  const [logoFile, setLogoFile] = useState(null);
-  const [previewLogo, setPreviewLogo] = useState(null);
-  const [jobBookmarked, setJobBookmarked] = useState(null);
-  const [jobApplied, setJobApplied] = useState(null);
-  const [currentPageBookmarked, setCurrentPageBookmarked] = useState(1);
-  const [totalPagesBookmarked, setTotalPagesBookmarked] = useState(1);
-  const [loadingBookmarked, setLoadingBookmarked] = useState(false);
-  const [currentPageApplied, setCurrentPageApplied] = useState(1);
-  const [totalPagesApplied, setTotalPagesApplied] = useState(1);
-  const [loadingApplied, setLoadingApplied] = useState(false);
   const handleLogoCompanyChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setLogoFile(file); 
-      setPreviewLogo(URL.createObjectURL(file));
+      // setLogoFile(file); 
+      dispatch({ type: "SET_LOGO_FILE", payload: file });
+
+      // setPreviewLogo(URL.createObjectURL(file));
+      dispatch({ type: "SET_PREVIEW_LOGO", payload: URL.createObjectURL(file) });
+
     }
   };
 
   const handleLogoCompanyUpload = async () => {
-    if (!logoFile) {
+    if (!state.logoFile) {
       // alert("Vui lòng chọn logo trước khi upload!");
       toast.error('Vui lòng chọn logo trước khi upload!', {
           position: "top-right",
@@ -78,7 +161,7 @@ const Profile = () => {
     }
 
     const formData = new FormData();
-    formData.append("logo", logoFile);
+    formData.append("logo", state.logoFile);
 
     try {
       const response = await axios.post(
@@ -113,13 +196,16 @@ const Profile = () => {
   const handleLogoJobSeekerChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setLogoFile(file); 
-      setPreviewLogo(URL.createObjectURL(file)); // Xem trước logo
+      // setLogoFile(file); 
+      dispatch({ type: "SET_LOGO_FILE", payload: file });
+
+      // setPreviewLogo(URL.createObjectURL(file));
+      dispatch({ type: "SET_PREVIEW_LOGO", payload: URL.createObjectURL(file) });
     }
   };
 
   const handleLogoJobSeekerUpload = async () => {
-    if (!logoFile) {
+    if (!state.logoFile) {
       // alert("Vui lòng chọn logo trước khi upload!");
       toast.error('Vui lòng chọn logo trước khi upload!', {
         position: "top-right",
@@ -136,7 +222,7 @@ const Profile = () => {
     }
 
     const formData = new FormData();
-    formData.append("logo", logoFile);
+    formData.append("logo", state.logoFile);
 
     try {
       const response = await axios.post(
@@ -181,7 +267,9 @@ const Profile = () => {
 
   
   const HandleTitle = (newtitle) => {
-    setTitleTabs(newtitle);
+    // setTitleTabs(newtitle);
+    dispatch({ type: "SET_TITLE_TABS", payload: newtitle });
+
   };
   const user =  localStorage.getItem("user");
   useEffect(() => {
@@ -193,7 +281,9 @@ const Profile = () => {
           },
         });
         // console.log("lấy dl:",response.data);
-        setDataUser(response.data);
+        // setDataUser(response.data);
+        dispatch({ type: "SET_DATA_USER", payload: response.data });
+
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
@@ -204,24 +294,42 @@ const Profile = () => {
   
   const fetchUserData = async () => {
     try {
-        setFormData({
-          name: dataUser.name || "",
-          email: dataUser.email || "",
-          description: dataUser.description || "",
-          address: dataUser.address || "",
-          scale: dataUser.scale || "",
-          ward_code: dataUser.ward_code || "",
-          phone_number: dataUser.phone_number || "",
-          province_code: dataUser.province_code || "",
-          district_code: dataUser.district_code || "",
-          // logo: dataUser.logo || "",
-          gender: dataUser.gender || "",
-          birth_date: dataUser.birth_date || "",
-          experience: dataUser.experience || "",
-          website: dataUser.website || "",
-          cv: dataUser.cv || "",
-          industry_job: dataUser.industry_job || "",
-        });
+        // setFormData({
+          // name: dataUser.name || "",
+          // email: dataUser.email || "",
+          // description: dataUser.description || "",
+          // address: dataUser.address || "",
+          // scale: dataUser.scale || "",
+          // ward_code: dataUser.ward_code || "",
+          // phone_number: dataUser.phone_number || "",
+          // province_code: dataUser.province_code || "",
+          // district_code: dataUser.district_code || "",
+          // // logo: dataUser.logo || "",
+          // gender: dataUser.gender || "",
+          // birth_date: dataUser.birth_date || "",
+          // experience: dataUser.experience || "",
+          // website: dataUser.website || "",
+          // cv: dataUser.cv || "",
+          // industry_job: dataUser.industry_job || "",
+        // });
+        dispatch({ type: "SET_FORM_DATA", payload: {
+          name: state.dataUser.name || "",
+          email: state.dataUser.email || "",
+          description: state.dataUser.description || "",
+          address: state.dataUser.address || "",
+          scale: state.dataUser.scale || "",
+          ward_code: state.dataUser.ward_code || "",
+          phone_number: state.dataUser.phone_number || "",
+          province_code: state.dataUser.province_code || "",
+          district_code: state.dataUser.district_code || "",
+          // logo: state.dataUser.logo || "",
+          gender: state.dataUser.gender || "",
+          birth_date: state.dataUser.birth_date || "",
+          experience: state.dataUser.experience || "",
+          website: state.dataUser.website || "",
+          cv: state.dataUser.cv || "",
+          industry_job: state.dataUser.industry_job || "",
+        }});
     } catch (error) {
         console.error("Error fetching user data", error);
     }
@@ -229,40 +337,51 @@ const Profile = () => {
   const fetchAddressData = async () => {
     await fetchProvinces();
 
-    if (dataUser.province_code) {
-      setSelectedProvince(dataUser.province_code);
+    if (state.dataUser.province_code) {
+      // setSelectedProvince(dataUser.province_code);
+      dispatch({ type: "SET_SELECTED_PROVINCE", payload: state.dataUser.province_code });
+
       await fetchDistricts();
     }
 
-    if (dataUser.district_code) {
-      setSelectedDistrict(dataUser.district_code);
+    if (state.dataUser.district_code) {
+      // setSelectedDistrict(dataUser.district_code);
+      dispatch({ type: "SET_SELECTED_DISTRICT", payload: state.dataUser.district_code });
+
       await fetchWards();
     }
     // console.log("SelectedDistrictA", selectedDistrict);
 
     form.setFieldsValue({
-      province_code: dataUser.province_code,
-      district_code: dataUser.district_code,
-      ward_code: dataUser.ward_code,
+      province_code: state.dataUser.province_code,
+      district_code: state.dataUser.district_code,
+      ward_code: state.dataUser.ward_code,
     });
   }
   const fetchProvinces = async () => {
     try {
         const response = await axios.get('/api/province');
-        setProvinces(response.data);
+        // setProvinces(response.data);
+        dispatch({ type: "SET_PROVINCES", payload: response.data });
+
         
     } catch (error) {
         console.error("Error fetching provinces", error);
     }
   };
   const fetchDistricts = async () => {
-    if (!selectedProvince) return; 
+    if (!state.selectedProvince) return; 
     try {
-        const response = await axios.get(`/api/district/${selectedProvince}`);
-        setDistricts(response.data);
-        setWards([]); 
-        setSelectedDistrict(""); 
-        setSelectedWard(""); 
+        const response = await axios.get(`/api/district/${state.selectedProvince}`);
+        // setDistricts(response.data);
+        // setWards([]); 
+        // setSelectedDistrict(""); 
+        // setSelectedWard(""); 
+        dispatch({ type: "SET_DISTRICTS", payload: response.data });
+        dispatch({ type: "SET_WARDS", payload: [] });
+        dispatch({ type: "SET_SELECTED_DISTRICT", payload: "" });
+        dispatch({ type: "SET_SELECTED_WARD", payload: "" });
+
     } catch (error) {
         console.error("Error fetching districts", error);
     }
@@ -270,89 +389,39 @@ const Profile = () => {
 
   };
   const fetchWards = async () => {
-    if (!selectedDistrict) return; 
+    if (!state.selectedDistrict) return; 
     try {
-        const response = await axios.get(`/api/ward/${selectedDistrict}`);
-        setWards(response.data);
-        setSelectedWard(""); 
+        const response = await axios.get(`/api/ward/${state.selectedDistrict}`);
+        // setWards(response.data);
+        // setSelectedWard(""); 
+
+        dispatch({ type: "SET_WARDS", payload: response.data  });
+        dispatch({ type: "SET_SELECTED_WARD", payload: "" });
+
+
     } catch (error) {
         console.error("Error fetching wards", error);
     }
   };
-  const fetchJobBookmark = async (page) => {
-    try {
-      setLoadingBookmarked(true);
 
-        const response = await axios.get(`/user/jobs/bookmarks?page=${page}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-        setJobBookmarked(response.data.data);
-        setCurrentPageBookmarked(response.data.current_page);
-        setTotalPagesBookmarked(response.data.last_page);
-        setLoadingBookmarked(false);
-    } catch (error) {
-        console.error("Error fetching job bookmark", error);
-        setLoadingBookmarked(false);
-
-    }
-  }
-  const fetchJobApplied = async (page) => {
-    try {
-      setLoadingApplied(true);
-
-        const response = await axios.get(`/user/jobs/applied?page=${page}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-        setJobApplied(response.data.data);
-        setCurrentPageApplied(response.data.current_page);
-        setTotalPagesApplied(response.data.last_page);
-        setLoadingApplied(false);
-    } catch (error) {
-        console.error("Error fetching job apply", error);
-    }
-  }
-
-   useEffect(() => {
-    if(user == 3){
-          fetchJobBookmark();
-          fetchJobApplied();
-        }
-
-  }, [user, token]);
-  const handlePageChangeBookmarked = (page) => {
-    if (page >= 1 && page <= totalPagesBookmarked) {
-      setCurrentPageBookmarked(page);
-    }
-  };
-  const handlePageChangeApplied = (page) => {
-    if (page >= 1 && page <= totalPagesApplied) {
-      setCurrentPageApplied(page);
-    }
-  };
   useEffect(() => {
     
     fetchAddressData();
     fetchUserData();
-  }, [dataUser, form]);
+  }, [state.dataUser, form]);
   
   useEffect(() => {
     fetchProvinces();
     fetchDistricts();
-  }, [selectedProvince]);
+  }, [state.selectedProvince]);
   
   useEffect(() => {
     fetchWards();
-  }, [selectedDistrict]);
+  }, [state.selectedDistrict]);
   const handleUpdateJob = async () => {
     
     try {
-        const response = await axios.post("/api/user/update", formData, {
+        const response = await axios.post("/api/user/update", state.formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             }
@@ -370,7 +439,7 @@ const Profile = () => {
           transition: Bounce,
         });
         console.log("Update successful:", response.data);
-        console.log(formData);
+        console.log(state.formData);
 
         navigate("/profile"); 
         window.location.reload()    
@@ -392,37 +461,65 @@ const Profile = () => {
 
   };
 
+  // const handleChange = (e) => {
+  //   if (!e.target) {
+  //     console.error('e.target is undefined');
+  //     return;
+  //   }
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: value,
+  //   }));
+  // };
+  // const handleWardChange = (selectedWardCode) => {
+  //   setSelectedWard(selectedWardCode);
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     ward_code: selectedWardCode, 
+  //   }));
+  // };
+  // const handleDistrictChange = (selectedDistrictCode) => {
+  //   setSelectedDistrict(selectedDistrictCode);
+  //   setFormData((prevData) => ({
+  //     ...prevData, 
+  //     district_code: selectedDistrictCode, 
+  //   }));
+  // };
+  // const handleProvinceChange = (selectedProvinceCode) => {
+  //   setSelectedProvince(selectedProvinceCode);
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     province_code: selectedProvinceCode, 
+  //   }));
+  // };
   const handleChange = (e) => {
-    if (!e.target) {
-      console.error('e.target is undefined');
-      return;
-    }
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-    }));
-  };
-  const handleWardChange = (selectedWardCode) => {
-    setSelectedWard(selectedWardCode);
-    setFormData((prevData) => ({
-      ...prevData,
-      ward_code: selectedWardCode, 
-    }));
-  };
-  const handleDistrictChange = (selectedDistrictCode) => {
-    setSelectedDistrict(selectedDistrictCode);
-    setFormData((prevData) => ({
-      ...prevData, 
-      district_code: selectedDistrictCode, 
-    }));
+      if (!e.target) {
+          console.error('e.target is undefined');
+          return;
+      }
+      const { name, value } = e.target;
+      dispatch({
+          type: "SET_FORM_DATA",
+          payload: { [name]: value }
+      });
   };
   const handleProvinceChange = (selectedProvinceCode) => {
-    setSelectedProvince(selectedProvinceCode);
-    setFormData((prevData) => ({
-      ...prevData,
-      province_code: selectedProvinceCode, 
-    }));
+    dispatch({ type: "SET_SELECTED_PROVINCE", payload: selectedProvinceCode });
+    dispatch({ type: "SET_FORM_DATA", payload: { province_code: selectedProvinceCode } });
+  };
+
+  const handleDistrictChange = (selectedDistrictCode) => {
+    dispatch({ type: "SET_SELECTED_DISTRICT", payload: selectedDistrictCode });
+    dispatch({
+      type: "SET_FORM_DATA",
+      payload: { district_code: selectedDistrictCode },
+    });
+  };
+
+  const handleWardChange = (selectedWardCode) => {
+    dispatch({ type: "SET_SELECTED_WARD", payload: selectedWardCode });
+    dispatch({ type: "SET_FORM_DATA", payload: { ward_code: selectedWardCode } });
   };
 
 
@@ -436,20 +533,22 @@ const Profile = () => {
             <Tabs onHandleTitle={HandleTitle} user = {user} />
             <div className="all-content">
               <div className="inner-content">
-                {titleTabs === "Hồ sơ" ? (
+                {state.titleTabs === "Hồ sơ" ? (
                   <DetailFile 
                     user={user} 
-                    dataUser={dataUser} 
+                    dataUser={state.dataUser} 
                     token={token}
-                    provinces={provinces}
-                    districts={districts}
-                    wards={wards}
-                    selectedProvince={selectedProvince}
-                    selectedDistrict={selectedDistrict}
-                    selectedWard={selectedWard}
+                    provinces={state.provinces}
+                    districts={state.districts}
+                    wards={state.wards}
+                    selectedProvince={state.selectedProvince}
+                    selectedDistrict={state.selectedDistrict}
+                    selectedWard={state.selectedWard}
                     form={form}
-                    formData={formData}
-                    setFormData={setFormData}
+                    formData={state.formData}
+                    setFormData={(updatedData) =>
+                        dispatch({ type: "SET_FORM_DATA", payload: updatedData })
+                    }
                     handleUpdateJob={handleUpdateJob}
                     handleChange={handleChange}
                     handleProvinceChange={handleProvinceChange}
@@ -461,25 +560,21 @@ const Profile = () => {
 
                     handleLogoJobSeekerChange={handleLogoJobSeekerChange}
                     handleLogoJobSeekerUpload={handleLogoJobSeekerUpload}
-                    previewLogo={previewLogo}
+                    previewLogo={state.previewLogo}
                     />
                 ) 
-                : titleTabs === "jobsave" ? (
+                : state.titleTabs === "jobsave" ? (
                   <JobSave 
-                    jobs = {jobBookmarked}
-                    loading={loadingBookmarked}
-                    currentPage={currentPageBookmarked}
-                    handlePageChange={handlePageChangeBookmarked}
-                    totalPages={totalPagesBookmarked}
+                    token={token}
+                    state = {state}
+                    dispatch = {dispatch}
                    />
                 ) 
-                : titleTabs === "Cv đã nộp" ? (
+                : state.titleTabs === "Cv đã nộp" ? (
                   <CvSubmit 
-                    jobs = {jobApplied}
-                    loading={loadingApplied}
-                    currentPage={currentPageApplied}
-                    handlePageChange={handlePageChangeApplied}
-                    totalPages={totalPagesApplied}
+                    token={token}
+                    state = {state}
+                    dispatch = {dispatch}
                   />
                 ) 
                 : (
