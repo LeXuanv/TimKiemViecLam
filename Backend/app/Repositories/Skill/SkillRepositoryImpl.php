@@ -4,17 +4,19 @@ namespace App\Repositories\Skill;
 
 use App\Models\JobSeekerSkill;
 use App\Models\Skill;
+use App\Models\TypeSkill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SkillRepositoryImpl implements SkillRepository
 {
-    protected $skill, $jobSeekerSkill;
+    protected $skill, $jobSeekerSkill, $typeSkill;
 
-    public function __construct(Skill $skill, JobSeekerSkill $jobSeekerSkill)
+    public function __construct(Skill $skill, JobSeekerSkill $jobSeekerSkill, TypeSkill $typeSkill)
     {
         $this->skill = $skill;
         $this->jobSeekerSkill = $jobSeekerSkill;
+        $this->typeSkill = $typeSkill;
     }
 
     public function getAllSkill()
@@ -90,5 +92,10 @@ class SkillRepositoryImpl implements SkillRepository
             return false;
         }
 
+    }
+
+    public function getAllTypeSkill()
+    {
+        return $this->typeSkill->all();
     }
 }

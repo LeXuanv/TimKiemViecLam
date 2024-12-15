@@ -27,3 +27,7 @@ Route::group([
         Route::post('/education-detail/delete', [JobSeekerController::class, 'destroyEducationDetail']);
     });
 });
+
+
+Route::get('job-seeker/create-cv/{id}', [JobSeekerController::class, 'createCvById'])->name('create-cv-by-id');
+Route::get('job-seeker/download-cv/{id}', [JobSeekerController::class, 'downloadCvById'])->name('download-cv-by-id');

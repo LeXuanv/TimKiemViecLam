@@ -131,4 +131,9 @@ class SkillService
             'error' => 'server err'
         ];
     }
+
+    public function getAllTypeSkill()
+    {
+        return $this->skillRepository->getAllTypeSkill();
+    }
 }

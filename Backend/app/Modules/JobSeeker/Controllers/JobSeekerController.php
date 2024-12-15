@@ -8,13 +8,17 @@ use App\Services\JobSeekerService;
 use App\Services\SkillService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use function Spatie\LaravelPdf\Support\pdf;
 
 class JobSeekerController extends Controller
 {
     private $jobSeekerService, $skillService, $educationDetailService;
 
-    public function __construct(JobSeekerService $jobSeekerService, SkillService $skillService, EducationDetailService $educationDetailService)
-    {
+    public function __construct(
+        JobSeekerService $jobSeekerService,
+        SkillService $skillService,
+        EducationDetailService $educationDetailService,
+    ) {
         $this->jobSeekerService = $jobSeekerService;
         $this->skillService = $skillService;
         $this->educationDetailService = $educationDetailService;
@@ -117,5 +121,34 @@ class JobSeekerController extends Controller
         }
 
         return response()->json(['message' => 'File không tồn tại!'], 404);
+    }
+
+    public function createCvById($id)
+    {
+        $jobSeeker = $this->jobSeekerService->find($id);
+        if (!$jobSeeker) {
+            abort(404);
+        }
+        $typeSkills = $this->skillService->getAllTypeSkill();
+        $educationDetails = $this->educationDetailService->getByJobSeekerId($id);
+        return view('JobSeeker::create_cv', compact('jobSeeker', 'typeSkills', 'educationDetails'));
+    }
+
+    public function downloadCvById($id)
+    {
+        $jobSeeker = $this->jobSeekerService->find($id);
+        if (!$jobSeeker) {
+            abort(404);
+        }
+
+        $typeSkills = $this->skillService->getAllTypeSkill();
+        $skills = $this->skillService->getByJobSeekerId($id);
+        $educationDetails = $this->educationDetailService->getByJobSeekerId($id);
+
+//        return view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'));
+        return pdf()
+            ->view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'))
+            ->name($jobSeeker->name.'_cv.pdf')
+            ->download();
     }
 }

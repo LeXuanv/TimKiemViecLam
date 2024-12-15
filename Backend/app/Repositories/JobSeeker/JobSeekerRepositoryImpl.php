@@ -47,4 +47,9 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         }
         return null;
     }
+
+    public function find($id)
+    {
+        return $this->jobSeeker->find($id);
+    }
 }
