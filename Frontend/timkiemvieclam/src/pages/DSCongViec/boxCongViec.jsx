@@ -7,14 +7,18 @@ import { MdDelete } from "react-icons/md";
 
 function BoxCongViec({ 
     
-    jobs, 
-    isSearching, 
-    user, 
-    handleDeleteJob,
+    // jobs, 
+    // isSearching, 
+    // user, 
+    // handleDeleteJob,
+
+    state,
+    dispatch,
+    handleDeleteJob
 
   }) {
   const baseURL = axios.defaults.baseURL;
-
+  const { jobs, isSearching, user } = state; 
   return (
     
     <div className="full-box-cv">

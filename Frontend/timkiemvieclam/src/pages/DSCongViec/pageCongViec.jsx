@@ -1,11 +1,16 @@
 
 
 function PageCongViec({
-    loading,
-    currentPage,
+    // loading,
+    // currentPage,
+    // handlePageChange,
+    // totalPages,
     handlePageChange,
-    totalPages,
+    state,
+    dispatch
 })  { 
+    const { currentPage, totalPages, loading } = state; 
+
     return (
       
 

@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button,message,Upload } from 'antd';
+import { Button, message, Upload } from 'antd';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { Bounce, toast } from "react-toastify";
 
+const initialState = {
+  dataUser: null,
+  skills: [],
+  filteredSkills: [],
+  selectedSkills: [],
+  searchText: '',
+};
+
+function formSkillReducer(state, action) {
+  switch (action.type) {
+    case 'SET_DATA_USER':
+      return { ...state, dataUser: action.payload };
+    case 'SET_SKILLS':
+      return { ...state, skills: action.payload, filteredSkills: action.payload };
+    case 'SET_SELECTED_SKILLS':
+      return { ...state, selectedSkills: action.payload };
+    case 'SET_SEARCH_TEXT':
+      return { ...state, searchText: action.payload };
+    case 'SET_FILTERED_SKILLS':
+      return { ...state, filteredSkills: action.payload };
+    default:
+      return state;
+  }
+}
 
 const FormSkill = () => {
   const token = localStorage.getItem("authToken");
-  const [dataUser, setDataUser] = useState(null);
-  const [skills, setSkills] = useState([]);
-  const [filteredSkills, setFilteredSkills] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
-  const [searchText, setSearchText] = useState("");
+
+  // Using useReducer for state management
+  const [state, dispatch] = useReducer(formSkillReducer, initialState);
 
   useEffect(() => {
     const fetchDataUser = async () => {
@@ -22,10 +43,8 @@ const FormSkill = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("lấy dl data user:",response.data);
-        setDataUser(response.data);
-        console.log("lấy dl data user 2:",dataUser);
-
+        console.log("lấy dl data user:", response.data);
+        dispatch({ type: 'SET_DATA_USER', payload: response.data });
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
@@ -33,7 +52,7 @@ const FormSkill = () => {
 
     fetchDataUser(); 
   }, []);
-  
+
   useEffect(() => {
     const fetchDataSkills = async () => {
       try {
@@ -42,8 +61,8 @@ const FormSkill = () => {
             // Authorization: `Bearer ${token}`,
           },
         });
-        console.log("lấy dl:",response.data);
-        setSkills(response.data);
+        console.log("lấy dl:", response.data);
+        dispatch({ type: 'SET_SKILLS', payload: response.data });
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
@@ -51,56 +70,64 @@ const FormSkill = () => {
 
     fetchDataSkills(); 
   }, []);
+
   useEffect(() => {
-    
-    const fetchDataSkillsOfUser = async () => {
-      console.log("data user nafy ", dataUser);
-      try {
-        const response = await axios.get(`/api/job-seeker/skill/${dataUser.job_seeker_id}`, {
-          headers: {
-            // Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("lấy dl:",response.data);
-        setSelectedSkills(response.data);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu:", error);
-      }
-    };
+    if (state.dataUser) {
+      const fetchDataSkillsOfUser = async () => {
+        try {
+          const response = await axios.get(`/api/job-seeker/skill/${state.dataUser.job_seeker_id}`, {
+            headers: {
+              // Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("lấy dl:", response.data);
+          dispatch({ type: 'SET_SELECTED_SKILLS', payload: response.data });
+        } catch (error) {
+          console.error("Lỗi khi lấy dữ liệu:", error);
+        }
+      };
 
-    fetchDataSkillsOfUser(); 
-  }, [dataUser]);
-
-
+      fetchDataSkillsOfUser(); 
+    }
+  }, [state.dataUser]);
 
   const handleSearch = (e) => {
     const text = e.target.value;
-    setSearchText(text);
-  
+    dispatch({ type: 'SET_SEARCH_TEXT', payload: text });
+
     if (text.trim() !== "") {
-      setFilteredSkills(skills.filter(skill => skill.name.toLowerCase().includes(text.toLowerCase())));
+      dispatch({
+        type: 'SET_FILTERED_SKILLS',
+        payload: state.skills.filter(skill => skill.name.toLowerCase().includes(text.toLowerCase())),
+      });
     } else {
-      setFilteredSkills(skills);
+      dispatch({ type: 'SET_FILTERED_SKILLS', payload: state.skills });
     }
   };
-  
 
   const handleAddSkill = (skill) => {
-    if (!selectedSkills.some(selected => selected.id === skill.id)) {
-      setSelectedSkills([...selectedSkills, skill]); 
+    if (!state.selectedSkills.some(selected => selected.id === skill.id)) {
+      dispatch({
+        type: 'SET_SELECTED_SKILLS',
+        payload: [...state.selectedSkills, skill],
+      });
     }
-    setSearchText("");
-    setFilteredSkills(skills);
+    dispatch({ type: 'SET_SEARCH_TEXT', payload: "" });
+    dispatch({ type: 'SET_FILTERED_SKILLS', payload: state.skills });
   };
+
   const handleRemoveSkill = (id) => {
-    setSelectedSkills(selectedSkills.filter(skill => skill.id !== id));
+    dispatch({
+      type: 'SET_SELECTED_SKILLS',
+      payload: state.selectedSkills.filter(skill => skill.id !== id),
+    });
   };
 
   const handleUpdateSkill = async () => {
     try {
       await axios.post(
         "/api/job-seeker/skill/update",
-        { skill_ids: selectedSkills.map(skill => skill.id).join(",") },
+        { skill_ids: state.selectedSkills.map(skill => skill.id).join(",") },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success("Cập nhật kỹ năng thành công!", { theme: "light", transition: Bounce });
@@ -109,6 +136,7 @@ const FormSkill = () => {
       console.error("Error updating skills:", error);
     }
   };
+
   const props = {
     name: "file",
     customRequest: async (options) => {
@@ -144,96 +172,81 @@ const FormSkill = () => {
 
   const viewCV = async () => {
     try {
-      const response = await axios.get(`/api/job-seeker/view-cv/${dataUser.job_seeker_id}`, {
+      const response = await axios.get(`/api/job-seeker/view-cv/${state.dataUser.job_seeker_id}`, {
         headers: {
           // Authorization: `Bearer ${token}`,
         },
         responseType: 'blob',
       });
-  
+
       const pdfBlob = response.data;
       const pdfURL = URL.createObjectURL(pdfBlob); 
-  
+
       window.open(pdfURL, "_blank");
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu:", error);
     }
   };
-  
-    return(
-        <>
-            <div className="fullSkill">
-                {/* <div className="name">
-                    <input placeholder="Nhập ngôn ngữ ứng tuyển..."/>
-                </div> */}
 
-              <div>
-                <div style={{ marginBottom: "20px" }}>
-                  <input
-                    type="text"
-                    placeholder="Gõ để tìm kiếm..."
-                    value={searchText}
-                    onChange={handleSearch}
-                    // onClick={() => setFilteredSkills(skills)}
-                    // onFocus={() => setFilteredSkills(skills)}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                  />
-                  {searchText && (
-                    <ul style={{ border: "1px solid #ccc", maxHeight: "150px", overflowY: "auto", padding: "0" }}>
-                      {filteredSkills.map(skill => (
-                        <li
-                          key={skill.id}
-                          onClick={() => handleAddSkill(skill)}
-                          style={{ padding: "10px", cursor: "pointer", borderBottom: "1px solid #eee" }}
-                        >
-                          {skill.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                <div>
-                  <h3>Kỹ năng đã chọn</h3>
-                  {selectedSkills.map(skill => (
-                    <div key={skill.id}>
-                      <span>{skill.name}</span>
-                      
-                      <button onClick={() => handleRemoveSkill(skill.id) } style={{ marginLeft: '8px' }}>x</button>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Update Button */}
-                <button onClick={handleUpdateSkill}>
-                  Cập nhật kỹ năng
-                </button>
-              </div>
-
-
-                {dataUser && dataUser.cv ? (
-                  <div>
-                    <p>CV đã được đăng tải:</p>
-                    <button onClick={viewCV}>Xem CV</button>
-                  </div>
-                ) : (
-                  <p>Bạn chưa đăng tải CV.</p>
-                )}
-                
-                <div className="cv">
-                    <Upload {...props}>
-                        <Button icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
-                    </Upload>
-
-                    <Button icon={<DownloadOutlined />}>Click to export your information to template CV</Button>
-
-                </div>
+  return (
+    <>
+      <div className="fullSkill">
+        <div>
+          <div style={{ marginBottom: "20px" }}>
+            <input
+              type="text"
+              placeholder="Gõ để tìm kiếm..."
+              value={state.searchText}
+              onChange={handleSearch}
+              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+            />
+            {state.searchText && (
+              <ul style={{ border: "1px solid #ccc", maxHeight: "150px", overflowY: "auto", padding: "0" }}>
+                {state.filteredSkills.map(skill => (
+                  <li
+                    key={skill.id}
+                    onClick={() => handleAddSkill(skill)}
+                    style={{ padding: "10px", cursor: "pointer", borderBottom: "1px solid #eee" }}
+                  >
+                    {skill.name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-            {/* <div className='comment'>
-                <textarea placeholder='Nhập chi tiết kinh nghiệm về vị trí ứng tuyển mà bạn có và định hướng tương lai (nếu có)........'></textarea>
-            </div> */}
-      </>
-    )
-}
+
+          <div>
+            <h3>Kỹ năng đã chọn</h3>
+            {state.selectedSkills.map(skill => (
+              <div key={skill.id}>
+                <span>{skill.name}</span>
+                <button onClick={() => handleRemoveSkill(skill.id)} style={{ marginLeft: '8px' }}>x</button>
+              </div>
+            ))}
+          </div>
+
+          <button onClick={handleUpdateSkill}>Cập nhật kỹ năng</button>
+        </div>
+
+        {state.dataUser && state.dataUser.cv ? (
+          <div>
+            <p>CV đã được đăng tải:</p>
+            <button onClick={viewCV}>Xem CV</button>
+          </div>
+        ) : (
+          <p>Bạn chưa đăng tải CV.</p>
+        )}
+
+        <div className="cv">
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
+          </Upload>
+
+          <Button icon={<DownloadOutlined />}>Click to export your information to template CV</Button>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default FormSkill;

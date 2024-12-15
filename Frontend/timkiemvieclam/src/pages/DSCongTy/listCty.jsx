@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { PATH_PAGE } from "../../utils/constant";
 import axios from 'axios';
 
-function ListCty({ companies, getProvinceName }) {
+function ListCty({ state, dispatch, getProvinceName }) {
+  const { companies } = state;
   console.log(companies);
   const baseURL = axios.defaults.baseURL;
 

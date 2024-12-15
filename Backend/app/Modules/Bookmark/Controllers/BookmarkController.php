@@ -21,7 +21,7 @@ class BookmarkController extends Controller
         $user = Auth::user();
         $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
         $bookmarkedJobIds = Bookmark::where('job_seeker_id', $jobSeeker->id)->pluck('job_vacancy_id');
-        $jobVacancies = JobVacancy::whereIn('id', $bookmarkedJobIds)->paginate(10);
+        $jobVacancies = JobVacancy::whereIn('id', $bookmarkedJobIds)->paginate(2);
         $jobVacancies->getCollection()->transform(function ($jobVacancy) {
             $dto = new GetJobVacancyDTO();
             $dto->id = $jobVacancy->id;
