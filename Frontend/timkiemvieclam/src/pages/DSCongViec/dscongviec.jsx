@@ -204,7 +204,7 @@ const DsCongViec = () => {
                     dispatch = {dispatch}
                     handleDeleteJob={handleDeleteJob}
                 />
-                <PageCongViec
+                {/* <PageCongViec
                     // loading={loading}
                     // currentPage={currentPage}
                     // handlePageChange={handlePageChange}
@@ -213,7 +213,16 @@ const DsCongViec = () => {
                     dispatch = {dispatch}
                     handlePageChange={handlePageChange}
 
-                />
+                /> */}
+                {state.jobs && state.jobs.length >0 ?(
+                        <PageCongViec
+                        state = {state}
+                        dispatch = {dispatch}
+                        handlePageChange={handlePageChange}
+                    />
+                    ):(
+                        <p></p>
+                )};
             </div>
             </MainLayout>
         </div>

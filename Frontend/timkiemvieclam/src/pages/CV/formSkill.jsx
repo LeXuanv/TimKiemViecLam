@@ -187,7 +187,23 @@ const FormSkill = () => {
       console.error("Lỗi khi lấy dữ liệu:", error);
     }
   };
+  const handleExportCV = async () => {
+    try {
+      const response = await axios.get(`/job-seeker/create-cv/${state.dataUser.job_seeker_id}`, {
+        headers: {
+          // Authorization: `Bearer ${token}`,
+        },
+        responseType: 'blob',
+      });
 
+      const pdfBlob = response.data;
+      const pdfURL = URL.createObjectURL(pdfBlob); 
+
+      window.open(pdfURL, "_blank");
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu:", error);
+    }
+  };
   return (
     <>
       <div className="fullSkill">
@@ -242,7 +258,7 @@ const FormSkill = () => {
             <Button icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
           </Upload>
 
-          <Button icon={<DownloadOutlined />}>Click to export your information to template CV</Button>
+          <Button icon={<DownloadOutlined />} onClick={handleExportCV}>Click to export your information to template CV</Button>
         </div>
       </div>
     </>

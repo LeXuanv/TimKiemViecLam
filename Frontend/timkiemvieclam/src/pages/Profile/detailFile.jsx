@@ -295,14 +295,14 @@ const DetailFile = ({
                   <Form.Item
                     label="Kinh nghiệm:"
                     >
-                      <Input 
+                      <TextArea 
                         name = "experience"
                         placeholder="Chọn Kinh Nghiệm" 
                         value={formData.experience} 
                         onChange={handleChange}
                       >
     
-                      </Input>
+                      </TextArea>
                   </Form.Item>
                   
                   <Form.Item
