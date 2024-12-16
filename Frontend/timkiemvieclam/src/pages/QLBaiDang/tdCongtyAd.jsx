@@ -36,7 +36,7 @@ const TuyenDungCongtyAd = ({
                 </div>
                 <div className="search-tttuyendung">
                     <div className="ttTuyendung">
-                        {jobs.length > 0 ? (
+                        {jobs && jobs.length > 0 ? (
                             jobs.map((job) => (
                                 <div key={job.id} onClick={() => handleJobClick(job)} className="link-deital">
                                     <div className="box-cv">

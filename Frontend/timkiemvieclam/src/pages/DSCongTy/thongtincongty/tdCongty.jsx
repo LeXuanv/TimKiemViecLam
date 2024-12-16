@@ -19,7 +19,7 @@ const TuyenDungCongty = ({
                 <div className="search-tttuyendung">
 
                     <div className="ttTuyendung">
-                        {jobs.length > 0 ? (
+                        {jobs && jobs.length > 0 ? (
                             jobs.map((job) => (
                             // <Link key={job.id} to={`${PATH_PAGE.chitietcongviec}/${job.id}`} className="link-deital">
                             <Link key={job.id} to={PATH_PAGE.chitietcongviec.replace(':id', job.id)} className="link-deital">

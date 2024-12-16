@@ -23,7 +23,7 @@ function BoxCongViec({
     
     <div className="full-box-cv">
 
-      {jobs.length > 0 ? (
+      {jobs ? (
         jobs.map((job) => (
           // <Link key={job.id} to={`${PATH_PAGE.chitietcongviec}/${job.id}`} className="link-deital">
           <Link key={job.id} to={PATH_PAGE.chitietcongviec.replace(':id', job.id)} className="link-deital">

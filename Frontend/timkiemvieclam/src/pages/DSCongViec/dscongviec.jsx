@@ -94,31 +94,54 @@ const DsCongViec = () => {
             page: page,
         };
 
+        // try {
+        //     dispatch({ type: "SET_LOADING", payload: true });
+        //     const response = await axios.get(`/user/job-vacancy/search`, {
+        //         params: searchParams,
+        //     });
+
+        //     if (!response.data?.data?.length) {
+        //         dispatch({ type: "SET_IS_SEARCHING", payload: true });
+        //         dispatch({ type: "SET_JOBS", payload: [] });
+        //         dispatch({ type: "SET_CURRENT_PAGE", payload: 1 });
+        //         dispatch({ type: "SET_TOTAL_PAGES", payload: 1 });
+        //     } else {
+        //         dispatch({ type: "SET_IS_SEARCHING", payload: true });
+
+        //         dispatch({ type: "SET_JOBS", payload: response.data.data });
+        //         dispatch({ type: "SET_CURRENT_PAGE", payload: response.data.current_page });
+        //         dispatch({ type: "SET_TOTAL_PAGES", payload: response.data.last_page });
+        //     }
+        // } catch (error) {
+        //     fetchAllJobs();
+        // } finally {
+        //     dispatch({ type: "SET_IS_SEARCHING", payload: false });
+        //     dispatch({ type: "SET_LOADING", payload: false });
+        // }
         try {
             dispatch({ type: "SET_LOADING", payload: true });
-            const response = await axios.get(`/user/job-vacancy/search`, {
-                params: searchParams,
-            });
-
-            if (!response.data?.data?.length) {
-                dispatch({ type: "SET_JOBS", payload: [] });
-                dispatch({ type: "SET_CURRENT_PAGE", payload: 1 });
-                dispatch({ type: "SET_TOTAL_PAGES", payload: 1 });
-            } else {
-                dispatch({ type: "SET_JOBS", payload: response.data.data });
-                dispatch({ type: "SET_CURRENT_PAGE", payload: response.data.current_page });
-                dispatch({ type: "SET_TOTAL_PAGES", payload: response.data.last_page });
-            }
-        } catch (error) {
-            fetchAllJobs();
-        } finally {
-            dispatch({ type: "SET_IS_SEARCHING", payload: false });
+            const response = await axios.get('/user/job-vacancy/search', { params: searchParams });
+            dispatch({ type: "SET_IS_SEARCHING", payload: true });
+            dispatch({ type: "SET_JOBS", payload: response.data.data });
+            dispatch({ type: "SET_CURRENT_PAGE", payload: response.data.current_page });
+            dispatch({ type: "SET_TOTAL_PAGES", payload: response.data.last_page });
             dispatch({ type: "SET_LOADING", payload: false });
+
+        } catch (error) {
+            console.error("Error fetching search results:", error);
+            fetchAllJobs();
+            dispatch({ type: "SET_LOADING", payload: false });
+            dispatch({ type: "SET_IS_SEARCHING", payload: false });
+
         }
     };
 
     useEffect(() => {
-        fetchAllJobs(state.currentPage);
+        if (state.isSearching) {
+            handleSearch(state.jobTitle, state.category,  state.province, state.currentPage);
+        } else {
+            fetchAllJobs(state.currentPage);
+        }
         fetchData();
     }, [state.currentPage]);
 
