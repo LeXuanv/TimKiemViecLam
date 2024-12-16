@@ -454,7 +454,7 @@ const ModalCtBaiDang = ({
                             <p className='tiltle-vt'>Danh sách ứng viên</p>
                             <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
-                        {jobSeekers.length > 0 ? (
+                        {jobSeekers && jobSeekers.length > 0 ? (
                             jobSeekers.map((jobSeeker) => (
                             // <Link 
                             //     key={jobSeeker.id} 
@@ -519,7 +519,7 @@ const ModalCtBaiDang = ({
                             <p className='tiltle-vt'>Danh sách ứng viên</p>
                             <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
-                        {jobSeekersAccept.length > 0 ? (
+                        {jobSeekersAccept && jobSeekersAccept.length > 0 ? (
                             jobSeekersAccept.map((jobSeeker) => (
                             // <Link 
                             //     key={jobSeeker.id} 

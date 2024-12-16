@@ -66,7 +66,11 @@ const DsCongTy = () => {
         }
     };
     useEffect(() => {
-        fetchAllCompanies(state.currentPage);
+        if (state.isSearching) {
+            handleSearch(state.companyName, state.currentPage);
+        } else {
+            fetchAllCompanies(state.currentPage);
+        }
         fetchProvinces();
 
     }, [state.currentPage]);
@@ -83,12 +87,15 @@ const DsCongTy = () => {
 
         try {
             const response = await axios.get('/api/company/search-company', { params: searchParams });
+            dispatch({ type: "SET_IS_SEARCHING", payload: true });
             dispatch({ type: "SET_COMPANIES", payload: response.data.data });
             dispatch({ type: "SET_CURRENT_PAGE", payload: response.data.current_page });
             dispatch({ type: "SET_TOTAL_PAGES", payload: response.data.last_page });
         } catch (error) {
             console.error("Error fetching search results:", error);
             dispatch({ type: "SET_LOADING", payload: false });
+            dispatch({ type: "SET_IS_SEARCHING", payload: false });
+
         }
     };
     const getProvinceName = (provinceCode) => {

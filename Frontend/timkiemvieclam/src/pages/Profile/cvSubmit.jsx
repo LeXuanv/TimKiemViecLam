@@ -45,7 +45,7 @@ const CvSubmit = ({
         <>
         <div className="all-detail">
             <div className="full-box-cv">
-                {jobs ? (
+                {jobs? (
                     jobs.map((job) => (
                     // <Link key={job.id} to={`${PATH_PAGE.chitietcongviec}/${job.id}`} className="link-deital">
                     <Link key={job.id} to={PATH_PAGE.chitietcongviec.replace(':id', job.id)} className="link-deital">
@@ -80,11 +80,15 @@ const CvSubmit = ({
                     <p>Không có công việc nào được tìm thấy.</p>
                 )}
             </div>
-            <PageCongViec
+            {jobs && jobs.length >0 ?(
+                <PageCongViec
                 state = {state}
                 dispatch = {dispatch}
                 handlePageChange={handlePageChange}
             />
+            ):(
+                <p></p>
+            )};
         </div>
         </>
     )

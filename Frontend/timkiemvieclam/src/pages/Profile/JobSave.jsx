@@ -81,11 +81,16 @@ const JobSave = ({
                     <p>Không có công việc nào được tìm thấy.</p>
                 )}
             </div>
-            <PageCongViec
+            {jobs && jobs.length >0 ?(
+                <PageCongViec
                 state = {state}
                 dispatch = {dispatch}
                 handlePageChange={handlePageChange}
             />
+            ):(
+                <p></p>
+            )};
+            
         </div>
         </>
     )
