@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, message, Upload } from 'antd';
 import axios from 'axios';
@@ -36,7 +36,19 @@ const FormSkill = () => {
   // Using useReducer for state management
   const [state, dispatch] = useReducer(formSkillReducer, initialState);
   const [isInputFocused, setInputFocused] = useState(false);
+  const containerRef = useRef(null);
 
+  const handleClickOutside = (e) => {
+    if (containerRef.current && !containerRef.current.contains(e.target)) {
+      setInputFocused(false);
+    }
+  };
+  React.useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   useEffect(() => {
     const fetchDataUser = async () => {
       try {
@@ -114,6 +126,7 @@ const FormSkill = () => {
         payload: [...state.selectedSkills, skill],
       });
     }
+    setInputFocused(false);
     dispatch({ type: 'SET_SEARCH_TEXT', payload: "" });
     dispatch({ type: 'SET_FILTERED_SKILLS', payload: state.skills });
   };
@@ -210,14 +223,13 @@ const FormSkill = () => {
     <>
       <div className="fullSkill">
         <div className='fullboxsk'>
-          <div className='boxSkill' style={{ marginBottom: "20px" }}>
+          <div className='boxSkill' style={{ marginBottom: "20px" }} ref={containerRef}>
             <input
               type="text"
               placeholder="Gõ để tìm kiếm..."
               value={state.searchText}
               onChange={handleSearch}
               onFocus={() => setInputFocused(true)}
-              onBlur={() => setInputFocused(false)}
               style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
             />
             {isInputFocused && state.filteredSkills.length > 0 && (
