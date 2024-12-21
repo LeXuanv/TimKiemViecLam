@@ -207,8 +207,8 @@ const FormSkill = () => {
   return (
     <>
       <div className="fullSkill">
-        <div>
-          <div style={{ marginBottom: "20px" }}>
+        <div className='fullboxsk'>
+          <div className='boxSkill' style={{ marginBottom: "20px" }}>
             <input
               type="text"
               placeholder="Gõ để tìm kiếm..."
@@ -231,35 +231,40 @@ const FormSkill = () => {
             )}
           </div>
 
-          <div>
+          <div className='skillPick'>
             <h3>Kỹ năng đã chọn</h3>
-            {state.selectedSkills.map(skill => (
-              <div key={skill.id}>
-                <span>{skill.name}</span>
-                <button onClick={() => handleRemoveSkill(skill.id)} style={{ marginLeft: '8px' }}>x</button>
-              </div>
-            ))}
+            <div className='skill'>
+              {state.selectedSkills.map(skill => (
+                <div style={{ display: "flex", marginBottom:"10px" }}  key={skill.id}>
+                  <span>{skill.name}</span>
+                  <button onClick={() => handleRemoveSkill(skill.id)} style={{ marginLeft: '8px' }}>x</button>
+                  
+                </div>
+              ))}
+            </div>
           </div>
-
-          <button onClick={handleUpdateSkill}>Cập nhật kỹ năng</button>
+          <div style={{ textAlign: "center" }}>
+            <button className='buttonUpdateSkill' onClick={handleUpdateSkill}>Cập nhật kỹ năng</button>
+          </div>
         </div>
 
-        {state.dataUser && state.dataUser.cv ? (
-          <div>
-            <p>CV đã được đăng tải:</p>
-            <button onClick={viewCV}>Xem CV</button>
-          </div>
-        ) : (
-          <p>Bạn chưa đăng tải CV.</p>
-        )}
+        
 
         <div className="cv">
           <Upload {...props}>
             <Button icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
           </Upload>
 
-          <Button icon={<DownloadOutlined />} onClick={handleExportCV}>Click to export your information to template CV</Button>
+          <Button className='buttonXuatCV' icon={<DownloadOutlined />} onClick={handleExportCV}> Xuất thông tin sang mẫu CV</Button>
         </div>
+        {state.dataUser && state.dataUser.cv ? (
+          <div className='cvDuocTai'>
+            <p>CV đã được đăng tải:</p>
+            <button onClick={viewCV}>Xem CV</button>
+          </div>
+        ) : (
+          <p>Bạn chưa đăng tải CV.</p>
+        )}
       </div>
     </>
   );
