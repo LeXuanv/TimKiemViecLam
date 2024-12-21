@@ -234,6 +234,80 @@
         display: grid;
         grid-template-columns: 25% 25% 25% 25%;
         box-sizing: border-box;
+        .fullboxsk{
+            .boxSkill{
+                position: relative;
+                width: 100%;
+                input{
+                    border: 1px solid #cdcdcd;
+                    border-radius: 10px;
+                    outline: none;
+                }
+                ul{
+                    position: absolute;
+                    top: 40px;
+                    width: 100%;
+                    border-radius: 10px;
+                    background-color: #fff;
+                }
+            }
+            .skillPick{
+                h3{
+                    text-align: center;
+                }
+                .skill{
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                    span{
+                        display: inline-block;
+                        max-width: 100%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+            .buttonUpdateSkill{
+                border: 1px solid green;
+                padding: 10px 20px;
+                text-align: center;
+                border-radius: 10px;
+                background-color: #fff;
+                color: green;
+                cursor: pointer;
+                &:hover{
+                    background-color: green;
+                    color: #fff;
+                }
+            }
+        }
+        .cv{
+            button{
+                &:hover{
+                    border: 1px solid green;
+                    color: green;
+                }
+            }
+            .buttonXuatCV{
+                margin-top: 15px;
+            }
+        }
+        .cvDuocTai{
+            display: flex;
+            button{
+                margin-left: 10px;
+                border: 1px solid green;
+                color: green;
+                background-color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                &:hover{
+                    cursor: pointer;
+                    color: #fff;
+                    background-color: green;
+                }
+            }
+        }
         .name {
             width: 100%;
             padding: 5px 5px;

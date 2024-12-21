@@ -94,8 +94,8 @@
 }
 .full-box-cv{
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    gap: 10px;
+    grid-template-columns: calc(25% - 10px) calc(25% - 10px) calc(25% - 10px) calc(25% - 10px);
+    gap: 13px;
     padding: 10px;
     .link-deital{
         width: 100%;
@@ -105,7 +105,7 @@
         }
         .box-cv {
             width: 100%;
-            padding: 10px 35px 10px 10px;
+            padding: 10px 15px 10px 10px;
             border: 1px solid #fff;
             border-radius: 10px;
             box-sizing: border-box;
@@ -132,10 +132,22 @@
     
                 .infoCty {
                     margin: 0 10px;
-    
+                    max-width: 80%;
                     .tenViec {
                         font-size: 20px;
                         font-weight: bold;
+                        display: flex;
+                        // max-width: 100%;
+                        overflow: hidden;
+                        span{
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            flex: 1;
+                            min-width: 0;
+                            max-width: 100%;
+                                
+                        }
                     }
     
                     .tenCty {
@@ -151,7 +163,7 @@
                             background-color: #cdcdcd;
                             padding: 3px 5px;
                             border-radius: 5px;
-                            margin-left: 0;
+                            margin: 0;
                         }
     
                         .diadiem {
@@ -159,6 +171,7 @@
                             padding: 3px 5px;
                             border-radius: 5px;
                             margin: 0;
+                            margin-left: 10px;
                         }
                     }
                 }
@@ -178,4 +191,27 @@
         }
     }
     
+}
+.pagination{
+    text-align: center;
+    margin-bottom: 10px;
+    button{
+        padding: 5px 10px;
+        font-size: 16px;
+        border: 1px solid green;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #000;
+        font-weight: bold;
+        &:hover{
+            background-color: #fff;
+            color: green;
+            cursor: pointer;
+        }
+    }
+    span{
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
 }
