@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, message, Upload } from 'antd';
 import axios from 'axios';
@@ -30,10 +30,12 @@ function formSkillReducer(state, action) {
 }
 
 const FormSkill = () => {
+
   const token = localStorage.getItem("authToken");
 
   // Using useReducer for state management
   const [state, dispatch] = useReducer(formSkillReducer, initialState);
+  const [isInputFocused, setInputFocused] = useState(false);
 
   useEffect(() => {
     const fetchDataUser = async () => {
@@ -214,9 +216,11 @@ const FormSkill = () => {
               placeholder="Gõ để tìm kiếm..."
               value={state.searchText}
               onChange={handleSearch}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
             />
-            {state.searchText && (
+            {isInputFocused && state.filteredSkills.length > 0 && (
               <ul style={{ border: "1px solid #ccc", maxHeight: "150px", overflowY: "auto", padding: "0" }}>
                 {state.filteredSkills.map(skill => (
                   <li
