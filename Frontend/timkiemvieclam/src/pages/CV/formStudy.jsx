@@ -17,6 +17,7 @@ const FormStudy = ({
         <>
             <div className="fullStudy">
                 <div className="name">
+                    <p>Tên trường:</p>
                     <input
                         name = "university" 
                         placeholder="Nhập tên trường bạn..."
@@ -25,6 +26,7 @@ const FormStudy = ({
                     />
                 </div>
                 <div className="bang">
+                    <p>Loại bằng:</p>
                     <select 
                         name="degree"
                         value={formData.degree} 
@@ -39,6 +41,7 @@ const FormStudy = ({
                     </select>
                 </div>
                 <div className="name">
+                    <p>Chuyên ngành:</p>
                     <input 
                         name ="major"
                         placeholder="Nhập tên chuyên ngành bạn..."
@@ -47,6 +50,7 @@ const FormStudy = ({
                     />
                 </div>
                 <div className="name">
+                    <p>Điểm:</p>
                     <input 
                         name ="gpa"
                         placeholder="Nhập điểm GPA của bạn..."
@@ -55,6 +59,7 @@ const FormStudy = ({
                     />
                 </div>
                 <div className="name">
+                    <p>Năm tốt nghiệp</p>
                     <input 
                     name ="graduation_year"
                     placeholder="Nhập năm tốt nghiệp của bạn..."

@@ -65,6 +65,7 @@
         grid-template-columns: 33% 33% 33%;
         gap: 10px;
         padding: 10px;
+        min-height: 20vh;
         a {
         text-decoration: none;
         width: 100%;
@@ -140,6 +141,13 @@
                                 -webkit-box-orient: vertical;
                                 -webkit-line-clamp: 7;
                                 text-overflow: ellipsis;
+                            }
+                            .soluongcv{
+                                text-align: center;
+                                padding: 10px;
+                                background-color: green;
+                                color: #fff;
+                                border-radius: 10px;
                             }
                         }
                     }

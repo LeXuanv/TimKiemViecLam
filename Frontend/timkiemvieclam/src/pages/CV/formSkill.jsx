@@ -267,20 +267,22 @@ const FormSkill = () => {
         
 
         <div className="cv">
+          {state.dataUser && state.dataUser.cv ? (
+            <div className='cvDuocTai'>
+              <p>CV đã được đăng tải:</p>
+              <button onClick={viewCV}>Xem CV</button>
+            </div>
+          ) : (
+            <p>Bạn chưa đăng tải CV.</p>
+          )}
           <Upload {...props}>
-            <Button icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
+            <Button style={{margin:"15px 0"}} icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
           </Upload>
 
           <Button className='buttonXuatCV' icon={<DownloadOutlined />} onClick={handleExportCV}> Xuất thông tin sang mẫu CV</Button>
+          
         </div>
-        {state.dataUser && state.dataUser.cv ? (
-          <div className='cvDuocTai'>
-            <p>CV đã được đăng tải:</p>
-            <button onClick={viewCV}>Xem CV</button>
-          </div>
-        ) : (
-          <p>Bạn chưa đăng tải CV.</p>
-        )}
+        
       </div>
     </>
   );

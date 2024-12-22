@@ -32,9 +32,9 @@ function ListCty({ state, dispatch, getProvinceName }) {
                                   {company.description}
                                 </pre>                              
                             </div>
-                              <div className="soluongcv">
-                                    <span>{company.countJob} việc làm </span>
-                                </div>
+                            <div className="soluongcv">
+                              <span>{company.countJob} việc làm </span>
+                            </div>
                           </div>
                       </div>
                   </div>
