@@ -48,7 +48,7 @@ const DsCongTy = () => {
             dispatch({ type: "SET_CURRENT_PAGE", payload: response.data.current_page });
             dispatch({ type: "SET_TOTAL_PAGES", payload: response.data.last_page });
             dispatch({ type: "SET_LOADING", payload: false });
-
+            console.log("company", state.companies);
         } catch (error) {
             console.error("Error fetching all companies:", error);
             dispatch({ type: "SET_LOADING", payload: false });

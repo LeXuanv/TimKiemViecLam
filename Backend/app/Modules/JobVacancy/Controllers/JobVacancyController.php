@@ -187,5 +187,8 @@ class JobVacancyController extends Controller
         return response()->json($jobVacanciesDTOs);
     }
 
-
+    public function countJobs($companyId) {
+        $count = $this->jobVacancyService->countJobOfCompany($companyId); 
+        return response()->json(['count' => $count]);
+    }
 }

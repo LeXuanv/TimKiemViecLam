@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Services\JobVacancyService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -81,6 +82,8 @@ class Company extends Model
 
     public function getFullInfo()
     {
+		// $countJobs = app(JobVacancyService::class)->countJobOfCompany($this->id);
+
         return [
             'name' => $this->name,
             'phone_number' => $this->phone_number,
@@ -93,6 +96,7 @@ class Company extends Model
 			'district_code' => $this->district_code,
 			'email' => $this->email,
 			'website' => $this->website,
+			// 'count_jobs' => $this->countJobs,
         ];
     }
 }
