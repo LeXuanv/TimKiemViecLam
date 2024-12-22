@@ -30,6 +30,8 @@ Route::group([
         Route::get('/search', 'JobVacancyController@search');
         Route::get('/search-job-by-company', 'JobVacancyController@searchJobInCompany');
         Route::get('/get-publish/{companyId}', 'JobVacancyController@indexJobPublishWithCompanyId');
+        Route::get('/count-job/{companyId}', 'JobVacancyController@countJobs');
+
     });
 });
 

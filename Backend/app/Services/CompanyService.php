@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Company;
+use App\Models\JobVacancy;
 use App\Repositories\Company\CompanyRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +29,13 @@ class CompanyService
 
     public function getAll()
     {
-        return $this->companyRepository->getAll();
+        $companies = $this->companyRepository->getAll();
+        $companies->getCollection()->transform(function ($company) {
+            $company->countJob = $this->countJobOfCompany($company->id);
+            return $company;
+        });
+        return $companies;
+
     }
     public function getById($id)
     {
@@ -61,11 +68,24 @@ class CompanyService
         return $path;
 
     }
-    public function searchByName($searchTerm){
+    public function searchByName($searchTerm)
+    {
         $companies = Company::where('name', 'LIKE', '%' . $searchTerm . '%')
-                ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
-                ->paginate(9);
+                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                    ->paginate(9);
+
+        $companies->getCollection()->transform(function ($company) {
+            $company->countJob = $this->countJobOfCompany($company->id);
+            return $company;
+        });
+
         return $companies;
     }
+
+    public function countJobOfCompany($companyId)
+    {
+        return JobVacancy::where('company_id', $companyId)->count();
+    }
+
 
 }

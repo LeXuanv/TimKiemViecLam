@@ -39,6 +39,9 @@ class JobVacancyService
 
     return $jobVacancies;
     }
+    public function countJobOfCompany($companyId){
+        return JobVacancy::where('company_id', $companyId)->count();
+    }
     public function getAllJobPublishByCompanyWithCompanyId($companyId)
     {
         
