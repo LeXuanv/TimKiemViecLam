@@ -97,6 +97,7 @@
     grid-template-columns: calc(25% - 10px) calc(25% - 10px) calc(25% - 10px) calc(25% - 10px);
     gap: 13px;
     padding: 10px;
+    min-height: 20vh;
     .link-deital{
         width: 100%;
         text-decoration: none;
