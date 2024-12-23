@@ -37,6 +37,9 @@ const ModalCtBaiDang = ({
     const [jobPositions, setJobPositions] = useState([]);
     const [modalListUV, setModalListUV] = useState(false);
     const [modalListUVAccept, setModalListUVAccept] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading2, setIsLoading2] = useState(false);
+
     // const [modalChitietUV, setModalChitietUV] = useState(false);
     const navigate = useNavigate(); 
     const [jobSeekers, setJobSeekers] = useState([]);
@@ -55,7 +58,7 @@ const ModalCtBaiDang = ({
             }
         };
         fetchDataJobSeekers();
-    }, []);
+    }, [isLoading]);
     useEffect(() => {
         const fetchDataJobSeekers = async () => {
             try {
@@ -70,7 +73,7 @@ const ModalCtBaiDang = ({
             }
         };
         fetchDataJobSeekers();
-    }, [jobSeekers]);
+    }, [isLoading2]);
     const handleAcceptJobSeeker = async (jobSeekerId) => {
         try {
             await axios.post(`/company/jobs/${selectedJob.id}/applications/${jobSeekerId}/accept`, {}, {
@@ -80,6 +83,9 @@ const ModalCtBaiDang = ({
                 (jobSeeker) => jobSeeker.id!== jobSeekerId
             );
             setJobSeekers(updatedJobSeekers);
+            setIsLoading(!isLoading);
+            setIsLoading2(!isLoading2);
+
             // alert('Phê duyệt thành công!');
             toast.success('Phê duyệt thành công!', {
                 position: "top-right",
@@ -105,6 +111,8 @@ const ModalCtBaiDang = ({
                 (jobSeeker) => jobSeeker.id!== jobSeekerId
             );
             setJobSeekersAccept(updatedJobSeekers);
+            setIsLoading2(!isLoading2);
+
             // alert('Từ chối thành công!');
             toast.success('Từ chối thành công!', {
                 position: "top-right",

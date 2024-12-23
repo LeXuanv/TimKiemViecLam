@@ -37,6 +37,10 @@ class CompanyController extends Controller
     {
         return $this->companyService->getAll();
     }
+    public function getAllByAdmin()
+    {
+        return $this->companyService->getAllByAdmin();
+    }
     public function getById($id)
     {
         return $this->companyService->getById($id);

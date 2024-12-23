@@ -15,6 +15,7 @@ use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class JobApplicationController extends Controller
 {
@@ -125,7 +126,7 @@ class JobApplicationController extends Controller
         // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
-            return respons()->json(['message' => 'Unauthorized'], 403);
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
         
         $jobVacancy = JobVacancy::where('id', $job_vacancy)
@@ -144,7 +145,13 @@ class JobApplicationController extends Controller
         }
 
         if ($applicationJob->status == 0) {
+            $jobSeeker = JobSeeker::find($job_seeker_id);
             $applicationJob->status = 1;
+            Mail::send('application_status', ['jobSeeker' => $jobSeeker, 'jobVacancy' => $jobVacancy, 'status' => "Phê duyệt"], function ($message) use ($jobSeeker) {
+                $message->to($jobSeeker->email)
+                        ->subject('Thông báo trạng thái tuyển dụng');
+            });
+    
             $applicationJob->save();
             
             return response()->json(['message' => 'Application accepted successfully']);
@@ -158,7 +165,7 @@ class JobApplicationController extends Controller
         // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
-            return respons()->json(['message' => 'Unauthorized'], 403);
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
         
         $jobVacancy = JobVacancy::where('id', $job_vacancy)
@@ -177,7 +184,12 @@ class JobApplicationController extends Controller
         }
 
         if ($applicationJob->status != 2) {
+            $jobSeeker = JobSeeker::find($job_seeker_id);
             $applicationJob->status = 2;
+            Mail::send('application_status', ['jobSeeker' => $jobSeeker, 'jobVacancy' => $jobVacancy, 'status' => "Từ chối"], function ($message) use ($jobSeeker) {
+                $message->to($jobSeeker->email)
+                        ->subject('Thông báo trạng thái tuyển dụng');
+            });
             $applicationJob->save();
             
             return response()->json(['message' => 'Application rejected successfully']);

@@ -46,6 +46,16 @@ class CompanyService
         return $companies;
 
     }
+    public function getAllByAdmin()
+    {
+        $companies = $this->companyRepository->getAllByAdmin();
+        $companies->getCollection()->transform(function ($company) {
+            $company->countJob = $this->countJobOfCompany($company->id);
+            return $company;
+        });
+        return $companies;
+
+    }
     public function getById($id)
     {
         return $this->companyRepository->getById($id);
@@ -104,6 +114,7 @@ class CompanyService
             try {
                 $this->userRepository->deleteById($user_id);
                 $jobVacancyIds = $this->jobVacancy->where('company_id', $id)->pluck('id')->toArray();
+                $this->jobVacancy->whereIn('id', $jobVacancyIds)->delete();
                 $this->jobApplication->whereIn('job_vacancy_id', $jobVacancyIds)->delete();
                 $this->bookmark->whereIn('job_vacancy_id', $jobVacancyIds)->delete();
                 $this->jobApplication->whereIn('id', $jobVacancyIds)->delete();

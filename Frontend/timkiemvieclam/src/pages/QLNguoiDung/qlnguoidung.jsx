@@ -8,10 +8,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 
+
 const QlNguoiDung = () => {
     const [modalAdmin, setModalAdmin] = useState(false);
     const [update, setUpdate] = useState(false);
     const token = localStorage.getItem('authToken');
+    const [shouldReload, setShouldReload] = useState(false);
 
     const [companies, setCompanies] = useState([]);
     const [jobSeekers, setJobSeekers] = useState([]);
@@ -29,8 +31,8 @@ const QlNguoiDung = () => {
     };
     const fetchDataCompanies = async () => {
         try {
-            const response = await axios.get('/api/company/get-all');
-            setCompanies(response.data);
+            const response = await axios.get('/api/company/get-all-by-admin');
+            setCompanies(response.data.data);
         } catch (error) {
             console.error("Error fetching companies:", error);
         }
@@ -55,20 +57,37 @@ const QlNguoiDung = () => {
         fetchDataCompanies();
         fetchDataJobSeekers();
         fetchDataUser();
-    }, [])
+    }, [shouldReload])
     const filteredUsers = selectedUserType === "all" ? [...companies, ...jobSeekers] : selectedUserType === "company" ? companies : jobSeekers;
     
  
 
     const handleDeleteUser = async (userId) => {
         try {
-            const response = await axios.delete(`/api/user/delete-user/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const jobSeeker = jobSeekers.find(js => js.user_id === userId);
+            if (jobSeeker) {
+                const jobSeekerId = jobSeeker.id;
+                console.log("Ứng viên định xóa:", jobSeeker);
+                await axios.post(`/api/admin/job-seeker/delete`, { id: jobSeekerId }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            } else {
+                const company = companies.find(c => c.user_id === userId);
+                if (company) {
+                    const companyId = company.id;
+                    console.log("Công ty định xóa:", company);
+                    await axios.post(`/api/admin/company/delete`, { id: companyId }, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                } else {
+                    throw new Error("Không tìm thấy user với userId tương ứng.");
+                }
+            }
     
-            // alert('Xóa tài khoản thành công!');
             toast.success('Xóa tài khoản thành công!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -80,10 +99,11 @@ const QlNguoiDung = () => {
                 theme: "light",
                 transition: Bounce,
             });
-            window.location.reload()    
+    
+            setShouldReload(!shouldReload);
         } catch (error) {
             console.error('Error deleting user:', error);
-            // alert('Có lỗi xảy ra khi xóa người dùng!');
+    
             toast.error('Có lỗi xảy ra khi xóa người dùng!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -97,6 +117,7 @@ const QlNguoiDung = () => {
             });
         }
     };
+    
     
 
     return (
@@ -150,7 +171,7 @@ const QlNguoiDung = () => {
                                 >
                                     &times;
                                 </span>
-                                 <FormCapNhat setSelectedUser = {setSelectedUser} /> 
+                                 <FormCapNhat /> 
                             </div>
                         </div>
                     ) : (
