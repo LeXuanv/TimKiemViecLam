@@ -98,4 +98,9 @@ class SkillRepositoryImpl implements SkillRepository
     {
         return $this->typeSkill->all();
     }
+
+    public function deleteJobSeekerSkillByJobSeekerId($jobSeeker_id)
+    {
+        return $this->jobSeekerSkill->where('job_seeker_id', $jobSeeker_id)->delete();
+    }
 }

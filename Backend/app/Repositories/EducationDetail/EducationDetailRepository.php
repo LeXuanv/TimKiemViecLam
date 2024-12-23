@@ -11,4 +11,5 @@ interface   EducationDetailRepository {
     public function destroyById($id);
     public function getByJobSeekerId($id);
     public function findById($id): EducationDetail;
+    public function deleteByJobSeekerId($jobSeeker_id);
 }
