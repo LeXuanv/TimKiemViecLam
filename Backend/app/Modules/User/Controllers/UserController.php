@@ -70,7 +70,7 @@ class UserController extends Controller
             'verification_code_expires_at' => now()->addMinutes(15),
         ]);
 
-        Mail::send('forgot-password', ['code' => $verificationCode], function ($message) use ($user) {
+        Mail::send('forgot-password', ['user' => $user, 'code' => $verificationCode], function ($message) use ($user) {
             $message->to($user->email)
                     ->subject('Mã xác thực thay đổi mật khẩu');
         });

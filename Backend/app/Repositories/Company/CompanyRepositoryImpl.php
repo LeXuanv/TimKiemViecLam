@@ -27,6 +27,10 @@ class CompanyRepositoryImpl implements CompanyRepository
     {
         return $this->company->paginate(9);
     }
+    public function getAllByAdmin()
+    {
+        return $this->company->paginate(10);
+    }
     public function getById($id){
         return $this->company->find($id);
     }
