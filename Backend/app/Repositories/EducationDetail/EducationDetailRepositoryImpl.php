@@ -63,4 +63,8 @@ class EducationDetailRepositoryImpl implements EducationDetailRepository
         return $this->educationDetail->find($id);
     }
 
+    public function deleteByJobSeekerId($jobSeeker_id)
+    {
+        return $this->educationDetail->where('job_seeker_id', $jobSeeker_id)->delete();
+    }
 }

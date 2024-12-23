@@ -29,4 +29,13 @@ class UserRepositoryImpl implements UserRepository
     public function getAll() {
         return $this->user->all();
     }
+
+    public function deleteById($id)
+    {
+        $user = $this->user->find($id);
+        if ($user) {
+            return $user->delete();
+        }
+        return false;
+    }
 }

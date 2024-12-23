@@ -18,9 +18,9 @@ class CompanyRepositoryImpl implements CompanyRepository
         return $this->company->create($params);
     }
 
-    public function update($company, $params): void
+    public function update($company, $params)
     {
-        $company->update($params);
+        return $company->update($params);
     }
 
     public function getAll()
@@ -30,11 +30,20 @@ class CompanyRepositoryImpl implements CompanyRepository
     public function getById($id){
         return $this->company->find($id);
     }
-    
+
 
     public function saveLogoPath($company, $path)
     {
         $company->logo = $path;
         $company->save();
+    }
+
+    public function deleteById($id)
+    {
+        $company = $this->getById($id);
+        if ($company) {
+            return $company->delete();
+        }
+        return false;
     }
 }

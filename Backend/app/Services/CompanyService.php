@@ -2,19 +2,28 @@
 
 namespace App\Services;
 
+use App\Models\Bookmark;
 use App\Models\Company;
+use App\Models\JobApplication;
 use App\Models\JobVacancy;
 use App\Repositories\Company\CompanyRepository;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyService
 {
+    protected $userRepository, $jobVacancy, $jobApplication, $bookmark;
     public function __construct(
         private readonly CompanyRepository $companyRepository,
+        UserRepository $userRepository,
+        JobVacancy $jobVacancy,
+        JobApplication $jobApplication,
+        Bookmark $bookmark
     ) {
+        $this->userRepository = $userRepository;
+        $this->jobVacancy = $jobVacancy;
+        $this->jobApplication = $jobApplication;
+        $this->bookmark = $bookmark;
     }
 
     public function store($params)
@@ -24,7 +33,7 @@ class CompanyService
 
     public function update($company, $params)
     {
-        $this->companyRepository->update($company, $params);
+        return $this->companyRepository->update($company, $params);
     }
 
     public function getAll()
@@ -87,5 +96,35 @@ class CompanyService
         return JobVacancy::where('company_id', $companyId)->count();
     }
 
+    public function deleteById($id)
+    {
+        $company = $this->companyRepository->getById($id);
+        if ($company) {
+            $user_id = $company->user_id;
+            try {
+                $this->userRepository->deleteById($user_id);
+                $jobVacancyIds = $this->jobVacancy->where('company_id', $id)->pluck('id')->toArray();
+                $this->jobApplication->whereIn('job_vacancy_id', $jobVacancyIds)->delete();
+                $this->bookmark->whereIn('job_vacancy_id', $jobVacancyIds)->delete();
+                $this->jobApplication->whereIn('id', $jobVacancyIds)->delete();
+                $this->companyRepository->deleteById($id);
+                return true;
+            }
+            catch (\Error $e) {
+                return false;
+            }
+        }
+        return false;
+    }
 
+    public function edit($id)
+    {
+        $company = $this->getById($id);
+        $info = [];
+
+        if ($company) {
+            $info = $company->getFullInfo();
+        }
+        return $info;
+    }
 }

@@ -18,9 +18,9 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
         return $this->jobSeeker->create($params);
     }
 
-    public function update($jobSeeker, $params): void
+    public function update($jobSeeker, $params)
     {
-        $jobSeeker->update($params);
+        return $jobSeeker->update($params);
     }
 
     public function getAll()
@@ -51,5 +51,14 @@ class JobSeekerRepositoryImpl implements JobSeekerRepository
     public function find($id)
     {
         return $this->jobSeeker->find($id);
+    }
+
+    public function deleteById($id)
+    {
+        $jobSeeker = $this->find($id);
+        if ($jobSeeker) {
+            $jobSeeker->delete();
+        }
+        return false;
     }
 }
