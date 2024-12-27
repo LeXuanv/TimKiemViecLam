@@ -418,7 +418,7 @@ const Profile = () => {
   useEffect(() => {
     fetchWards();
   }, [state.selectedDistrict]);
-  const handleUpdateJob = async () => {
+  const handleUpdate = async () => {
     
     try {
         const response = await axios.post("/api/user/update", state.formData, {
@@ -441,8 +441,8 @@ const Profile = () => {
         console.log("Update successful:", response.data);
         console.log(state.formData);
 
-        navigate("/profile"); 
-        window.location.reload()    
+        // navigate("/profile"); 
+        // window.location.reload()    
       } catch (error) {
         // alert("Thay đổi thất bại");
         toast.error('Thay đổi thất bại', {
@@ -549,7 +549,7 @@ const Profile = () => {
                     setFormData={(updatedData) =>
                         dispatch({ type: "SET_FORM_DATA", payload: updatedData })
                     }
-                    handleUpdateJob={handleUpdateJob}
+                    handleUpdate={handleUpdate}
                     handleChange={handleChange}
                     handleProvinceChange={handleProvinceChange}
                     handleDistrictChange={handleDistrictChange}

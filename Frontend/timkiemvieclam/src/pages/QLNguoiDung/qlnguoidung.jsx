@@ -146,9 +146,9 @@ const QlNguoiDung = () => {
                         companies={companies}
                         jobSeekers={jobSeekers}
                         userDatas={users}
-                        // setSelectedUser = {setSelectedUser} 
+                        selectedUser={selectedUser}
+                        setSelectedUser = {setSelectedUser} 
                         handleDeleteUser = {handleDeleteUser} 
-
 
                     />
                     <button onClick={handleClickModal}>Tạo tài khoản</button>
@@ -162,7 +162,7 @@ const QlNguoiDung = () => {
                         </ul>
                     </div> */}
 
-                    {modalAdmin ? (
+                    {/* {modalAdmin ? (
                         <div className="modal">
                             <div className="formModal">
                                 <span
@@ -176,7 +176,7 @@ const QlNguoiDung = () => {
                         </div>
                     ) : (
                         ""
-                    )}
+                    )} */}
                 </div>
             </MainLayout>
         </>

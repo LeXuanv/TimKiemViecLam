@@ -1,66 +1,9 @@
 
-
-/*
-import { MdBrowserUpdated } from "react-icons/md";
-import { RiDeleteBin6Fill } from "react-icons/ri";
-
-const FormDanhSach = ({update, setUpdate, modalAdmin, setModalAdmin}) => {
-    const handleClickModalUpdate = () => {
-        setUpdate(!update);
-        setModalAdmin(!modalAdmin)
-    }
-    return(
-        <>
-            <div className="formdanhsach">
-                <div className="titleDanhSach">
-                    <span>Danh sách tài khoản công ty và người dùng</span>
-                </div>
-                <div className="bang">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Tên</th>
-                                <th>Giới tính</th>
-                                <th>Ngày sinh</th>
-                                <th>Email</th>
-                                <th>Số điện thoại</th>
-                                <th>Kinh nghiệm</th>
-                                <th>Địa chỉ</th>
-                                <th>Loại tài khoản</th>
-                                <th>Chức năng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Lê Xuân Vũ</td>
-                                <td>Nam</td>
-                                <td>27/09/2002</td>
-                                <td>xuanvujame@gmail.com</td>
-                                <td>0343553262</td>
-                                <td>1 năm</td>
-                                <td>Thành Mỹ, Thạch Thành, Thanh Hóa</td>
-                                <td>Admin</td>
-                                <td><MdBrowserUpdated className="update" onClick={handleClickModalUpdate} /> <RiDeleteBin6Fill className="delete" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </>
-    )
-}
-
-export default FormDanhSach;
-
-*/
-
-
 import { useEffect } from "react";
 import { MdBrowserUpdated } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-
+import FormCapNhat from "./formCapNhat";
+import axios from "axios";
 const FormDanhSach = ({ 
         update, 
         setUpdate, 
@@ -69,13 +12,18 @@ const FormDanhSach = ({
         userList, 
         userDatas,
         handleDeleteUser,
-
+        selectedUser,
+        setSelectedUser,
      }) => {
     const handleClickModalUpdate = () => {
         setUpdate(!update);
         setModalAdmin(!modalAdmin);
     };
-   
+    const handleSelect = (user) => {
+        setSelectedUser(user);
+    }
+    const baseURL = axios.defaults.baseURL;
+
     
     console.log("userList: " , userList)
     console.log("user ::" , userDatas)
@@ -91,11 +39,12 @@ const FormDanhSach = ({
                             <tr>
                                 <th>STT</th>
                                 <th>Tên</th>
-                                <th>Giới tính</th>
-                                <th>Ngày sinh</th>
+                                <th>Logo</th>
+                                {/* <th>Giới tính</th>
+                                <th>Ngày sinh</th> */}
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
-                                <th>Kinh nghiệm</th>
+                                {/* <th>Kinh nghiệm</th> */}
                                 <th>Địa chỉ</th>
                                 <th>Loại tài khoản</th>
                                 <th>Chức năng</th>
@@ -109,11 +58,15 @@ const FormDanhSach = ({
                                     >
                                         <td>{index + 1}</td>
                                         <td>{user.name}</td>
-                                        <td>{user.gender || "N/A"}</td>
-                                        <td>{user.birth_date || "N/A"}</td>
+                                        {/* <td>{user.logo || "N/A"}</td> */}
+                                        <td>
+                                            <img src={`${baseURL}/storage/${user.logo}`} style={{ width: "50px", height: "50px", objectFit: "cover" }} />
+                                        </td>
+
+                                        {/* <td>{user.birth_date || "N/A"}</td> */}
                                         <td>{user.email}</td>
                                         <td>{user.phone_number || "N/A"}</td>
-                                        <td>{user.experience || "N/A"}</td>
+                                        {/* <td>{user.experience || "N/A"}</td> */}
                                         <td>{user.address || "N/A"}</td>
                                         <td>
                                             {
@@ -127,8 +80,13 @@ const FormDanhSach = ({
                                         <td>
                                             <MdBrowserUpdated
                                                 className="update"
-                                                onClick={handleClickModalUpdate}
-                                            />{" "}
+                                                onClick={() => {
+                                                    handleSelect(user);
+                                                    handleClickModalUpdate();
+                                                }}
+                                            />{
+
+                                            }
                                             <RiDeleteBin6Fill 
                                                 className="delete" 
                                                 onClick={() => handleDeleteUser(user.user_id)}
@@ -141,6 +99,24 @@ const FormDanhSach = ({
                                 <tr>
                                     <td colSpan="10">Không có dữ liệu</td>
                                 </tr>
+                            )}
+                            {modalAdmin ? (
+                                <div className="modal">
+                                    <div className="formModal">
+                                        <span
+                                            onClick={() => setModalAdmin(!modalAdmin)}
+                                            className="close-button"
+                                        >
+                                            &times;
+                                        </span>
+                                        <FormCapNhat 
+                                            selectedUser={selectedUser}
+                                            userDatas={userDatas}
+                                        /> 
+                                    </div>
+                                </div>
+                            ) : (
+                                ""
                             )}
                         </tbody>
                     </table>
