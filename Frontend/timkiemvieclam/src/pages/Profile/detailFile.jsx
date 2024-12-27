@@ -16,7 +16,7 @@ const DetailFile = ({
     form,
     formData,
     setFormData,
-    handleUpdateJob,
+    handleUpdate,
     handleChange,
     handleProvinceChange,
     handleDistrictChange,
@@ -127,7 +127,7 @@ const DetailFile = ({
                 }}
                 autoComplete="off"
                 form={form}
-                onFinish={handleUpdateJob}
+                onFinish={handleUpdate}
                 
               >
                 <Form.Item

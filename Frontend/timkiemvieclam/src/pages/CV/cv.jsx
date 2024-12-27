@@ -143,7 +143,10 @@ const CV = () => {
                     <FormStudy
                         formData={state.formData}
                         handleChange={handleChange}
-                    />
+                        setFormData={(updatedData) =>
+                            dispatch({ type: "SET_FORM_DATA", payload: updatedData })
+                        }                    
+                        />
                 </div>
                 <div className="skill">
                     <div className="title">
