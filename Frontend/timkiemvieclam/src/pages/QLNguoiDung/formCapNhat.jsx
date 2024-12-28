@@ -401,6 +401,7 @@ const FormCapNhat = ({
                                 value={state.formData.name}
                                 onChange={handleChange}
                                 placeholder="Nhập họ và tên của bạn" 
+                                style={{ width: '90%' }}
                             />
                             </Input.Group>
                         </Form.Item>
@@ -425,6 +426,7 @@ const FormCapNhat = ({
                               value={state.formData.phone_number}
                               onChange={handleChange}
                               placeholder="Nhập số điện thoại của bạn" 
+                              style={{ width: '90%' }}  
                           />
                             </Input.Group>
                         </Form.Item>
@@ -507,18 +509,20 @@ const FormCapNhat = ({
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
+                            <Select
+                                placeholder="Chọn Tỉnh/Thành phố"
+                                value={state.selectedProvince} 
+                                onChange={handleProvinceChange}
+                                options={provinceOptions} 
+                                style={{ width: '90%' }}
+                              />
                             </Input.Group>
                             {/* <Select style={{ width: '90%' }} placeholder="Tỉnh" >
                                 <Select.Option value="1">Hà Nội</Select.Option>
                                 <Select.Option value="2">Thanh Hóa</Select.Option>
                             </Select> */}
                           
-                              <Select
-                                placeholder="Chọn Tỉnh/Thành phố"
-                                value={state.selectedProvince} 
-                                onChange={handleProvinceChange}
-                                options={provinceOptions} 
-                              />
+                              
                             
                         </Form.Item>
                         <Form.Item
@@ -530,22 +534,23 @@ const FormCapNhat = ({
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
+                            <Select 
+                                name="district_code"
+                                placeholder="Chọn Quận/Huyện"
+                                value={state.selectedDistrict} 
+                                onChange={handleDistrictChange}
+                                options={districtOptions} 
+                                style={{ width: '90%' }}
+                              />
                             </Input.Group>
                             {/* <Select style={{ width: '90%' }} placeholder="Tỉnh" >
                                 <Select.Option value="1">Hà Nội</Select.Option>
                                 <Select.Option value="2">Thanh Hóa</Select.Option>
                             </Select> */}
                           
-                              <Select 
-                                name="district_code"
-                                placeholder="Chọn Quận/Huyện"
-                                value={state.selectedDistrict} 
-                                onChange={handleDistrictChange}
-                                options={districtOptions} 
-                              />
+                              
                         </Form.Item>
-                        <Form.Item
-                          // name="ward_code"
+                        <Form.Item 
                          >
                             <Input.Group compact>
                             <Input
@@ -555,15 +560,17 @@ const FormCapNhat = ({
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
-                            </Input.Group>
-  
-                          
-                              <Select
+                            <Select
                                 placeholder="Chọn Xã/Phường"
                                 value={state.selectedWard} 
                                 onChange={handleWardChange}
                                 options={wardOptions} 
+                                style={{ width: '90%' }}
                               />
+                            </Input.Group>
+  
+                          
+                              
                         </Form.Item>
                         <Form.Item
                             name="name"
@@ -586,6 +593,7 @@ const FormCapNhat = ({
                                 value={state.formData.address}
                                 onChange={handleChange}
                                 placeholder="Nhập địa chỉ của bạn" 
+                                style={{ width: '90%' }}
                             />
                             </Input.Group>
                         </Form.Item>
@@ -691,7 +699,7 @@ const FormCapNhat = ({
                         }
                     </div>
                     <Form.Item>
-                        <Button block type="primary" htmlType="submit">
+                        <Button block type="primary" htmlType="submit" style={{background:"green"}}>
                         Cập nhật
                         </Button>
                     </Form.Item>

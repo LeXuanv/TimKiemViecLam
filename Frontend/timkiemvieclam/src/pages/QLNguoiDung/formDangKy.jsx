@@ -269,6 +269,7 @@ const FormDangky = ({
                     <Form.Item>
                         <Button block type="primary" htmlType="submit"
                         onClick={handleRegister}
+                        style={{background: "green"}}
                             > 
                             Đăng ký
                         </Button>

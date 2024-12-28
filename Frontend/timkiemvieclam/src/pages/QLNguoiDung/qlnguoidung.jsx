@@ -3,7 +3,6 @@ import MainLayout from "../mainLayout";
 import FormDangky from "./formDangKy";
 import FormDanhSach from "./formDanhsach";
 import "./qlnguoidung.scss";
-import FormCapNhat from "./formCapNhat";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
@@ -12,20 +11,23 @@ import { Bounce, toast } from "react-toastify";
 const QlNguoiDung = () => {
     const [modalAdmin, setModalAdmin] = useState(false);
     const [update, setUpdate] = useState(false);
-    const token = localStorage.getItem('authToken');
+    const [modalConfirm, setModalConfirm] = useState(false);
     const [shouldReload, setShouldReload] = useState(false);
-
     const [companies, setCompanies] = useState([]);
     const [jobSeekers, setJobSeekers] = useState([]);
     const [selectedUserType, setSelectedUserType] = useState("all");
     const [selectedUser, setSelectedUser] = useState([]);
     const [users, setUsers] = useState([]);
+    const [idUser, setIdUser] = useState([]);
+
+    const token = localStorage.getItem('authToken');
     const navigate = useNavigate();
     const handleClickModal = () => {
         setModalAdmin(!modalAdmin);
         setUpdate(false);
+        setModalConfirm(false);
     };
-
+    
     const handleUserTypeChange = (event) => {
         setSelectedUserType(event.target.value);
     };
@@ -87,7 +89,7 @@ const QlNguoiDung = () => {
                     throw new Error("Không tìm thấy user với userId tương ứng.");
                 }
             }
-    
+            setModalConfirm(!modalConfirm);
             toast.success('Xóa tài khoản thành công!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -132,8 +134,8 @@ const QlNguoiDung = () => {
                             onChange={handleUserTypeChange}
                         >
                             <option value="all">Tất cả</option>
-                            <option value="company">Company</option>
-                            <option value="job_seeker">Job Seeker</option>
+                            <option value="company">Nhà tuyển dụng</option>
+                            <option value="job_seeker">Ứng viên</option>
                         </select>
                     </div>
 
@@ -142,16 +144,20 @@ const QlNguoiDung = () => {
                         setUpdate={setUpdate}
                         modalAdmin={modalAdmin}
                         setModalAdmin={setModalAdmin}
+                        setModalConfirm = {setModalConfirm}
                         userList={filteredUsers}
                         companies={companies}
                         jobSeekers={jobSeekers}
                         userDatas={users}
                         selectedUser={selectedUser}
                         setSelectedUser = {setSelectedUser} 
-                        handleDeleteUser = {handleDeleteUser} 
+                        handleDeleteUser = {handleDeleteUser}
+                        modalConfirm = {modalConfirm}
+                        setIdUser = {setIdUser}
+                        idUser = {idUser}
 
                     />
-                    <button onClick={handleClickModal}>Tạo tài khoản</button>
+                    <button className="taotk" onClick={handleClickModal}>Tạo tài khoản</button>
 
                     {/* <div className="user-list">
                         <h3>Danh sách người dùng</h3>
@@ -162,7 +168,7 @@ const QlNguoiDung = () => {
                         </ul>
                     </div> */}
 
-                    {/* {modalAdmin ? (
+                   {modalAdmin ? (
                         <div className="modal">
                             <div className="formModal">
                                 <span
@@ -171,13 +177,15 @@ const QlNguoiDung = () => {
                                 >
                                     &times;
                                 </span>
-                                 <FormCapNhat /> 
+                                 <FormDangky handleDeleteUser = {handleDeleteUser} /> 
                             </div>
                         </div>
                     ) : (
                         ""
-                    )} */}
+                    )}
+                    
                 </div>
+                 
             </MainLayout>
         </>
     );
