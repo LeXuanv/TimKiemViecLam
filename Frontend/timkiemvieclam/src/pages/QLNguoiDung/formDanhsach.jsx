@@ -1,5 +1,4 @@
 
-import { useEffect } from "react";
 import { MdBrowserUpdated } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import FormCapNhat from "./formCapNhat";
@@ -7,23 +6,35 @@ import axios from "axios";
 const FormDanhSach = ({ 
         update, 
         setUpdate, 
-        modalAdmin, 
+        modalAdmin,
+        modalConfirm,
         setModalAdmin, 
         userList, 
         userDatas,
         handleDeleteUser,
         selectedUser,
         setSelectedUser,
+        setModalConfirm,
+        setIdUser,
+        idUser,
      }) => {
     const handleClickModalUpdate = () => {
         setUpdate(!update);
-        setModalAdmin(!modalAdmin);
+        setModalAdmin(false);
+        setModalConfirm(false);
+    };
+    const handleClickModalConfirm = () => {
+        setModalConfirm(!modalConfirm);
+        setUpdate(false);
+        setModalAdmin(false);
     };
     const handleSelect = (user) => {
         setSelectedUser(user);
     }
     const baseURL = axios.defaults.baseURL;
-
+    const handleId = (user) => {
+        setIdUser(user);
+    };
     
     console.log("userList: " , userList)
     console.log("user ::" , userDatas)
@@ -89,7 +100,10 @@ const FormDanhSach = ({
                                             }
                                             <RiDeleteBin6Fill 
                                                 className="delete" 
-                                                onClick={() => handleDeleteUser(user.user_id)}
+                                                onClick={() => {
+                                                    handleClickModalConfirm()
+                                                    handleId(user)
+                                                }}
                                             />
                                         </td>
                                         
@@ -100,27 +114,44 @@ const FormDanhSach = ({
                                     <td colSpan="10">Không có dữ liệu</td>
                                 </tr>
                             )}
-                            {modalAdmin ? (
-                                <div className="modal">
-                                    <div className="formModal">
-                                        <span
-                                            onClick={() => setModalAdmin(!modalAdmin)}
-                                            className="close-button"
-                                        >
-                                            &times;
-                                        </span>
-                                        <FormCapNhat 
-                                            selectedUser={selectedUser}
-                                            userDatas={userDatas}
-                                        /> 
-                                    </div>
-                                </div>
-                            ) : (
-                                ""
-                            )}
+                            
                         </tbody>
                     </table>
                 </div>
+                {update ? (
+                    <div className="modal">
+                        <div className="formModal">
+                            <span
+                                onClick={() => setUpdate(!update)}
+                                className="close-button"
+                            >
+                                &times;
+                            </span>
+                            <FormCapNhat 
+                                selectedUser={selectedUser}
+                                userDatas={userDatas}
+                            /> 
+                        </div>
+                    </div>
+                ) : (
+                    ""
+                )}
+                {modalConfirm ? (
+                        <div className="modalCf">
+                            <div className="formModalCf">
+                                 <div>
+                                    <p className="titleConfirm">Bạn có chắc chắn muốn xóa không ?</p>
+                                    <div className="confirmButton">
+                                        <button className="khong" onClick={() => setModalConfirm(!modalConfirm)}>Không</button>
+                                        <button className="co" onClick={() => handleDeleteUser(idUser.user_id)}>Có</button>
+                                        
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    ) : (
+                        ""
+                    )}
             </div>
         </>
     );
