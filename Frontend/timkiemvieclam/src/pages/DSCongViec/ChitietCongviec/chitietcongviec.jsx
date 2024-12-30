@@ -64,12 +64,17 @@ const ChiTietCongViec = () => {
     try {
       const jobResponse = await axios.get(`/user/job-vacancy/show/${id}`);
       const companyResponse = await axios.get(`/api/company/show/${jobResponse.data.companyId}`);
-      const applicationResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-application`, {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
-      const bookmarkResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-bookmark`, {
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
+      if (user == 3){
+        const applicationResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-application`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const bookmarkResponse = await axios.get(`/user/jobs/${jobResponse.data.id}/check-bookmark`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        dispatch({ type: 'SET_APPLIED', payload: applicationResponse.data.isApplied });
+        dispatch({ type: 'SET_BOOKMARKED', payload: bookmarkResponse.data.isApplied });
+      }
+      
 
       dispatch({
         type: 'SET_JOB',
@@ -78,8 +83,7 @@ const ChiTietCongViec = () => {
           company: companyResponse.data
         }
       });
-      dispatch({ type: 'SET_APPLIED', payload: applicationResponse.data.isApplied });
-      dispatch({ type: 'SET_BOOKMARKED', payload: bookmarkResponse.data.isApplied });
+      
 
     } catch (error) {
       console.error("Error fetching job details:", error);
@@ -158,7 +162,7 @@ const ChiTietCongViec = () => {
       showToast('error', 'Có lỗi xảy ra khi xóa!');
     }
   };
-
+  console.log('user ne,', user);
   return (
     <MainLayout>
       <div className="detailFull">
@@ -167,7 +171,7 @@ const ChiTietCongViec = () => {
             <CongViecUngTuyen job={state.job} user={user} handleDeleteJob={handleDeleteJob} />
             <ChiTietTuyenDung job={state.job} />
 
-            {user === '3' && (
+            {user === '3'? (
               <>
                 <div className="utvdd">
                   <UngTuyen
@@ -184,6 +188,8 @@ const ChiTietCongViec = () => {
                   />
                 </div>
               </>
+            ):(
+              ""
             )}
           </div>
           <div className="nua2">
