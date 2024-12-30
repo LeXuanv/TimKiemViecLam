@@ -18,7 +18,9 @@ function BoxCongViec({
 
   }) {
   const baseURL = axios.defaults.baseURL;
-  const { jobs, isSearching, user } = state; 
+  const { jobs, isSearching } = state; 
+  const user = localStorage.getItem('user');
+  console.log("usertrong box ne", user);
   return (
     
     <div className="full-box-cv">
@@ -53,9 +55,14 @@ function BoxCongViec({
               {user == 1 ?
               <div className="admin-delete">
                 <MdDelete 
-                    className="delete" 
-                    onClick={() => handleDeleteJob(job.id)}
+                  className="delete" 
+                  onClick={() => {
+                    if (window.confirm("Bạn có chắc chắn muốn xóa công việc này không?")) {
+                      handleDeleteJob(job.id);
+                    }
+                  }}
                 />
+                
               </div>
               : ""
               }

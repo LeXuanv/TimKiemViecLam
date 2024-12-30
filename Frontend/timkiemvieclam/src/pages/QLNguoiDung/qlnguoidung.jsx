@@ -177,7 +177,7 @@ const QlNguoiDung = () => {
                                 >
                                     &times;
                                 </span>
-                                 <FormDangky handleDeleteUser = {handleDeleteUser} /> 
+                                 <FormDangky  /> 
                             </div>
                         </div>
                     ) : (
