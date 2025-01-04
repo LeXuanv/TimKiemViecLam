@@ -463,6 +463,8 @@ const ModalCtBaiDang = ({
                             <p className='tiltle-vt'>Danh sách ứng viên</p>
                             <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
+                        <div className="listUV" >
+                            <div className="innerList">
                         {jobSeekers && jobSeekers.length > 0 ? (
                             jobSeekers.map((jobSeeker) => (
                             // <Link 
@@ -471,8 +473,7 @@ const ModalCtBaiDang = ({
                             //     className="link-deital"
                             // >
 
-                                    <div className="listUV" >
-                                        <div className="innerList">
+                                    
                                             <div className="uv">
                                                 <div className="tt">
                                                     <div className="avtUv">
@@ -508,14 +509,14 @@ const ModalCtBaiDang = ({
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        
                             // </Link>
                             ))
                         ) : (
                             <p>Không có ứng viên nào được tìm thấy.</p>
                         )}
-
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -525,20 +526,14 @@ const ModalCtBaiDang = ({
                     <span onClick={() => setModalListUVAccept(false)} className="close-button-listuv">&times;</span>
                     <div className="formlistUV">
                         <div className="titleList">
-                            <p className='tiltle-vt'>Danh sách ứng viên</p>
+                            <p className='tiltle-vt'>Danh sách ứng viên được phê duyệt</p>
                             <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
                         </div>
+                        <div className="listUV">
+                                        <div className="innerList">
                         {jobSeekersAccept && jobSeekersAccept.length > 0 ? (
                             jobSeekersAccept.map((jobSeeker) => (
-                            // <Link 
-                            //     key={jobSeeker.id} 
-                            //     to={PATH_PAGE.chitietcongviec.replace(':id', jobSeeker.id)} 
-                            //     className="link-deital"
-                            // >
-
-                                    <div className="listUV">
-                                                    
-                                        <div className="innerList">
+                                    
                                             <div className="uv">
                                                 <div className="tt">
                                                     <div className="avtUv">
@@ -574,14 +569,14 @@ const ModalCtBaiDang = ({
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        
                             // </Link>
                             ))
                         ) : (
                             <p>Không có ứng viên nào được tìm thấy.</p>
                         )}
-
+                            </div>
+                        </div>
 
                     </div>
                 </div>

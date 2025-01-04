@@ -16,7 +16,7 @@ const ChiTietTuyenDung = ({job}) =>{
                         - Chăm sóc và đồng hành cùng khách hàng trong hành trình sống khỏe <br/>
                         - Lên kế hoạch công việc và báo cáo hàng tuần <br/>
                         - Thực hiện các công việc khác theo chỉ thị của quản lý <br/> */}
-                        <pre>{job.description}</pre>
+                        <p>{job.description}</p>
                     </p>
 
                     <p className="tieudeyeucau">Yêu cầu ứng viên</p>
