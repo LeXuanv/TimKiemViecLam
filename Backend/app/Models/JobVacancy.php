@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class JobVacancy
- * 
+ *
  * @property int $id
  * @property string $title
  * @property string|null $description
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * 
+ *
  * @property Category $category
  * @property Company $company
  * @property JobPosition $job_position
@@ -102,4 +102,9 @@ class JobVacancy extends Model
 	{
 		return $this->hasMany(JobApplication::class);
 	}
+
+    public function getCategoryName()
+    {
+        return $this->category->name;
+    }
 }

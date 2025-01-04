@@ -13,6 +13,7 @@ Route::group([
     Route::get('/get-all', [JobSeekerController::class, 'getAll']);
     Route::get('/download-cv/{id}', [JobSeekerController::class, 'downloadCv']);
     Route::get('/view-cv/{id}', [JobSeekerController::class, 'viewCv']);
+    Route::get('/get-recommended-job/{id}', [JobSeekerController::class, 'getRecommendedJobs']);
 
     Route::group(['middleware' => ['auth:sanctum', 'job_seeker']], function () {
 
