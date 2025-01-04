@@ -4,7 +4,9 @@ namespace App\Modules\JobVacancy\Controllers;
 
 use App\Models\Category;
 use App\Models\Company;
+use App\Models\JobApplication;
 use App\Models\JobPosition;
+use App\Models\JobSeeker;
 use App\Models\JobVacancy;
 use App\Models\Province;
 use App\Modules\JobVacancy\DTOs\CreateJobVacancyDTO;
@@ -28,35 +30,19 @@ class JobVacancyController extends Controller
      */
     public function index()
     {
-        //
-        
         $jobVacancyDTOs = $this->jobVacancyService->getAllJobVacancies();
         return response()->json($jobVacancyDTOs);
     }
     public function indexJobPublishByCompany()
     {
-        //
-        
-
         $jobVacancyDTOs = $this->jobVacancyService->getAllJobPublishByCompany();
         return response()->json($jobVacancyDTOs);
     }
-    
+
     public function indexJobPublishWithCompanyId($companyId)
     {
-        //
-        
-
         $jobVacancyDTOs = $this->jobVacancyService->getAllJobPublishByCompanyWithCompanyId($companyId);
         return response()->json($jobVacancyDTOs);
-    }
-    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -83,13 +69,13 @@ class JobVacancyController extends Controller
             // 'address' => 'required|string',
             'provinceName' => 'required|exists:provinces,code',
 
-            
+
         ]);
 
         $data = $this->jobVacancyService->createJobVacancy($validatedData);
 
         return response()->json($data, 201);
-        
+
     }
 
 
@@ -98,18 +84,8 @@ class JobVacancyController extends Controller
      */
     public function show($id)
     {
-        //
-        
         $jobVacancyDTOs = $this->jobVacancyService->getByIdJobVacancy($id);
         return response()->json($jobVacancyDTOs);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
@@ -176,7 +152,7 @@ class JobVacancyController extends Controller
     public function searchJobInCompany(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
-        
+
 
         $jobVacanciesDTOs = $this->jobVacancyService->searchCompanyJobs($searchTerm);
 
@@ -188,7 +164,7 @@ class JobVacancyController extends Controller
     }
 
     public function countJobs($companyId) {
-        $count = $this->jobVacancyService->countJobOfCompany($companyId); 
+        $count = $this->jobVacancyService->countJobOfCompany($companyId);
         return response()->json(['count' => $count]);
     }
 }

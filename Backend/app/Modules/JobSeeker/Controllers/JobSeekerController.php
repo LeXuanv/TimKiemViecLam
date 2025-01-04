@@ -3,6 +3,10 @@
 namespace App\Modules\JobSeeker\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobApplication;
+use App\Models\JobSeeker;
+use App\Models\JobSeekerSkill;
+use App\Models\JobVacancy;
 use App\Services\EducationDetailService;
 use App\Services\JobSeekerService;
 use App\Services\SkillService;
@@ -150,5 +154,62 @@ class JobSeekerController extends Controller
             ->view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'))
             ->name($jobSeeker->name.'_cv.pdf')
             ->download();
+    }
+
+    public function getRecommendedJobs($jobSeekerId)
+    {
+
+        $jobAppliedIds = JobApplication::where('job_seeker_id', $jobSeekerId)->pluck('job_vacancy_id');
+        if (count($jobAppliedIds)) {
+            $appliedCategories = JobVacancy::whereIn('id', $jobAppliedIds)->pluck('category_id');
+            $recommendedJobs = JobVacancy::where('is_published', true)
+//            ->where('application_deadline', '>', now())
+                ->orderByRaw("CASE WHEN category_id IN (" . $appliedCategories->implode(',') . ") THEN 1 ELSE 0 END DESC")
+                ->get();
+        }
+        else {
+            $recommendedJobs = JobVacancy::where('is_published', true)
+//            ->where('application_deadline', '>', now())
+                ->get();
+        }
+
+
+        $recommendedJobs = $recommendedJobs->map(function($job) use ($jobSeekerId) {
+            $job->match_score = $this->calculateMatchScore($job, $jobSeekerId);
+            return $job;
+        });
+        return $recommendedJobs->where('match_score', '>', 0)->sortByDesc('match_score')->take(10); // lấy top 10 phù hợp
+    }
+
+    private function calculateMatchScore($job, $jobSeekerId)
+    {
+        $score = 0;
+
+        // Lấy danh sách skills của ứng viên
+        $seekerSkills = JobSeekerSkill::join('skills', 'job_seeker_skills.skill_id', '=', 'skills.id')
+            ->where('job_seeker_id', $jobSeekerId)
+            ->pluck('skills.name')
+            ->toArray();
+
+        // Kiểm tra từng skill của ứng viên trong request của job
+        foreach($seekerSkills as $skill) {
+            // Chuyển đổi skill name thành lowercase và tìm trong request
+            if(str_contains(strtolower($job->request), strtolower($skill))) {
+                $score += 0.2;
+            }
+        }
+
+        // Thêm điểm cho category
+        $jobSeeker = JobSeeker::find($jobSeekerId);
+        $locationScore = ($job->getCategoryName() == $jobSeeker->industry_job) ? 0.4 : 0;
+        $score += $locationScore;
+
+        // Thêm điểm cho location match
+        $jobSeeker = JobSeeker::find($jobSeekerId);
+        $locationScore = ($job->province_code == $jobSeeker->province_code) ? 0.3 : 0;
+        $score += $locationScore;
+
+        // Giới hạn score tối đa là 1
+        return min($score, 1);
     }
 }
