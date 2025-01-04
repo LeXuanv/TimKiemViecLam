@@ -1,43 +1,44 @@
 import React from 'react';
-import { TbBrandTwitter } from "react-icons/tb";
-import { CiInstagram } from "react-icons/ci";
-import { SlSocialLinkedin } from "react-icons/sl";
-import { LuFacebook } from "react-icons/lu";
+import LogoApp from "../assets/img/Logo.png" 
 import './footer.scss';
 
 const Footer = () => {
   return (
     <footer class="footer">
      <div class="container">
-      <div class="row">
+      <div class="grid">
         <div class="footer-col">
-          <h1>Tìm kiếm việc làm</h1>
-          <p>Uy tín - Chất lượng</p>
+          <img src={LogoApp} alt="logoApp" />
         </div>
-        <div class="footer-col">
-          <h4>get help</h4>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">shipping</a></li>
-            <li><a href="#">returns</a></li>
-            <li><a href="#">order status</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>online shop</h4>
-          <ul>
-            <li><a href="#">watch</a></li>
-            <li><a href="#">bag</a></li>
-            <li><a href="#">shoes</a></li>
-            <li><a href="#">dress</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <div class="social-links">
-            <a href="#"><LuFacebook /></a>
-            <a href="#"><TbBrandTwitter /></a>
-            <a href="#"><CiInstagram /></a>
-            <a href="#"><SlSocialLinkedin /></a>
+        <div className="thanhvien">
+          <div className="truongnhom">
+              <div className="chucvu">
+                <p>Trưởng nhóm:</p>
+              </div>
+              <div className="ten">
+                <p>Bùi Văn Thiệu - B20DCCN671</p>
+                
+              </div>
+          </div>
+          <div className="thanhviens">
+            <div className="thanhvien1">
+              <div className="chucvu">
+                <p>Thành viên:</p>
+              </div>
+              <div className="ten">
+                <p>Trần Văn Phúc - B20DCCN515</p>
+                
+              </div>
+            </div>
+            <div className="thanhvien2">
+              <div className="chucvu">
+                <p>Thành viên:</p>
+              </div>
+              <div className="ten">
+                <p>Lê Xuân Vũ - B20DCCN743</p>
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>
