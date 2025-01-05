@@ -27,7 +27,6 @@ const Tabs = (props) => {
           <div className="inner-user">
             <div className="name-user">
               <p className="name">{name}</p>
-              <p className="change">Sửa hồ sơ</p>
             </div>
           </div>
         </div>
