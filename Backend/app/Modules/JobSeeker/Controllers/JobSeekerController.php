@@ -7,6 +7,13 @@ use App\Models\JobApplication;
 use App\Models\JobSeeker;
 use App\Models\JobSeekerSkill;
 use App\Models\JobVacancy;
+use App\Models\Company;
+use App\Models\Category;
+use App\Models\JobPosition;
+use App\Models\Province;
+
+use App\Modules\JobVacancy\DTOs\GetByIdJobVacancyDTO;
+use App\Modules\JobVacancy\DTOs\GetJobVacancyDTO;
 use App\Services\EducationDetailService;
 use App\Services\JobSeekerService;
 use App\Services\SkillService;
@@ -178,7 +185,25 @@ class JobSeekerController extends Controller
             $job->match_score = $this->calculateMatchScore($job, $jobSeekerId);
             return $job;
         });
-        return $recommendedJobs->where('match_score', '>', 0)->sortByDesc('match_score')->take(10); // lấy top 10 phù hợp
+        $jobVacancies = $recommendedJobs->where('match_score', '>', 0)->sortByDesc('match_score')->take(10); // lấy top 10 phù hợp
+
+        $jobVacancies = $jobVacancies->map(function ($job) {
+            $dto = new GetJobVacancyDTO();
+            $dto->id = $job->id;
+            $dto->title = $job->title;
+            $dto->salary = $job->salary;
+            $dto->employmentType = $job->employment_type;
+            $dto->companyId = $job->company_id;
+            $dto->companyLogo = Company::find($job->company_id)->logo ?? null;
+            $dto->companyName = Company::find($job->company_id)->name ?? null;
+            $dto->categoryName = Category::find($job->category_id)->name ?? null;
+            $dto->jobPositionName = JobPosition::find($job->job_position_id)->name ?? null;
+            $dto->provinceName = Province::find($job->province_code)->name ?? null;
+
+            return $dto;
+        });
+
+        return response()->json($jobVacancies);
     }
 
     private function calculateMatchScore($job, $jobSeekerId)

@@ -2,6 +2,7 @@ import MainLayout from "../mainLayout";
 import BoxCongViec from "./boxCongViec";
 import SearchCongViec from "./searchCongViec";
 import PageCongViec from "./pageCongViec";
+import BoxRecommendCongViec from "./boxRecommendCongViec";
 import axios from "axios";
 import "./congviec.scss";
 import React, { useReducer, useState, useEffect } from 'react';
@@ -11,6 +12,8 @@ import { Bounce, toast } from "react-toastify";
 
 const initialState = {
     jobs: [],
+    recommendJob: [],
+    dataUser: [], 
     isSearching: false,
     jobTitle: "",
     province: "",
@@ -26,6 +29,10 @@ const initialState = {
     switch (action.type) {
       case "SET_JOBS":
         return { ...state, jobs: action.payload };
+      case "SET_RECOMMEND_JOB":
+        return {...state, recommendJob: action.payload };
+      case "SET_DATA_USER":
+        return {...state, dataUser: action.payload };
       case "SET_IS_SEARCHING":
         return { ...state, isSearching: action.payload };
       case "SET_JOB_TITLE":
@@ -55,13 +62,32 @@ const DsCongViec = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const token = localStorage.getItem("authToken");
+    const user = localStorage.getItem("user");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchDataUser = async () => {
+          try {
+            const response = await axios.get("api/user/show", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            dispatch({ type: "SET_DATA_USER", payload: response.data });
+    
+          } catch (error) {
+            console.error("Lỗi khi lấy dữ liệu:", error);
+          }
+        };
+    
+        fetchDataUser(); 
+      }, []);
+    console.log("data user ne", state.dataUser);
     const fetchData = async () => {
         try {
             const provinceResponse = await axios.get("/api/province");
             const categoryResponse = await axios.get("/api/category");
-
+            
             dispatch({ type: "SET_PROVINCES", payload: provinceResponse.data });
             dispatch({ type: "SET_CATEGORIES", payload: categoryResponse.data });
         } catch (error) {
@@ -135,6 +161,24 @@ const DsCongViec = () => {
 
         }
     };
+    console.log("id ne ", state.dataUser.job_seeker_id)
+    const fetchRecommendJob = async () => {
+        if(user == 3){
+            try {
+                const response = await axios.get(`api/job-seeker/get-recommended-job/${state.dataUser.job_seeker_id}`, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                });
+                dispatch({ type: "SET_RECOMMEND_JOB", payload: response.data });
+                console.log("oc oc")
+              } catch (error) {
+                console.error("Lỗi khi lấy dữ liệu:", error);
+              }
+        }
+        
+    }
+    console.log("recommend truoc ne ", state.recommendJob)
 
     useEffect(() => {
         if (state.isSearching) {
@@ -142,8 +186,9 @@ const DsCongViec = () => {
         } else {
             fetchAllJobs(state.currentPage);
         }
+        fetchRecommendJob();
         fetchData();
-    }, [state.currentPage]);
+    }, [state.currentPage, state.dataUser]);
 
     const handlePageChange = (page) => {
         if (page >= 1 && page <= state.totalPages) {
@@ -224,7 +269,18 @@ const DsCongViec = () => {
                         <p></p>
                 )};
             </div>
+            {user == 3?(
+               
+                <BoxRecommendCongViec                           
+                    state = {state}
+                    dispatch = {dispatch}
+                />
+            )
+            :("")
+            }
+            
             </MainLayout>
+            
         </div>
     );
 }
