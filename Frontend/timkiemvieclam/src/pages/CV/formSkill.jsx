@@ -251,7 +251,7 @@ const FormSkill = () => {
             <h3>Kỹ năng đã chọn</h3>
             <div className='skill'>
               {state.selectedSkills.map(skill => (
-                <div style={{ display: "flex", marginBottom:"10px" }}  key={skill.id}>
+                <div style={{ background:"#28c45a",color:"white",borderRadius:"4px",padding:"3px", display: "flex", marginBottom:"10px" }}  key={skill.id}>
                   <span>{skill.name}</span>
                   <button onClick={() => handleRemoveSkill(skill.id)} style={{ marginLeft: '8px' }}>x</button>
                   
