@@ -20,7 +20,7 @@ function PageCongViec({
         <button 
           onClick={() => handlePageChange(currentPage - 1)} 
           disabled={currentPage === 1}>
-          Previous
+            Trước
         </button>
 
         <span>Trang {currentPage} / {totalPages}</span>
@@ -28,10 +28,10 @@ function PageCongViec({
         <button 
           onClick={() => handlePageChange(currentPage + 1)} 
           disabled={currentPage === totalPages}>
-          Next
+          Sau
         </button>
       </div>
   );
-};
+}
 
 export default PageCongViec;
