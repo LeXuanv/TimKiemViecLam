@@ -327,7 +327,6 @@ class JobVacancyService
             ->paginate($perPage);
 
         
-        // Chuyển đổi sang DTO
         $jobs->getCollection()->transform(function ($job) {
             $dto = new GetJobVacancyDTO();
             $dto->id = $job->id;
