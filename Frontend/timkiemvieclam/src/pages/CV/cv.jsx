@@ -27,7 +27,10 @@ const reducer = (state, action) => {
       case "SET_EDU_DATA":
           return { ...state, dataEdu: action.payload };
       case "SET_FORM_DATA":
-          return { ...state, formData: action.payload };
+            return {
+                ...state,
+                formData: { ...state.formData, ...action.payload },
+            };
       case "UPDATE_FORM_DATA":
           return { 
               ...state, 
@@ -91,7 +94,7 @@ const CV = () => {
     }, [state.dataEdu]);
 
     const handleUpdateEdu = async () => {
-        console.log("Dữ liệu học vấn:", state.formData);
+        console.log("Dữ liệu học vấn: asdsd ", state.formData);
         try {
             const response = await axios.post("/api/job-seeker/education-detail/update", state.formData, {
                 headers: {
@@ -109,6 +112,8 @@ const CV = () => {
                 theme: "light",
                 transition: Bounce,
             });
+            console.log("Update successful:", response.data);
+
         } catch (error) {
             toast.error('Thay đổi thất bại', {
                 position: "top-right",
@@ -142,10 +147,8 @@ const CV = () => {
                     </div>
                     <FormStudy
                         formData={state.formData}
-                        handleChange={handleChange}
-                        setFormData={(updatedData) =>
-                            dispatch({ type: "SET_FORM_DATA", payload: updatedData })
-                        }                    
+                        handleChange={handleChange} 
+                        dispatch={dispatch}                 
                         />
                 </div>
                 <div className="skill">

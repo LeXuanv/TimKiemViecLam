@@ -4,14 +4,14 @@
 const FormStudy = ({
     formData,
     handleChange,
-    setFormData,
+    dispatch
 }) => {
     const handleDegreeChange = (e) => {
         const { value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            degree: value,
-        }));
+        dispatch({
+            type: "SET_FORM_DATA",
+            payload: { degree: value },
+        });
     };
     return(
         <>
