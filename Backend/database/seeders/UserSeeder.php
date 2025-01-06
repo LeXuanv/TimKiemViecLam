@@ -143,7 +143,12 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('123456'),
                 'role_id' => 3,
             ],
-            
+            [
+                'name' => 'Bùi Văn Thiệu',
+                'email' => 'buivanthieu108@gmail.com',
+                'password' => Hash::make('123456'),
+                'role_id' => 3,
+            ],
         ]);
     }
 

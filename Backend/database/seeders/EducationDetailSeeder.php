@@ -105,14 +105,14 @@ class EducationDetailSeeder extends Seeder
             'job_seeker_id' => '10',
         ]);
         
-        // DB::table('education_details')->insert([
-        //     'university' => 'Học Viện Công Nghệ Bưu Chính Viễn Thông',
-        //     'degree' => 'Xuất sắc',
-        //     'major' => 'Công nghệ thông tin ',
-        //     'graduation_year' => '2024',
-        //     'gpa' => '3.90',
-        //     'job_seeker_id' => '11',
-        // ]);
+        DB::table('education_details')->insert([
+            'university' => 'Học Viện Công Nghệ Bưu Chính Viễn Thông',
+            'degree' => 'Xuất sắc',
+            'major' => 'Công nghệ thông tin ',
+            'graduation_year' => '2024',
+            'gpa' => '3.90',
+            'job_seeker_id' => '11',
+        ]);
 
     }
 }

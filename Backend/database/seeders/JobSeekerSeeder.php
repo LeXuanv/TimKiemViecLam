@@ -31,7 +31,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi luôn cố gắng phát triển kỹ năng và hoàn thành công việc.',
             'industry_job' => 'Y tế',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Nguyen Van A_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -49,7 +49,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi mong muốn đóng góp vào sự phát triển của công ty.',
             'industry_job' => 'Xây dựng',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Le Thi B_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -67,7 +67,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi luôn hoàn thành tốt các nhiệm vụ được giao.',
             'industry_job' => 'Kế toán',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Tran Van C_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -85,7 +85,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi yêu thích công việc nghiên cứu và sáng tạo.',
             'industry_job' => 'Công nghệ thông tin',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Hoang Thi D_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -103,7 +103,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi luôn nỗ lực đạt được mục tiêu công việc.',
             'industry_job' => 'Marketing',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Phan Van E_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -121,7 +121,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi luôn tìm kiếm cơ hội phát triển bản thân.',
             'industry_job' => 'Xây dựng',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Bui Thi F_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -139,7 +139,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi đam mê công việc và luôn hoàn thành tốt nhiệm vụ.',
             'industry_job' => 'Giáo dục',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Dang Van G_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -157,7 +157,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi đam mê công nghệ và yêu thích sáng tạo.',
             'industry_job' => 'Công nghệ thông tin',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Vo Thi H_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -175,7 +175,7 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi yêu thích học hỏi và phát triển bản thân.',
             'industry_job' => 'Giáo dục',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Dao Van I_cv.pdf',
         ]);
         
         DB::table('job_seekers')->insert([
@@ -193,33 +193,33 @@ class JobSeekerSeeder extends Seeder
             'district_code' => '026',
             'description' => 'Tôi cố gắng phấn đấu, cống hiến hết mình cho công việc.',
             'industry_job' => 'Công nghệ thông tin',
-            'cv' => '',
+            'cv' => 'files/job_seeker/Vu Thi J_cv.pdf',
         ]);
         
-        // DB::table('job_seekers')->insert([
-        //     'name' => 'Bùi Văn Thiệu',
-        //     'gender' => 'Nam',
-        //     'birth_date' => '2000-01-11',
-        //     'email' => 'buivanthieu108@gmail.com',
-        //     'phone_number' => '0987654321',
-        //     'experience' => '2019-2020:
-        // - Thực tập sinh ABC Group
-        // 2020-2022:
-        // - Nhân viên chính thức của ABC Group
-        // 2022-2023:
-        // - Leader một team nhỏ gồm 7 thành viên tại ABC Group
-        // 2023 đến 9/2024:
-        // - Trưởng phòng công nghệ của ABC Group',
-        //     'address' => 'Ngõ 123, xã Tả Thanh Oai, huyện Thanh Trì, Hà Nội',
-        //     'ward_code' => '00649',
-        //     'user_id' => '22',
-        //     'logo' => 'images/job_seeker/1904513129.jpg',
-        //     'province_code' => '01',
-        //     'district_code' => '020',
-        //     'description' => 'Cố gắng phấn đấu, cống hiến hết mình cho công việc.',
-        //     'industry_job' => 'Giáo dục',
-        //     'cv' => 'files/job_seeker/240315154.pdf',
-        // ]);
+        DB::table('job_seekers')->insert([
+            'name' => 'Bùi Văn Thiệu',
+            'gender' => 'Nam',
+            'birth_date' => '2000-01-11',
+            'email' => 'buivanthieu108@gmail.com',
+            'phone_number' => '0987654321',
+            'experience' => '2019-2020:
+        - Thực tập sinh ABC Group
+        2020-2022:
+        - Nhân viên chính thức của ABC Group
+        2022-2023:
+        - Leader một team nhỏ gồm 7 thành viên tại ABC Group
+        2023 đến 9/2024:
+        - Trưởng phòng công nghệ của ABC Group',
+            'address' => 'Ngõ 123, xã Tả Thanh Oai, huyện Thanh Trì, Hà Nội',
+            'ward_code' => '00649',
+            'user_id' => '22',
+            'logo' => 'images/job_seeker/1904513129.jpg',
+            'province_code' => '01',
+            'district_code' => '020',
+            'description' => 'Cố gắng phấn đấu, cống hiến hết mình cho công việc.',
+            'industry_job' => 'Giáo dục',
+            'cv' => 'files/job_seeker/240315154.pdf',
+        ]);
     
     }
 }

@@ -19,7 +19,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển Thực Tập Sinh Java',
             'description' => 'Tuyển thực tập sinh ngôn ngữ Java',
-            'salary' => '2000000.00',
+            'salary' => '2000000 ',
             'employment_type' => 'Linh động thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -43,7 +43,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển Thực Tập Sinh C#',
             'description' => 'Tuyển thực tập sinh ngôn ngữ C#',
-            'salary' => '2500000.00',
+            'salary' => '2500000 ',
             'employment_type' => 'Linh động thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -67,7 +67,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển Quản lý dự án',
             'description' => 'Tuyển dụng quản lý dự án',
-            'salary' => '25000000.00',
+            'salary' => '25000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -94,7 +94,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển Tester',
             'description' => 'Tuyển dụng Tester',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -121,7 +121,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển Thực Tập Sinh Python',
             'description' => 'Sử dụng ngôn ngữ Python để làm việc với lượng dữ liệu lớn, train AI, xử lý hình ảnh, video',
-            'salary' => '2000000.00',
+            'salary' => '2000000 ',
             'employment_type' => 'Linh động thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -145,7 +145,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng Nhân viên Vận chuyển',
             'description' => 'Vận chuyển tài nguyên, nhập xuất kho hàng hóa của công ty',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -170,7 +170,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng Nhân viên Quản lý kho',
             'description' => 'Vận chuyển tài nguyên, nhập xuất kho hàng hóa của công ty',
-            'salary' => '12000000.00',
+            'salary' => '12000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -194,7 +194,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng Nhân viên Quản lý kho',
             'description' => 'Vận chuyển tài nguyên, nhập xuất kho hàng hóa của công ty',
-            'salary' => '12000000.00',
+            'salary' => '12000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -218,7 +218,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng Kế toán trưởng',
             'description' => 'Tuyển dụng kế toán trưởng mới do kế toán cũ mới đi tù',
-            'salary' => '24000000.00',
+            'salary' => '24000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -241,7 +241,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng nhân viên quản lý Page',
             'description' => 'Tuyển dụng nhân viên quản lý fanpage của công ty, trả lời câu hỏi khách hàng cũng như tư vấn thông tin cho khách',
-            'salary' => '8000000.00',
+            'salary' => '8000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -267,7 +267,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng nhân viên quản lý Page',
             'description' => 'Tuyển dụng nhân viên quản lý fanpage của công ty, trả lời câu hỏi khách hàng cũng như tư vấn thông tin cho khách',
-            'salary' => '8000000.00',
+            'salary' => '8000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -293,7 +293,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển dụng Nhân viên Quản lý kho',
             'description' => 'Vận chuyển tài nguyên, nhập xuất kho hàng hóa của công ty',
-            'salary' => '6000000.00',
+            'salary' => '6000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-31',
             'is_published' => '1',
@@ -317,7 +317,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Lịch Sử',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -343,7 +343,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Hóa Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -369,7 +369,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Hóa Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -395,7 +395,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Hóa Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -421,7 +421,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Toán Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -447,7 +447,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Toán Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -473,7 +473,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Toán Học',
             'description' => 'Tuyển dụng giáo viên lịch sử',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -499,7 +499,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -525,7 +525,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -551,7 +551,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -577,7 +577,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -603,7 +603,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -629,7 +629,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển giáo viên Tiếng anh',
             'description' => 'Tuyển dụng giáo viên',
-            'salary' => '10000000.00',
+            'salary' => '10000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -655,7 +655,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -675,7 +675,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -695,7 +695,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -715,7 +715,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -735,7 +735,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -755,7 +755,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -775,7 +775,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -795,7 +795,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -815,7 +815,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -835,7 +835,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -855,7 +855,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -875,7 +875,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -895,7 +895,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -915,7 +915,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -935,7 +935,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -955,7 +955,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -975,7 +975,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -995,7 +995,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1015,7 +1015,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1035,7 +1035,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1055,7 +1055,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1075,7 +1075,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1095,7 +1095,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1115,7 +1115,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1135,7 +1135,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1155,7 +1155,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1175,7 +1175,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1195,7 +1195,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1215,7 +1215,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1235,7 +1235,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1255,7 +1255,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1275,7 +1275,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1295,7 +1295,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1315,7 +1315,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1335,7 +1335,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1355,7 +1355,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1375,7 +1375,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1395,7 +1395,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1415,7 +1415,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1435,7 +1435,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1455,7 +1455,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1475,7 +1475,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
@@ -1495,7 +1495,7 @@ class JobVacancySeeder extends Seeder
         DB::table('job_vacancies')->insert([
             'title' => 'Tuyển nhân viên',
             'description' => 'Tuyển nhân viên',
-            'salary' => '9000000.00',
+            'salary' => '9000000 ',
             'employment_type' => 'Toàn thời gian',
             'application_deadline' => '2024-12-24',
             'is_published' => '1',
