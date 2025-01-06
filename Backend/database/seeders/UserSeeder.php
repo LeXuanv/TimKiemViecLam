@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
 
+ 
     public function run(): void
     {
         DB::table('users')->insert([
@@ -145,4 +146,5 @@ class UserSeeder extends Seeder
             
         ]);
     }
+
 }
