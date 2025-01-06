@@ -242,9 +242,10 @@ const DsCongViec = () => {
                                             
                     
                 />
+                <div>
+                  <p style={{fontWeight: "600", fontSize: "20px", textAlign: "center", padding:"20px 0 0 0"}}>Danh sách công việc</p>
+                </div>
                 <BoxCongViec 
-
-                    
                     state = {state}
                     dispatch = {dispatch}
                     handleDeleteJob={handleDeleteJob}
@@ -259,6 +260,7 @@ const DsCongViec = () => {
                     handlePageChange={handlePageChange}
 
                 /> */}
+                
                 {state.jobs && state.jobs.length >0 ?(
                         <PageCongViec
                         state = {state}
@@ -267,17 +269,23 @@ const DsCongViec = () => {
                     />
                     ):(
                         <p></p>
-                )};
+                )}
+                
+                {user == 3?(
+                  <>
+                  <div>
+                    <p style={{fontWeight: "600", fontSize: "20px", textAlign: "center", marginBottom:"10px"}}>Danh sách công việc được đề xuất</p>
+                  </div>
+                    <BoxRecommendCongViec                           
+                        state = {state}
+                        dispatch = {dispatch}
+                    />
+                    </>
+                )
+                :("")
+                }
             </div>
-            {user == 3?(
-               
-                <BoxRecommendCongViec                           
-                    state = {state}
-                    dispatch = {dispatch}
-                />
-            )
-            :("")
-            }
+            
             
             </MainLayout>
             

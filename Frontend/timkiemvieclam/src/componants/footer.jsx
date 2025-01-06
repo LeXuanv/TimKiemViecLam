@@ -1,49 +1,56 @@
 import React from 'react';
-import LogoApp from "../assets/img/Logo.png" 
+import { FaFacebookF, FaInstagram, FaTwitter, FaGoogle, FaYoutube } from "react-icons/fa";
 import './footer.scss';
 
 const Footer = () => {
   return (
-    <footer class="footer">
-     <div class="container">
-      <div class="grid">
-        <div class="footer-col">
-          <img src={LogoApp} alt="logoApp" />
-        </div>
-        <div className="thanhvien">
-          <div className="truongnhom">
-              <div className="chucvu">
-                <p>Trưởng nhóm:</p>
+    <>
+      <footer class="footer">
+        <div className="innerFooter">
+          <div className="fullIcon">
+            <div className="innerIcon">
+              <div className="icon">
+                <FaFacebookF />
               </div>
-              <div className="ten">
-                <p>Bùi Văn Thiệu - B20DCCN671</p>
-                
+              <div className="icon">
+                <FaInstagram />
               </div>
-          </div>
-          <div className="thanhviens">
-            <div className="thanhvien1">
-              <div className="chucvu">
-                <p>Thành viên:</p>
+              <div className="icon">
+                <FaTwitter />
               </div>
-              <div className="ten">
-                <p>Trần Văn Phúc - B20DCCN515</p>
-                
+              <div className="icon">
+                <FaGoogle />
               </div>
-            </div>
-            <div className="thanhvien2">
-              <div className="chucvu">
-                <p>Thành viên:</p>
-              </div>
-              <div className="ten">
-                <p>Lê Xuân Vũ - B20DCCN743</p>
-                
+              <div className="icon">
+                <FaYoutube />
               </div>
             </div>
           </div>
+          <div className="fullTab">
+            <div className="innerTab">
+              <div className="tab">
+                <p>Home</p>
+              </div>
+              <div className="tab">
+                <p>News</p>
+              </div>
+              <div className="tab">
+                <p>About</p>
+              </div>
+              <div className="tab">
+                <p>Contact Us</p>
+              </div>
+              <div className="tab">
+                <p>Our Team</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </footer>
+      <div className="chu">
+        <p>Copyright @2024; Designed by TPV</p>
       </div>
-     </div>
-  </footer>
+    </>
   );
 };
 
