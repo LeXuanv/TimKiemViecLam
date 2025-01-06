@@ -186,10 +186,10 @@ class JobApplicationController extends Controller
         if ($applicationJob->status != 2) {
             $jobSeeker = JobSeeker::find($job_seeker_id);
             $applicationJob->status = 2;
-            // Mail::send('application_status', ['jobSeeker' => $jobSeeker, 'jobVacancy' => $jobVacancy, 'status' => "Từ chối"], function ($message) use ($jobSeeker) {
-            //     $message->to($jobSeeker->email)
-            //             ->subject('Thông báo trạng thái tuyển dụng');
-            // });
+            Mail::send('application_status', ['jobSeeker' => $jobSeeker, 'jobVacancy' => $jobVacancy, 'status' => "Từ chối"], function ($message) use ($jobSeeker) {
+                $message->to($jobSeeker->email)
+                        ->subject('Thông báo trạng thái tuyển dụng');
+            });
             $applicationJob->save();
             
             return response()->json(['message' => 'Application rejected successfully']);

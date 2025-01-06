@@ -226,7 +226,7 @@ class JobSeekerController extends Controller
 
         // Thêm điểm cho category
         $jobSeeker = JobSeeker::find($jobSeekerId);
-        $locationScore = ($job->getCategoryName() == $jobSeeker->industry_job) ? 0.4 : 0;
+        $locationScore = (strpos(strtolower($job->getCategoryName()), strtolower($jobSeeker->industry_job)) !== false) ? 0.4 : 0;
         $score += $locationScore;
 
         // Thêm điểm cho location match
