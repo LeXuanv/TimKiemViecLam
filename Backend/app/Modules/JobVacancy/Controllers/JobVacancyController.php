@@ -61,7 +61,7 @@ class JobVacancyController extends Controller
             'experience' => 'required|string',
             'gender' => 'required|string',
 
-            'salary' => 'required|numeric',
+            'salary' => 'required|string|max:255',
             'employmentType' => 'required|string',
             'applicationDeadline' => 'required|date',
             'categoryName' => 'required|exists:categories,id',
