@@ -4,7 +4,7 @@ import { PATH_PAGE } from "../utils/constant"
 import { NavLink, useNavigate } from "react-router-dom"
 import { UserOutlined, CaretDownOutlined } from "@ant-design/icons"
 import { useState, useRef, useEffect } from "react"
-import { FaUserEdit, FaSignOutAlt } from "react-icons/fa";
+import { FaUserEdit, FaSignOutAlt, FaUser } from "react-icons/fa";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -106,6 +106,7 @@ const Header = () => {
                                     className="user-info"
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 >
+                                    <FaUser />
                                     <p>{name}</p>
                                     <CaretDownOutlined className={isDropdownOpen ? 'rotate' : ''} />
                                 </div>

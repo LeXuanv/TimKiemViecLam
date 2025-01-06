@@ -1,48 +1,56 @@
 .footer {
-    background-color: #165416;
-    padding: 20px;
-    .grid{
-        display: grid;
-        grid-template-columns: 30% 70%;
-        .footer-col{
-            img {
-                width: 100%;
-                border-radius: 10px;
-            }
-        }
-        .thanhvien{
-            display: flex;
-            flex-direction: column;
-            .truongnhom{
-                margin-bottom: 10px;
-            }
-            .thanhviens{
+    background-color: green;
+    padding: 30px;
+    .innerFooter{
+        .fullIcon{
+            max-width: 500px;
+            padding: 10px;
+            .innerIcon{
                 display: flex;
-                flex-direction: row;
-                .thanhvien1,
-                .thanhvien2{
-                    padding: 10px 20px;
-                }
-            }
-            .truongnhom,
-            .thanhviens{
-                .chucvu{
-                    p{
-                        font-size: 20px;
-                        color: #cdcdcd;
-                        font-weight: bold;
-                        text-align: center;
-                        margin-bottom: 10px;
+                .icon{
+                    display: flex;
+                    width: 45px;
+                    height: 45px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: 0.8;
                     }
-                }
-                .ten{
-                    p {
+                    svg{
                         font-size: 20px;
-                        color: #fff;
-                        font-weight: bold;
                     }
                 }
             }
         }
+        .fullTab {
+            padding: 10px;
+            max-width: 600px;
+            .innerTab {
+                display: flex;
+                .tab {
+                    p{
+                        font-family: math;
+                        padding: 0;
+                        color: #fff;
+                        font-weight: 600;
+                        font-size: 20px;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
+}
+.chu {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: rgb(1, 90, 1);
+    color: #fff;
+    font-family: math;
 }
