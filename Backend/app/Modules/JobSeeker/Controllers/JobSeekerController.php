@@ -17,6 +17,7 @@ use App\Modules\JobVacancy\DTOs\GetJobVacancyDTO;
 use App\Services\EducationDetailService;
 use App\Services\JobSeekerService;
 use App\Services\SkillService;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use function Spatie\LaravelPdf\Support\pdf;
@@ -161,6 +162,16 @@ class JobSeekerController extends Controller
             ->view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'))
             ->name($jobSeeker->name.'_cv.pdf')
             ->download();
+
+        // $html = view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'))->render();
+
+        // $pdf = PDF\Pdf::loadHTML($html)
+        //     ->setOption('isHtml5ParserEnabled', true)
+        //     ->setOption('isPhpEnabled', true);
+    
+        // return $pdf->download($jobSeeker->name . '_cv.pdf');
+
+
     }
 
     public function getRecommendedJobs($jobSeekerId)
