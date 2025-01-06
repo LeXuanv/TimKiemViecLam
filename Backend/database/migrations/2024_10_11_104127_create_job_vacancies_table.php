@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->decimal('salary', 10, 2)->nullable();
+            $table->string('salary', 50)->nullable();
             $table->string('employment_type', 50)->nullable();
             $table->date('application_deadline')->nullable();
             $table->boolean('is_published')->default(false);

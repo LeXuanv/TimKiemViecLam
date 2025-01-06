@@ -45,7 +45,6 @@ class JobVacancy extends Model
 	protected $table = 'job_vacancies';
 
 	protected $casts = [
-		'salary' => 'float',
 		'application_deadline' => 'datetime',
 		'is_published' => 'bool',
 		'company_id' => 'int',
