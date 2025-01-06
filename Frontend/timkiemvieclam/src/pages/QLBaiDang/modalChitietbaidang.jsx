@@ -489,9 +489,11 @@ const ModalCtBaiDang = ({
                                                         <div className="emailUv mg-bt5">
                                                             <span>{jobSeeker.email}</span>
                                                         </div>
-                                                        <div className="fileCvPdf mg-bt5">
+                                                        {
+                                                            jobSeeker.cv ? <div className="fileCvPdf mg-bt5">
                                                             <button onClick={() => viewCV(jobSeeker.id)}>Xem CV</button>
-                                                        </div>
+                                                            </div> : ("")
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="buttonCn">
@@ -549,9 +551,12 @@ const ModalCtBaiDang = ({
                                                         <div className="emailUv mg-bt5">
                                                             <span>{jobSeeker.email}</span>
                                                         </div>
-                                                        <div className="fileCvPdf mg-bt5">
-                                                        <button onClick={() => viewCV(jobSeeker.id)}>Xem CV</button>
-                                                        </div>
+                                                        {
+                                                            jobSeeker.cv ? <div className="fileCvPdf mg-bt5">
+                                                            <button onClick={() => viewCV(jobSeeker.id)}>Xem CV</button>
+                                                            </div> : ("")
+                                                        }
+                                                        
                                                     </div>
                                                 </div>
                                                 <div className="buttonCn">

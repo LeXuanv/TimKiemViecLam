@@ -165,12 +165,10 @@ class JobSeekerController extends Controller
 
         // $html = view('JobSeeker::download_cv', compact('jobSeeker', 'skills', 'educationDetails', 'typeSkills'))->render();
 
-        // // Tạo PDF từ HTML
         // $pdf = PDF\Pdf::loadHTML($html)
         //     ->setOption('isHtml5ParserEnabled', true)
         //     ->setOption('isPhpEnabled', true);
     
-        // // Tải về PDF
         // return $pdf->download($jobSeeker->name . '_cv.pdf');
 
 
