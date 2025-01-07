@@ -7,20 +7,23 @@ use App\Models\Company;
 use App\Models\JobApplication;
 use App\Models\JobPosition;
 use App\Models\JobSeeker;
+use App\Models\JobSeekerSkill;
 use App\Models\JobVacancy;
 use App\Models\Province;
 use App\Modules\JobVacancy\DTOs\GetJobVacancyDTO;
 use Auth;
-use DB;
+use Error;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class JobApplicationController extends Controller
 {
-    
-   
+
+
     public function toggleApply($jobVacancyId)
     {
         $user = Auth::user();
@@ -41,6 +44,8 @@ class JobApplicationController extends Controller
                     'job_vacancy_id' => $jobVacancyId,
                     'status' => 0,
                 ]);
+                $score = $this->calculateMatchScore($jobVacancyId, $jobSeeker->id);
+                $this->autoAccept($jobVacancyId, $jobSeeker->id, $score);
                 $message = 'Job application successfully';
             }
 
@@ -51,7 +56,7 @@ class JobApplicationController extends Controller
             return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
     }
-    
+
     public function checkApplication($jobVacancyId){
         $user = Auth::user();
         $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
@@ -93,7 +98,7 @@ class JobApplicationController extends Controller
 
     public function index($job_vacancy)
     {
-        
+
         $applications = JobApplication::where('job_vacancy_id', $job_vacancy)
             ->with('job_seeker')
             ->get();
@@ -107,7 +112,7 @@ class JobApplicationController extends Controller
     }
     public function indexAccept($job_vacancy)
     {
-        
+
         $applications = JobApplication::where('job_vacancy_id', $job_vacancy)
             ->with('job_seeker')
             ->get();
@@ -122,13 +127,13 @@ class JobApplicationController extends Controller
     public function accept($job_vacancy, $job_seeker_id)
     {
         $user = Auth::user();
-        
+
         // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-        
+
         $jobVacancy = JobVacancy::where('id', $job_vacancy)
                                 ->where('company_id', $company->id)
                                 ->first();
@@ -151,9 +156,9 @@ class JobApplicationController extends Controller
                 $message->to($jobSeeker->email)
                         ->subject('Thông báo trạng thái tuyển dụng');
             });
-    
+
             $applicationJob->save();
-            
+
             return response()->json(['message' => 'Application accepted successfully']);
         }
 
@@ -161,13 +166,13 @@ class JobApplicationController extends Controller
     }
     public function reject($job_vacancy, $job_seeker_id){
         $user = Auth::user();
-        
+
         // Kiểm tra công ty của người dùng
         $company = Company::where('user_id', $user->id)->first();
         if (!$company) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
-        
+
         $jobVacancy = JobVacancy::where('id', $job_vacancy)
                                 ->where('company_id', $company->id)
                                 ->first();
@@ -191,11 +196,56 @@ class JobApplicationController extends Controller
                         ->subject('Thông báo trạng thái tuyển dụng');
             });
             $applicationJob->save();
-            
+
             return response()->json(['message' => 'Application rejected successfully']);
         }
 
         return response()->json(['message' => 'Application has already been rejected or has invalid status'], 400);
     }
-    
+
+    public function calculateMatchScore($jobVacancyId, $jobSeekerId)
+    {
+        $job = JobVacancy::find($jobVacancyId);
+        $score = 0;
+
+        $seekerSkills = JobSeekerSkill::join('skills', 'job_seeker_skills.skill_id', '=', 'skills.id')
+            ->where('job_seeker_id', $jobSeekerId)
+            ->pluck('skills.name')
+            ->toArray();
+
+        foreach($seekerSkills as $skill) {
+            if(str_contains(strtolower($job->request), strtolower($skill))) {
+                $score += 0.2;
+            }
+        }
+
+        $jobSeeker = JobSeeker::find($jobSeekerId);
+        $categoryScore = (strpos(strtolower($job->getCategoryName()), strtolower($jobSeeker->industry_job)) !== false) ? 0.2 : 0;
+        $score += $categoryScore;
+
+        $jobSeeker = JobSeeker::find($jobSeekerId);
+        $locationScore = ($job->province_code == $jobSeeker->province_code) ? 0.2 : 0;
+        $score += $locationScore;
+
+        return min($score, 1);
+    }
+
+    public function autoAccept($jobVacancyId, $jobSeekerId, $score)
+    {
+        DB::beginTransaction();
+        try {
+            if ($score >= 0.7) {
+                $this->accept($jobVacancyId, $jobSeekerId);
+            }
+            elseif($score < 0.3) {
+                $this->reject($jobVacancyId, $jobSeekerId);
+            }
+            DB::commit();
+        } catch (Error $error) {
+            DB::rollBack();
+            Log::error($error);
+        }
+
+    }
+
 }
