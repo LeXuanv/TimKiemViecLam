@@ -3,6 +3,8 @@ import { LockOutlined, MailOutlined, UsergroupAddOutlined, UserOutlined } from '
 import axios from "axios";
 import { useState } from "react";
 import { Bounce, toast } from "react-toastify";
+
+
 const onFinish = (values) => {
   console.log("Success:", values);
 };
@@ -78,12 +80,12 @@ const FormDangky = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UserOutlined />}
                                 disabled 
                                 />
                             <Input 
-                                style={{ width: '90%' }} 
+                                style={{ width: '85%' }} 
                                 placeholder="Họ và tên" 
                                 name="name"
                                 value={formData.name}
@@ -91,31 +93,6 @@ const FormDangky = ({
                             />
                             </Input.Group>
                         </Form.Item>
-                        
-                        {/* <Form.Item
-                            name="phone"
-                            rules={[
-                            {
-                                required: true,
-                                message: 'Vui lòng nhập số điện thoại!',
-                            },
-                            ]}
-                        >
-                            <Input.Group compact>
-                            <Input
-                                style={{ width: '10%' }}
-                                prefix={<PhoneOutlined />}
-                                disabled
-                                />
-                            <Input 
-                                style={{ width: '90%' }} 
-                                placeholder="Số điện thoại" 
-                                name="phone_number"
-                                value={formData.phone_number}
-                                onChange={handleChange}
-                            />
-                            </Input.Group>
-                        </Form.Item> */}
                         <Form.Item
                             name="email"
                             rules={[
@@ -127,12 +104,12 @@ const FormDangky = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<MailOutlined />} 
                                 disabled 
                             />
                             <Input 
-                                style={{ width: '90%' }} 
+                                style={{ width: '85%' }} 
                                 placeholder="Email" 
                                 name="email"
                                 value={formData.email}
@@ -151,12 +128,12 @@ const FormDangky = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<LockOutlined />}
                                 disabled 
                             />
                             <Input 
-                                style={{ width: '90%' }} 
+                                style={{ width: '85%' }} 
                                 type="password" 
                                 placeholder="Mật khẩu" 
                                 name="password"
@@ -177,12 +154,12 @@ const FormDangky = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<LockOutlined />}
                                 disabled 
                             />
                             <Input 
-                                style={{ width: '90%' }} 
+                                style={{ width: '85%' }} 
                                 type="password" 
                                 placeholder="Nhập lại Mật khẩu" 
                                 name="password_confirmation"
@@ -192,29 +169,15 @@ const FormDangky = ({
                             </Input.Group>
                             
                         </Form.Item>
-                        {/* <Form.Item >
-                            <Input.Group compact>
-                            <Input
-                                style={{ width: '10%' }}
-                                prefix={<ManOutlined />}
-                                disabled 
-                            />
-                            <Select style={{ width: '90%' }} placeholder="Chọn giới tính">
-                                <Select.Option value="nam">Nam</Select.Option>
-                                <Select.Option value="nu">Nữ</Select.Option>
-                                <Select.Option value="khac">Khác</Select.Option>
-                            </Select>
-                            </Input.Group>
-                        </Form.Item> */}
                         <Form.Item>
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
                             <Select 
-                                style={{ width: '90%' }} 
+                                style={{ width: '85%' }} 
                                 placeholder="Chọn loại tài khoản" 
                                 name="role_id"
                                 value={formData.role_id}
@@ -225,46 +188,6 @@ const FormDangky = ({
                             </Select>
                             </Input.Group>
                         </Form.Item>
-                        {/* <Form.Item>
-                            <Input.Group compact>
-                            <Input
-                                style={{ width: '10%' }}
-                                prefix={<UsergroupAddOutlined />}
-                                disabled
-                            />
-                            <Select style={{ width: '90%' }} placeholder="Tỉnh" >
-                                <Select.Option value="1">Hà Nội</Select.Option>
-                                <Select.Option value="2">Thanh Hóa</Select.Option>
-                            </Select>
-                            </Input.Group>
-                        </Form.Item>
-                        <Form.Item>
-                            <Input.Group compact>
-                            <Input
-                                style={{ width: '10%' }}
-                                prefix={<UsergroupAddOutlined />}
-                                disabled
-                            />
-                            <Select style={{ width: '90%' }} placeholder="Huyện" >
-                                <Select.Option value="1">Thạch Thành</Select.Option>
-                                <Select.Option value="2">Cẩm Thủy</Select.Option>
-                            </Select>
-                            </Input.Group>
-                        </Form.Item>
-                        <Form.Item>
-                            <Input.Group compact>
-                            <Input
-                                style={{ width: '10%' }}
-                                prefix={<UsergroupAddOutlined />}
-                                disabled
-                            />
-                            <Select style={{ width: '90%' }} placeholder="Xã" >
-                                <Select.Option value="1">Thành Mỹ</Select.Option>
-                                <Select.Option value="2">Thành Yên</Select.Option>
-                            </Select>
-                            </Input.Group>
-                        </Form.Item>
-                         */}
                     </div>
                     <Form.Item>
                         <Button block type="primary" htmlType="submit"

@@ -28,7 +28,7 @@ const DetailFile = ({
     handleLogoJobSeekerUpload,
     previewLogo,
    
-  }) => {
+  }) => { 
 
     console.log ("selectedDistrict:", selectedDistrict);
   const provinceOptions = provinces.map((province) => ({

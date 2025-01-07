@@ -184,10 +184,12 @@ const FormCapNhat = ({
             // setWards([]); 
             // setSelectedDistrict(""); 
             // setSelectedWard(""); 
+            console.log("selectedUser", selectedUser);
+            
             dispatch({ type: "SET_DISTRICTS", payload: response.data });
             dispatch({ type: "SET_WARDS", payload: [] });
-            dispatch({ type: "SET_SELECTED_DISTRICT", payload: "" });
-            dispatch({ type: "SET_SELECTED_WARD", payload: "" });
+            dispatch({ type: "SET_SELECTED_DISTRICT", payload: selectedUser?.district_code || "" });
+            dispatch({ type: "SET_SELECTED_WARD", payload: selectedUser?.ward_code || "" });
     
         } catch (error) {
             console.error("Error fetching districts", error);
@@ -203,7 +205,7 @@ const FormCapNhat = ({
             // setSelectedWard(""); 
     
             dispatch({ type: "SET_WARDS", payload: response.data  });
-            dispatch({ type: "SET_SELECTED_WARD", payload: "" });
+            dispatch({ type: "SET_SELECTED_WARD", payload: selectedUser?.ward_code || "" });
     
     
         } catch (error) {
@@ -391,17 +393,17 @@ const FormCapNhat = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UserOutlined />} // Icon hiển thị trước Select
                                 disabled // Input không khả dụng để chỉ làm prefix
                                 />
-                            {/* <Input style={{ width: '90%' }} placeholder="Họ và tên" /> */}
+                            {/* <Input style={{ width: '85%' }} placeholder="Họ và tên" /> */}
                             <Input 
                                 name="name"
                                 value={state.formData.name}
                                 onChange={handleChange}
                                 placeholder="Nhập họ và tên của bạn" 
-                                style={{ width: '90%' }}
+                                style={{ width: '85%' }}
                             />
                             </Input.Group>
                         </Form.Item>
@@ -416,17 +418,17 @@ const FormCapNhat = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<PhoneOutlined />}
                                 disabled
                                 />
-                            {/* <Input style={{ width: '90%' }} placeholder="Số điện thoại" /> */}
+                            {/* <Input style={{ width: '85%' }} placeholder="Số điện thoại" /> */}
                             <Input 
                               name="phone_number"
                               value={state.formData.phone_number}
                               onChange={handleChange}
                               placeholder="Nhập số điện thoại của bạn" 
-                              style={{ width: '90%' }}  
+                              style={{ width: '85%' }}  
                           />
                             </Input.Group>
                         </Form.Item>
@@ -441,11 +443,11 @@ const FormCapNhat = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<MailOutlined />} // Icon hiển thị trước Select
                                 disabled // Input không khả dụng để chỉ làm prefix
                             />
-                            <Input style={{ width: '90%' }} value={state.dataUser.email} />
+                            <Input style={{ width: '85%' }} value={state.dataUser.email} />
                             </Input.Group>
                         </Form.Item>
                         {/* <Form.Item
@@ -459,22 +461,22 @@ const FormCapNhat = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<LockOutlined />} // Icon hiển thị trước Select
                                 disabled // Input không khả dụng để chỉ làm prefix
                             />
-                            <Input style={{ width: '90%' }} type="password" placeholder="Mật khẩu" />
+                            <Input style={{ width: '85%' }} type="password" placeholder="Mật khẩu" />
                             </Input.Group>
                             
                         </Form.Item> */}
                         {/* <Form.Item >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<ManOutlined />}
                                 disabled 
                             />
-                            <Select style={{ width: '90%' }} placeholder="Chọn giới tính">
+                            <Select style={{ width: '85%' }} placeholder="Chọn giới tính">
                                 <Select.Option value="nam">Nam</Select.Option>
                                 <Select.Option value="nu">Nữ</Select.Option>
                                 <Select.Option value="khac">Khác</Select.Option>
@@ -484,18 +486,18 @@ const FormCapNhat = ({
                         <Form.Item>
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
-                            {/* <Select style={{ width: '90%' }} placeholder="Chọn loại tài khoản" >
+                            {/* <Select style={{ width: '85%' }} placeholder="Chọn loại tài khoản" >
                                 <Select.Option value="1">Tìm kiếm việc làm</Select.Option>
                                 <Select.Option value="2">Nhà tuyển dụng</Select.Option>
                             </Select> */}
                             { selectedUserRole == 2? (
-                               <Input style={{ width: '90%' }} value={"Nhà tuyển dụng"} />
+                               <Input style={{ width: '85%' }} value={"Nhà tuyển dụng"} />
                             ):(
-                               <Input style={{ width: '90%' }} value={"Người tìm việc"} />
+                               <Input style={{ width: '85%' }} value={"Người tìm việc"} />
                             )}
 
                             </Input.Group>
@@ -505,7 +507,7 @@ const FormCapNhat = ({
                          >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
@@ -514,10 +516,10 @@ const FormCapNhat = ({
                                 value={state.selectedProvince} 
                                 onChange={handleProvinceChange}
                                 options={provinceOptions} 
-                                style={{ width: '90%' }}
+                                style={{ width: '85%' }}
                               />
                             </Input.Group>
-                            {/* <Select style={{ width: '90%' }} placeholder="Tỉnh" >
+                            {/* <Select style={{ width: '85%' }} placeholder="Tỉnh" >
                                 <Select.Option value="1">Hà Nội</Select.Option>
                                 <Select.Option value="2">Thanh Hóa</Select.Option>
                             </Select> */}
@@ -530,7 +532,7 @@ const FormCapNhat = ({
                          >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
@@ -540,10 +542,10 @@ const FormCapNhat = ({
                                 value={state.selectedDistrict} 
                                 onChange={handleDistrictChange}
                                 options={districtOptions} 
-                                style={{ width: '90%' }}
+                                style={{ width: '85%' }}
                               />
                             </Input.Group>
-                            {/* <Select style={{ width: '90%' }} placeholder="Tỉnh" >
+                            {/* <Select style={{ width: '85%' }} placeholder="Tỉnh" >
                                 <Select.Option value="1">Hà Nội</Select.Option>
                                 <Select.Option value="2">Thanh Hóa</Select.Option>
                             </Select> */}
@@ -556,7 +558,7 @@ const FormCapNhat = ({
                             <Input
                                 name="ward_code"
 
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UsergroupAddOutlined />}
                                 disabled
                             />
@@ -565,7 +567,7 @@ const FormCapNhat = ({
                                 value={state.selectedWard} 
                                 onChange={handleWardChange}
                                 options={wardOptions} 
-                                style={{ width: '90%' }}
+                                style={{ width: '85%' }}
                               />
                             </Input.Group>
   
@@ -583,17 +585,17 @@ const FormCapNhat = ({
                         >
                             <Input.Group compact>
                             <Input
-                                style={{ width: '10%' }}
+                                style={{ width: '5%' }}
                                 prefix={<UserOutlined />} // Icon hiển thị trước Select
                                 disabled // Input không khả dụng để chỉ làm prefix
                                 />
-                            {/* <Input style={{ width: '90%' }} placeholder="Họ và tên" /> */}
+                            {/* <Input style={{ width: '85%' }} placeholder="Họ và tên" /> */}
                             <Input 
                                 name="address"
                                 value={state.formData.address}
                                 onChange={handleChange}
                                 placeholder="Nhập địa chỉ của bạn" 
-                                style={{ width: '90%' }}
+                                style={{ width: '85%' }}
                             />
                             </Input.Group>
                         </Form.Item>
