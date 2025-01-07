@@ -126,6 +126,8 @@ const Profile = () => {
 
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("state", state);
+  
   const token = localStorage.getItem("authToken");
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -377,9 +379,11 @@ const Profile = () => {
         // setWards([]); 
         // setSelectedDistrict(""); 
         // setSelectedWard(""); 
+      // console.log("formDtDistric", state.formData);
+        const dataDistrict = state.formData.district_code ? state.formData.district_code : " " ;
         dispatch({ type: "SET_DISTRICTS", payload: response.data });
         dispatch({ type: "SET_WARDS", payload: [] });
-        dispatch({ type: "SET_SELECTED_DISTRICT", payload: "" });
+        dispatch({ type: "SET_SELECTED_DISTRICT", payload: dataDistrict });
         dispatch({ type: "SET_SELECTED_WARD", payload: "" });
 
     } catch (error) {
@@ -397,6 +401,7 @@ const Profile = () => {
 
         dispatch({ type: "SET_WARDS", payload: response.data  });
         dispatch({ type: "SET_SELECTED_WARD", payload: "" });
+        console.log("dis", response)
 
 
     } catch (error) {
@@ -546,8 +551,11 @@ const Profile = () => {
                     selectedWard={state.selectedWard}
                     form={form}
                     formData={state.formData}
-                    setFormData={(updatedData) =>
+                    setFormData={(updatedData) =>{
                         dispatch({ type: "SET_FORM_DATA", payload: updatedData })
+                        console.log("updatedData", updatedData);
+                        
+                      }
                     }
                     handleUpdate={handleUpdate}
                     handleChange={handleChange}
