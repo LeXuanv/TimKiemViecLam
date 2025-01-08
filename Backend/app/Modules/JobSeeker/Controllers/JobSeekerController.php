@@ -168,7 +168,7 @@ class JobSeekerController extends Controller
         // $pdf = PDF\Pdf::loadHTML($html)
         //     ->setOption('isHtml5ParserEnabled', true)
         //     ->setOption('isPhpEnabled', true);
-    
+
         // return $pdf->download($jobSeeker->name . '_cv.pdf');
 
 
@@ -196,7 +196,7 @@ class JobSeekerController extends Controller
             $job->match_score = $this->calculateMatchScore($job, $jobSeekerId);
             return $job;
         });
-        $jobVacancies = $recommendedJobs->where('match_score', '>', 0)->sortByDesc('match_score')->take(10); // lấy top 10 phù hợp
+        $jobVacancies = $recommendedJobs->where('match_score', '>', 0)->sortByDesc('match_score')->take(8); // lấy top 10 phù hợp
 
         $jobVacancies = $jobVacancies->map(function ($job) {
             $dto = new GetJobVacancyDTO();

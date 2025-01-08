@@ -223,27 +223,28 @@ const FormSkill = () => {
     <>
       <div className="fullSkill">
         <div className='fullboxsk'>
-          <div className='boxSkill' style={{ marginBottom: "20px" }} ref={containerRef}>
+          <div className='boxSkill' style={{marginBottom: "20px"}} ref={containerRef}>
+            <h3 style={{marginBottom: "15px"}}>Danh sách kỹ năng</h3>
             <input
-              type="text"
-              placeholder="Gõ để tìm kiếm..."
-              value={state.searchText}
-              onChange={handleSearch}
-              onFocus={() => setInputFocused(true)}
-              style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+                type="text"
+                placeholder="Gõ để tìm kiếm..."
+                value={state.searchText}
+                onChange={handleSearch}
+                onFocus={() => setInputFocused(true)}
+                style={{width: "100%", padding: "10px", marginBottom: "10px"}}
             />
             {isInputFocused && state.filteredSkills.length > 0 && (
-              <ul style={{ border: "1px solid #ccc", maxHeight: "150px", overflowY: "auto", padding: "0" }}>
-                {state.filteredSkills.map(skill => (
-                  <li
-                    key={skill.id}
-                    onClick={() => handleAddSkill(skill)}
-                    style={{ padding: "10px", cursor: "pointer", borderBottom: "1px solid #eee" }}
-                  >
-                    {skill.name}
-                  </li>
-                ))}
-              </ul>
+                <ul style={{border: "1px solid #ccc", maxHeight: "150px", overflowY: "auto", padding: "0"}}>
+                  {state.filteredSkills.map(skill => (
+                      <li
+                          key={skill.id}
+                          onClick={() => handleAddSkill(skill)}
+                          style={{padding: "10px", cursor: "pointer", borderBottom: "1px solid #eee"}}
+                      >
+                        {skill.name}
+                      </li>
+                  ))}
+                </ul>
             )}
           </div>
 
@@ -264,25 +265,32 @@ const FormSkill = () => {
           </div>
         </div>
 
-        
 
-        <div className="cv">
+        <div className="cv" style={{marginTop: "5px", minWidth:"460px"}}>
           {state.dataUser && state.dataUser.cv ? (
-            <div className='cvDuocTai'>
-              <p>CV đã được đăng tải:</p>
-              <button onClick={viewCV}>Xem CV</button>
-            </div>
+              <div className='cvDuocTai'>
+                <p>CV đã được đăng tải:</p>
+                <button onClick={viewCV}>Xem CV</button>
+              </div>
           ) : (
-            <p>Bạn chưa đăng tải CV.</p>
+              <p>Bạn chưa đăng tải CV.</p>
           )}
-          <Upload {...props}>
-            <Button style={{margin:"15px 0"}} icon={<UploadOutlined />}>Nhấn để đăng CV</Button>
-          </Upload>
+          <div style={{display: "flex", justifyContent:"space-around"}}>
+            <span>Tải lên Cv mới: </span>
+            <Upload {...props}>
+              <Button style={{margin: "15px 32px 15px -20px"}} icon={<UploadOutlined/>}>Đăng CV</Button>
+            </Upload>
 
-          <Button className='buttonXuatCV' icon={<DownloadOutlined />} onClick={handleExportCV}> Xuất thông tin sang mẫu CV</Button>
-          
+          </div>
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <span>Xuất CV từ thông tin hồ sơ: </span>
+            <Button className='buttonXuatCV' icon={<DownloadOutlined/>} onClick={handleExportCV}> Xuất
+              CV</Button>
+          </div>
+
+
         </div>
-        
+
       </div>
     </>
   );

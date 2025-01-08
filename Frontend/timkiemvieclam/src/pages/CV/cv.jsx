@@ -142,24 +142,30 @@ const CV = () => {
         <MainLayout>
             <div style={{ position: "relative" }}>
                 <div className="study">
-                    <div className="title">
-                        <span className="title">Thông tin học vấn</span>
+                    <div className="title-container">
+                        <h1 className="title-with-line">Thông tin học vấn</h1>
                     </div>
                     <FormStudy
                         formData={state.formData}
-                        handleChange={handleChange} 
-                        dispatch={dispatch}                 
-                        />
+                        handleChange={handleChange}
+                        dispatch={dispatch}
+                    />
+                    <div className="save-info">
+                        <button onClick={handleUpdateEdu}>Lưu</button>
+                    </div>
                 </div>
                 <div className="skill">
-                    <div className="title">
-                        <span className="title">Thông tin kỹ năng</span>
+                    <div className="section-title">
+                        <div className="divider-line"></div>
+                        <div className="fullSkill">
+
+                            <h1 className="title-with-line">Thông tin kỹ năng</h1>
+                            <h1 className="title-with-line">Quản lý CV cá nhân</h1>
+                        </div>
                     </div>
-                    <FormSkill />
+                    <FormSkill/>
                 </div>
-                <div className="save-info">
-                    <button onClick={handleUpdateEdu}>Lưu</button>
-                </div>
+
             </div>
         </MainLayout>
     );

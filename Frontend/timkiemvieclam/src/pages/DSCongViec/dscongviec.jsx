@@ -234,23 +234,23 @@ const DsCongViec = () => {
         <div>
             
             <MainLayout>
-            <div style={{background:"rgb(249 249 249)"}}>
-                <SearchCongViec 
-                    state = {state}
-                    dispatch = {dispatch}
-                    handleSearch={handleSearch}
-                                            
-                    
-                />
-                <div>
-                  <p style={{fontWeight: "600", fontSize: "20px", textAlign: "center", padding:"20px 0 0 0"}}>Danh sách công việc</p>
-                </div>
-                <BoxCongViec 
-                    state = {state}
-                    dispatch = {dispatch}
-                    handleDeleteJob={handleDeleteJob}
-                />
-                {/* <PageCongViec
+                <div style={{background: "rgb(249 249 249)"}}>
+                    <SearchCongViec
+                        state={state}
+                        dispatch={dispatch}
+                        handleSearch={handleSearch}
+
+
+                    />
+                    <div className="title-container">
+                        <h1 className="title-with-line">Danh sách công việc</h1>
+                    </div>
+                    <BoxCongViec
+                        state={state}
+                        dispatch={dispatch}
+                        handleDeleteJob={handleDeleteJob}
+                    />
+                    {/* <PageCongViec
                     // loading={loading}
                     // currentPage={currentPage}
                     // handlePageChange={handlePageChange}
@@ -260,35 +260,36 @@ const DsCongViec = () => {
                     handlePageChange={handlePageChange}
 
                 /> */}
-                
-                {state.jobs && state.jobs.length >0 ?(
+
+                    {state.jobs && state.jobs.length > 0 ? (
                         <PageCongViec
-                        state = {state}
-                        dispatch = {dispatch}
-                        handlePageChange={handlePageChange}
-                    />
-                    ):(
+                            state={state}
+                            dispatch={dispatch}
+                            handlePageChange={handlePageChange}
+                        />
+                    ) : (
                         <p></p>
-                )}
-                
-                {user == 3?(
-                  <>
-                  <div>
-                    <p style={{fontWeight: "600", fontSize: "20px", textAlign: "center", marginBottom:"10px"}}>Danh sách công việc được đề xuất</p>
-                  </div>
-                    <BoxRecommendCongViec                           
-                        state = {state}
-                        dispatch = {dispatch}
-                    />
-                    </>
-                )
-                :("")
-                }
-            </div>
-            
-            
+                    )}
+
+                    {user == 3 ? (
+                            <>
+                                <div className="section-title">
+                                    <div className="divider-line"></div>
+                                    <h1 className="title-with-line">Gợi ý việc làm phù hợp</h1>
+                                </div>
+                                <BoxRecommendCongViec
+                                    state={state}
+                                    dispatch={dispatch}
+                                />
+                            </>
+                        )
+                        : ("")
+                    }
+                </div>
+
+
             </MainLayout>
-            
+
         </div>
     );
 }

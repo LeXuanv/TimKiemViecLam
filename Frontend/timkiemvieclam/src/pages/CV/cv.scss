@@ -2,7 +2,8 @@
     // position: absolute;
     // right: 40px;
     // top: 15px;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 0;
     text-align: center;
     button{
         padding: 10px 20px;
@@ -182,7 +183,7 @@
     }
     .fullStudy{
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: 20% 20% 20% 20% 20%;
         box-sizing: border-box;
         .name {
             width: 100%;
@@ -242,6 +243,7 @@
         display: grid;
         grid-template-columns: 50% 50%;
         box-sizing: border-box;
+        position: relative;
         .fullboxsk{
             .boxSkill{
                 position: relative;
@@ -253,7 +255,7 @@
                 }
                 ul{
                     position: absolute;
-                    top: 40px;
+                    top: 73px;
                     width: 100%;
                     border-radius: 10px;
                     background-color: #fff;
@@ -302,6 +304,7 @@
         }
         .cvDuocTai{
             display: flex;
+            justify-content: space-around;
             button{
                 margin-left: 10px;
                 border: 1px solid green;

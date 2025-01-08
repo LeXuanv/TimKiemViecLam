@@ -52,11 +52,11 @@ class EducationDetailService
     //     ];
     // }
 
-    
+
     public function store($params)
     {
         $this->educationDetailRepository->store($params);
-    }    
+    }
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -65,7 +65,7 @@ class EducationDetailService
             'degree' => 'required|string',
             'major' => 'required|string',
             'graduation_year' => 'required|string',
-            'gpa' => 'nullable|string',
+            'gpa' => 'nullable',
         ]);
 
         if ($validator->fails()) {

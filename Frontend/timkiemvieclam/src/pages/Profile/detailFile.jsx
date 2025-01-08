@@ -88,8 +88,9 @@ const DetailFile = ({
                       <p>Chưa có logo</p>
                     )
                   )}
-                  <input type="file" onChange={handleLogoCompanyChange} />
-                  <button onClick={handleLogoCompanyUpload}>Upload Logo</button>
+                        <input type="file" onChange={handleLogoCompanyChange}/>
+
+                    <button onClick={handleLogoCompanyUpload}>Lưu ảnh</button>
                 </>
               )}
               {user == 3 && (
@@ -104,8 +105,8 @@ const DetailFile = ({
                       <p>Chưa có ảnh</p>
                     )
                   )}
-                  <input type="file" onChange={handleLogoJobSeekerChange} />
-                  <button onClick={handleLogoJobSeekerUpload}>Upload Ảnh</button>
+                        <input type="file" onChange={handleLogoJobSeekerChange}/>
+                    <button onClick={handleLogoJobSeekerUpload}>Lưu Ảnh</button>
                 </>
               )}
             </div>
@@ -326,7 +327,7 @@ const DetailFile = ({
                 
                 <Form.Item style={{ display: "flex", justifyContent: "center" }}>
                   <Button type="primary" htmlType="submit" style={{ backgroundColor:"green", padding : "5px 20px" }}>
-                    Lưu thay đổi
+                    Lưu
                   </Button>
                 </Form.Item>
               </Form>
