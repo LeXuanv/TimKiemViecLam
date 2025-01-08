@@ -289,16 +289,31 @@ const ModalCtBaiDang = ({
             <div className="modal-chitietbaidang" onClick={handleClickOutside}>
                 <div className="chitietbaidang" onClick={(e) => e.stopPropagation()}>
                     <span onClick={() => setModal(false)} className="close-button">&times;</span>
+
                     <div className="formDangBai">
-                        <div className="tieudeBaidang">
-                            <span>Chi tiết bài đăng tuyển dụng</span>
+                        <div style={{display: "flex", justifyContent: 'flex-end'}}>
+                            <div className="capnhatvsxoa">
+                                <button className="list-uv" onClick={handleListUV}>Danh sách người ứng cử</button>
+                                <button className="list-uv" onClick={handleListUVAccept}>DS ứng cử được phê duyệt
+                                </button>
+
+                                <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
+                                <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
+                            </div>
                         </div>
+
+                        <div className="tieudeBaidang">
+
+                            <span>Chi tiết bài đăng tuyển dụng</span>
+
+                        </div>
+
                         <div className="tieudemuc">
                             <span>Thông tin cơ bản</span>
                         </div>
                         <div className="fullprofile">
                             <div className="name">
-                                <input 
+                                <input
                                     name="title"
                                     value={formData.title}
                                     onChange={handleChange}
@@ -447,22 +462,16 @@ const ModalCtBaiDang = ({
                             </div>
                         </div>
                     </div>
-                    <div className="capnhatvsxoa">
-                        <button className="list-uv" onClick={handleListUV}>Danh sách người ứng cử</button>
-                        <button className="list-uv" onClick={handleListUVAccept}>DS ứng cử được phê duyệt</button>
 
-                        <button className="capnhat" onClick={handleUpdateJob}>Cập nhật</button>
-                        <button className="xoa" onClick={handleDeleteJob}>Xóa</button>
-                    </div>
                 </div>
-                {(modalListUV) ? 
-                <div className='modalUV'>
-                    <span onClick={() => setModalListUV(false)} className="close-button-listuv">&times;</span>
-                    <div className="formlistUV">
-                        <div className="titleList">
-                            <p className='tiltle-vt'>Danh sách ứng viên</p>
-                            <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
-                        </div>
+                {(modalListUV) ?
+                    <div className='modalUV'>
+                        <span onClick={() => setModalListUV(false)} className="close-button-listuv">&times;</span>
+                        <div className="formlistUV">
+                            <div className="titleList">
+                                <p className='tiltle-vt'>Danh sách ứng viên</p>
+                                <p className='tenVt'><span>Tên công việc:</span> {formData.title} </p>
+                            </div>
                         <div className="listUV" >
                             <div className="innerList">
                         {jobSeekers && jobSeekers.length > 0 ? (
